@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 // GitHub Pages serves project sites from a /<repo-name>/ subpath, not root.
-// Set DEPLOY_BASE=/Customer-tracker/ when building for that target; leave
+// Set DEPLOY_BASE=/inkverse/ when building for that target; leave
 // unset (defaults to "/") for Vercel/Netlify/Cloudflare Pages or local use,
 // where the app is served from the domain root.
 const BASE = process.env.DEPLOY_BASE || "/";

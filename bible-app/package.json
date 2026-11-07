@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://lindsayfolder.github.io/Customer-tracker/",
+  "homepage": "https://lindsayfolder.github.io/inkverse/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

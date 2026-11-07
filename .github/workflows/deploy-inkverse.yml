@@ -35,7 +35,7 @@ jobs:
       - name: Build (GitHub Pages subpath)
         working-directory: bible-app
         env:
-          DEPLOY_BASE: /Customer-tracker/
+          DEPLOY_BASE: /inkverse/
         run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
