@@ -172,3 +172,11 @@ scripts/
                         across all 66 books and all 4 versions
   qa-contents-zh.mjs   Playwright smoke test — Contents grid in Chinese
 ```
+
+## Deploys
+
+GitHub Pages (above) is the primary link, built by
+`.github/workflows/deploy-inkverse.yml` on every push to `main`. A
+second copy also deploys from Netlify (`netlify.toml` at the repo
+root), connected directly to this GitHub repo for its own independent
+auto-deploy on push.
