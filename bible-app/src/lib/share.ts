@@ -135,20 +135,36 @@ export function formatVerseRange(verseNumbers: number[]): string {
 const CARD_WIDTH = 1080;
 const MIN_CARD_HEIGHT = 1080;
 
+// Chinese (and CJK generally) has no spaces between words, so splitting on
+// whitespace alone — the usual approach — turns an entire verse into one
+// giant unbreakable "word" that just overflows the canvas edge instead of
+// wrapping, which is exactly what was happening here. Tokenizing CJK
+// characters individually (correct for CJK line-breaking — it doesn't use
+// word-spacing the way Latin scripts do) while keeping Latin runs intact
+// as atomic words fixes Chinese without regressing English's existing
+// word-boundary wrapping.
+function tokenize(text: string): string[] {
+  return text.match(/\s+|[㐀-鿿豈-﫿]|[^\s㐀-鿿豈-﫿]+/g) ?? [text];
+}
+
 function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
-  const words = text.split(/\s+/);
+  const tokens = tokenize(text);
   const lines: string[] = [];
   let current = "";
-  for (const word of words) {
-    const candidate = current ? `${current} ${word}` : word;
-    if (ctx.measureText(candidate).width > maxWidth && current) {
-      lines.push(current);
-      current = word;
+  for (const token of tokens) {
+    if (/^\s+$/.test(token)) {
+      if (current) current += " ";
+      continue;
+    }
+    const candidate = current + token;
+    if (ctx.measureText(candidate).width > maxWidth && current.trim()) {
+      lines.push(current.trimEnd());
+      current = token;
     } else {
       current = candidate;
     }
   }
-  if (current) lines.push(current);
+  if (current.trim()) lines.push(current.trimEnd());
   return lines;
 }
 
