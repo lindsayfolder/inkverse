@@ -36,8 +36,7 @@ export interface UiStrings {
   selectModeExitLabel: string;
   selectVerseLabel: string;
   selectedVerseLabel: string;
-  selectedCountTpl: string;
-  shareSelectedButtonTpl: string;
+  shareSelectedLabel: string;
   plansTitle: string;
   planBackLabel: string;
   planStartButton: string;
@@ -141,8 +140,7 @@ export const UI: Record<LangKey, UiStrings> = {
     selectModeExitLabel: "Cancel",
     selectVerseLabel: "Select this verse",
     selectedVerseLabel: "Deselect this verse",
-    selectedCountTpl: "{n} selected",
-    shareSelectedButtonTpl: "Share {n}",
+    shareSelectedLabel: "Share",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -244,8 +242,7 @@ export const UI: Record<LangKey, UiStrings> = {
     selectModeExitLabel: "Cancel",
     selectVerseLabel: "Select this verse",
     selectedVerseLabel: "Deselect this verse",
-    selectedCountTpl: "{n} selected",
-    shareSelectedButtonTpl: "Share {n}",
+    shareSelectedLabel: "Share",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -347,8 +344,7 @@ export const UI: Record<LangKey, UiStrings> = {
     selectModeExitLabel: "取消",
     selectVerseLabel: "選取這節經文",
     selectedVerseLabel: "取消選取這節經文",
-    selectedCountTpl: "已選 {n} 節",
-    shareSelectedButtonTpl: "分享 {n} 節",
+    shareSelectedLabel: "分享",
     plansTitle: "讀經計畫",
     planBackLabel: "讀經計畫",
     planStartButton: "開始計畫",
@@ -450,8 +446,7 @@ export const UI: Record<LangKey, UiStrings> = {
     selectModeExitLabel: "取消",
     selectVerseLabel: "选取这节经文",
     selectedVerseLabel: "取消选取这节经文",
-    selectedCountTpl: "已选 {n} 节",
-    shareSelectedButtonTpl: "分享 {n} 节",
+    shareSelectedLabel: "分享",
     plansTitle: "读经计划",
     planBackLabel: "读经计划",
     planStartButton: "开始计划",

@@ -907,12 +907,11 @@ export default function App() {
 
       {selectMode && selectedVerses.length > 0 ? (
         <div className="select-share-bar">
-          <span className="select-share-count">{fmt(t.selectedCountTpl, { n: selectedVerses.length })}</span>
           <button type="button" className="select-share-cancel" onClick={toggleSelectMode}>
             {t.selectModeExitLabel}
           </button>
           <button type="button" className="select-share-btn" disabled={sharingSelection} onClick={shareSelectedVerses}>
-            {fmt(t.shareSelectedButtonTpl, { n: selectedVerses.length })}
+            {t.shareSelectedLabel}
           </button>
         </div>
       ) : (
