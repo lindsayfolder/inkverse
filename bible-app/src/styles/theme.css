@@ -304,20 +304,24 @@ button { font-family: inherit; }
 
 .chapter-toolbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 9px 14px max(env(safe-area-inset-bottom), 9px); background: var(--paper-panel); border-top: 2.5px solid var(--ink); }
 .select-share-bar {
+  /* Side padding matches .chapter-bar/.appbar's 18px inset (not the nav
+     toolbar's tighter 14px) so these two buttons line up with the rest
+     of the page's content edges instead of sitting flush against the
+     screen edges. */
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 14px max(env(safe-area-inset-bottom), 9px); background: var(--gold); border-top: 2.5px solid var(--ink);
+  padding: 11px 18px max(env(safe-area-inset-bottom), 11px); background: var(--gold); border-top: 2.5px solid var(--ink);
 }
 .select-share-cancel {
-  flex: none; border: 2px solid var(--ink); background: var(--paper-panel); border-radius: 16px; padding: 7px 16px;
-  font-weight: 800; font-size: 15px; color: var(--ink); cursor: pointer;
+  flex: none; border: 2px solid var(--ink); background: var(--paper-panel); border-radius: 16px; padding: 9px 22px;
+  font-weight: 800; font-size: 16.5px; color: var(--ink); cursor: pointer;
 }
 .select-share-btn {
   /* A muted, low-key orange rather than the bar's own bright gold (which
      would make it disappear against its own background) or the loud
      solid-black fill this started with — just enough contrast to read as
      "the primary action" without shouting. */
-  flex: none; border: 2px solid var(--ink); background: var(--gold-strong); border-radius: 16px; padding: 7px 16px;
-  font-weight: 800; font-size: 15px; color: #1c1207; cursor: pointer;
+  flex: none; border: 2px solid var(--ink); background: var(--gold-strong); border-radius: 16px; padding: 9px 22px;
+  font-weight: 800; font-size: 16.5px; color: #1c1207; cursor: pointer;
 }
 .select-share-btn:disabled { opacity: 0.5; }
 .toolbar-nav-btn { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 2.5px solid var(--ink); background: var(--paper); display: flex; align-items: center; justify-content: center; font-family: "Bangers", sans-serif; font-size: 20px; color: var(--ink); cursor: pointer; }
