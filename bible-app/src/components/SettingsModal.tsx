@@ -37,6 +37,19 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
   const savedVoiceURI = settings.voiceByLang[lang] ?? "";
   const chosenVoiceURI = voices.some((v) => v.voiceURI === savedVoiceURI) ? savedVoiceURI : "";
 
+  // Buffered separately from settings.planRetention.amount: committing
+  // Math.max(1, ...) on every keystroke made the field impossible to
+  // clear and retype into, since a controlled input immediately snaps
+  // back to displaying "1" the instant the user deletes the digit,
+  // before they get a chance to type a new one. This lets the field
+  // sit empty (or mid-edit) while typing, and only clamps/commits a
+  // real value to settings once there's a valid number to commit — or
+  // falls back to the last saved value on blur if left empty/invalid.
+  const [retentionAmountText, setRetentionAmountText] = useState(String(settings.planRetention.amount));
+  useEffect(() => {
+    setRetentionAmountText(String(settings.planRetention.amount));
+  }, [settings.planRetention.amount]);
+
   return (
     <div className={`modal-screen${open ? " open" : ""}`}>
       <div className="modal-head">
@@ -134,10 +147,16 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
                 type="number"
                 min={1}
                 className="retention-amount-input"
-                value={settings.planRetention.amount}
-                onChange={(e) =>
-                  updateSettings({ planRetention: { ...settings.planRetention, amount: Math.max(1, Number(e.target.value) || 1) } })
-                }
+                value={retentionAmountText}
+                onChange={(e) => {
+                  const text = e.target.value;
+                  setRetentionAmountText(text);
+                  const n = Number(text);
+                  if (text !== "" && Number.isFinite(n) && n >= 1) {
+                    updateSettings({ planRetention: { ...settings.planRetention, amount: Math.floor(n) } });
+                  }
+                }}
+                onBlur={() => setRetentionAmountText(String(settings.planRetention.amount))}
               />
               <select
                 className="voice-select retention-unit-select"
