@@ -180,7 +180,14 @@ button { font-family: inherit; }
    shrinks to leave room for it, with nothing to get subtly out of sync
    while scrolling. Always shows the current chapter regardless of which
    tab or detail view is open, same as the toolbar below it. */
-.chapter-bar { flex: none; padding: 9px 18px; background: var(--paper); border-bottom: 2px solid var(--hairline); }
+.chapter-bar { flex: none; padding: 9px 18px; background: var(--paper); border-bottom: 2px solid var(--hairline); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.select-toggle-btn {
+  flex: none; width: 30px; height: 30px; border: 2px solid var(--ink); border-radius: 50%; padding: 0;
+  background: var(--paper-panel); color: var(--ink); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform 0.1s ease, background 0.15s ease, color 0.15s ease;
+}
+.select-toggle-btn:active { transform: scale(0.9); }
+.select-toggle-btn.active { background: var(--gold); color: #1c1207; }
 .chapter-head { padding: 6px 2px 14px; border-bottom: 3px solid var(--ink); margin-bottom: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
 .chapter-eyebrow { font-weight: 800; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-strong); }
 .chapter-title { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 26px; letter-spacing: 0.02em; margin: 3px 0 5px; color: var(--ink); }
