@@ -15,7 +15,7 @@ import { bookHasMap } from "./lib/maps";
 import { stripHtml, tts } from "./lib/tts";
 import type { Bookmark } from "./lib/db";
 import { markDayComplete, startOrRestartPlan } from "./lib/readingPlans";
-import { shareVerse } from "./lib/share";
+import { shareVerse, shareVerses, formatVerseRange } from "./lib/share";
 
 // Lazy-loaded rather than imported statically: none of these render
 // anything visible until the reader actually opens them (drawer, Contents,
@@ -78,6 +78,15 @@ export default function App() {
   // disable that one button for the duration, so a second tap while the
   // OS share sheet is opening can't fire an overlapping share() call.
   const [sharingVerse, setSharingVerse] = useState<number | null>(null);
+  // Multi-verse selection: off by default, toggled on from a button near
+  // the chapter header. While on, each verse row's share icon toggles
+  // that verse into/out of selectedVerses instead of sharing it
+  // immediately — plain button taps throughout, no drag/touch-tracking,
+  // so there's no custom gesture code to get stuck mid-touch the way a
+  // press-and-drag range picker could.
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedVerses, setSelectedVerses] = useState<number[]>([]);
+  const [sharingSelection, setSharingSelection] = useState(false);
   // "Listen" reading more than one chapter: idle -> playing (speaking,
   // advances to the next chapter and keeps going when one finishes on its
   // own) -> paused (tap to resume) -> back to playing, or idle again on
@@ -236,6 +245,12 @@ export default function App() {
     let cancelled = false;
     setVerses(null);
     setSpokenVerseNum(null);
+    // A verse selection (and the mode itself) only makes sense against
+    // the chapter it was built from — carrying it into a new chapter
+    // would silently share the wrong verses under the old selection's
+    // numbers.
+    setSelectMode(false);
+    setSelectedVerses([]);
     loadChapterVerses(bookId, chapter, lang)
       .then((v) => {
         if (!cancelled) {
@@ -476,6 +491,37 @@ export default function App() {
     else if (outcome === "failed" || outcome === "unavailable") toast(t.shareFailedToast);
   }
 
+  function toggleSelectMode() {
+    setSelectMode((on) => !on);
+    setSelectedVerses([]);
+  }
+  function toggleVerseSelected(verse: number) {
+    setSelectedVerses((prev) => (prev.includes(verse) ? prev.filter((n) => n !== verse) : [...prev, verse]));
+  }
+  async function shareSelectedVerses() {
+    if (sharingSelection || selectedVerses.length === 0 || !verses) return;
+    setSharingSelection(true);
+    const chosen = verses
+      .filter((v) => selectedVerses.includes(v.n))
+      .map((v) => ({ n: v.n, text: v.t }));
+    const reference = `${book.label[lang]} ${chapter}:${formatVerseRange(selectedVerses)}`;
+    const outcome = await shareVerses({ reference, verses: chosen, appName: "Inkverse" });
+    setSharingSelection(false);
+    if (outcome === "copied") toast(t.shareCopiedToast);
+    else if (outcome === "failed" || outcome === "unavailable") toast(t.shareFailedToast);
+    // Only clears the selection on an outcome that actually finished the
+    // job (shared, or copied to clipboard as the no-Web-Share fallback) —
+    // a cancelled share sheet or a failure leaves the selection in place
+    // so the reader can just retry rather than re-tapping every verse.
+    // Either way, nothing here keeps building up: the next tap always
+    // starts a fresh, independent share() call, never queued behind this
+    // one.
+    if (outcome === "shared" || outcome === "copied") {
+      setSelectMode(false);
+      setSelectedVerses([]);
+    }
+  }
+
   function startPlan(planId: string) {
     updateSettings({ readingPlans: startOrRestartPlan(settings.readingPlans, planId) });
   }
@@ -623,6 +669,15 @@ export default function App() {
               <div className="chapter-title">{book.label[lang]}</div>
             </div>
             <div className="chapter-head-actions">
+              {tab === "scripture" && verses && (
+                <button
+                  type="button"
+                  className={`map-btn${selectMode ? " active" : ""}`}
+                  onClick={toggleSelectMode}
+                >
+                  <span aria-hidden="true">&#9745;</span> {selectMode ? t.selectModeExitLabel : t.selectModeLabel}
+                </button>
+              )}
               <button type="button" className="map-btn" onClick={() => setIntroOpen(true)}>
                 <span aria-hidden="true">&#128214;</span> {t.introLabel}
               </button>
@@ -683,21 +738,36 @@ export default function App() {
                         {v.n}
                       </button>
                       <div className="verse-text">{v.t}</div>
-                      <button
-                        type="button"
-                        className="verse-share-btn"
-                        aria-label={t.shareLabel}
-                        disabled={sharingVerse === v.n}
-                        onClick={() => shareVerseText(v.n)}
-                      >
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="18" cy="5" r="3" stroke="currentColor" strokeWidth="2" />
-                          <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
-                          <circle cx="18" cy="19" r="3" stroke="currentColor" strokeWidth="2" />
-                          <line x1="8.6" y1="10.7" x2="15.4" y2="6.3" stroke="currentColor" strokeWidth="2" />
-                          <line x1="8.6" y1="13.3" x2="15.4" y2="17.7" stroke="currentColor" strokeWidth="2" />
-                        </svg>
-                      </button>
+                      {selectMode ? (
+                        <button
+                          type="button"
+                          className={`verse-select-btn${selectedVerses.includes(v.n) ? " selected" : ""}`}
+                          aria-label={selectedVerses.includes(v.n) ? t.selectedVerseLabel : t.selectVerseLabel}
+                          onClick={() => toggleVerseSelected(v.n)}
+                        >
+                          {selectedVerses.includes(v.n) && (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 13l5 5L19 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          )}
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="verse-share-btn"
+                          aria-label={t.shareLabel}
+                          disabled={sharingVerse === v.n}
+                          onClick={() => shareVerseText(v.n)}
+                        >
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="18" cy="5" r="3" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="18" cy="19" r="3" stroke="currentColor" strokeWidth="2" />
+                            <line x1="8.6" y1="10.7" x2="15.4" y2="6.3" stroke="currentColor" strokeWidth="2" />
+                            <line x1="8.6" y1="13.3" x2="15.4" y2="17.7" stroke="currentColor" strokeWidth="2" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -828,32 +898,44 @@ export default function App() {
         </div>
       </div>
 
-      <div className="chapter-toolbar">
-        <button
-          type="button"
-          className="toolbar-nav-btn"
-          aria-label={t.prevChapterLabel}
-          disabled={!prevTarget}
-          onClick={() => goAdjacent(-1)}
-        >
-          <span aria-hidden="true">&larr;</span>
-        </button>
-        <ChapterPlayerButton
-          lang={lang}
-          state={pageContent ? pagePlayerState : chapterPlayerState}
-          disabled={pageContent ? false : tab !== "scripture" || (chapterPlayerState === "idle" && !verses)}
-          onToggle={pageContent ? togglePagePlayer : toggleChapterPlayer}
-        />
-        <button
-          type="button"
-          className="toolbar-nav-btn"
-          aria-label={t.nextChapterLabel}
-          disabled={!nextTarget}
-          onClick={() => goAdjacent(1)}
-        >
-          <span aria-hidden="true">&rarr;</span>
-        </button>
-      </div>
+      {selectMode && selectedVerses.length > 0 ? (
+        <div className="select-share-bar">
+          <span className="select-share-count">{fmt(t.selectedCountTpl, { n: selectedVerses.length })}</span>
+          <button type="button" className="select-share-cancel" onClick={toggleSelectMode}>
+            {t.selectModeExitLabel}
+          </button>
+          <button type="button" className="select-share-btn" disabled={sharingSelection} onClick={shareSelectedVerses}>
+            {fmt(t.shareSelectedButtonTpl, { n: selectedVerses.length })}
+          </button>
+        </div>
+      ) : (
+        <div className="chapter-toolbar">
+          <button
+            type="button"
+            className="toolbar-nav-btn"
+            aria-label={t.prevChapterLabel}
+            disabled={!prevTarget}
+            onClick={() => goAdjacent(-1)}
+          >
+            <span aria-hidden="true">&larr;</span>
+          </button>
+          <ChapterPlayerButton
+            lang={lang}
+            state={pageContent ? pagePlayerState : chapterPlayerState}
+            disabled={pageContent ? false : tab !== "scripture" || (chapterPlayerState === "idle" && !verses)}
+            onToggle={pageContent ? togglePagePlayer : toggleChapterPlayer}
+          />
+          <button
+            type="button"
+            className="toolbar-nav-btn"
+            aria-label={t.nextChapterLabel}
+            disabled={!nextTarget}
+            onClick={() => goAdjacent(1)}
+          >
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      )}
 
       <Suspense fallback={null}>
         {everOpened.has("drawer") && (

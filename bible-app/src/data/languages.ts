@@ -32,6 +32,12 @@ export interface UiStrings {
   shareLabel: string;
   shareCopiedToast: string;
   shareFailedToast: string;
+  selectModeLabel: string;
+  selectModeExitLabel: string;
+  selectVerseLabel: string;
+  selectedVerseLabel: string;
+  selectedCountTpl: string;
+  shareSelectedButtonTpl: string;
   plansTitle: string;
   planBackLabel: string;
   planStartButton: string;
@@ -131,6 +137,12 @@ export const UI: Record<LangKey, UiStrings> = {
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
+    selectModeLabel: "Select",
+    selectModeExitLabel: "Cancel",
+    selectVerseLabel: "Select this verse",
+    selectedVerseLabel: "Deselect this verse",
+    selectedCountTpl: "{n} selected",
+    shareSelectedButtonTpl: "Share {n}",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -228,6 +240,12 @@ export const UI: Record<LangKey, UiStrings> = {
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
+    selectModeLabel: "Select",
+    selectModeExitLabel: "Cancel",
+    selectVerseLabel: "Select this verse",
+    selectedVerseLabel: "Deselect this verse",
+    selectedCountTpl: "{n} selected",
+    shareSelectedButtonTpl: "Share {n}",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -325,6 +343,12 @@ export const UI: Record<LangKey, UiStrings> = {
     shareLabel: "分享這節經文",
     shareCopiedToast: "已複製到剪貼簿",
     shareFailedToast: "分享失敗，請重試",
+    selectModeLabel: "選取",
+    selectModeExitLabel: "取消",
+    selectVerseLabel: "選取這節經文",
+    selectedVerseLabel: "取消選取這節經文",
+    selectedCountTpl: "已選 {n} 節",
+    shareSelectedButtonTpl: "分享 {n} 節",
     plansTitle: "讀經計畫",
     planBackLabel: "讀經計畫",
     planStartButton: "開始計畫",
@@ -422,6 +446,12 @@ export const UI: Record<LangKey, UiStrings> = {
     shareLabel: "分享这节经文",
     shareCopiedToast: "已复制到剪贴板",
     shareFailedToast: "分享失败，请重试",
+    selectModeLabel: "选取",
+    selectModeExitLabel: "取消",
+    selectVerseLabel: "选取这节经文",
+    selectedVerseLabel: "取消选取这节经文",
+    selectedCountTpl: "已选 {n} 节",
+    shareSelectedButtonTpl: "分享 {n} 节",
     plansTitle: "读经计划",
     planBackLabel: "读经计划",
     planStartButton: "开始计划",
