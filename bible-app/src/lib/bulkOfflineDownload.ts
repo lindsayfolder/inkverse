@@ -93,27 +93,38 @@ let running = false;
 async function discoverCharacterIds(base: string): Promise<Set<string>> {
   const ids = new Set<string>();
   const cache = await caches.open("bible-characters-v2");
-  await Promise.all(
-    BOOKS.map(async (book) => {
-      const url = `${base}characters/appearances/${book.id}.json`;
-      try {
-        let res = await cache.match(url);
-        if (!res) {
-          const fresh = await fetchWithTimeout(url);
-          if (!fresh.ok) return;
-          await cache.put(url, fresh.clone());
-          res = fresh;
+  // Batched at the same CONCURRENCY the main download loop uses below,
+  // not one unthrottled Promise.all over all 66 books — on a cold cache
+  // that used to fire 66 simultaneous fetches in one burst, right at the
+  // exact moment (markContentReady) the foreground is trying to render
+  // the reader's own chapter. That burst's CPU/network contention was
+  // very likely a real contributor to the app feeling slower to open,
+  // not just the bandwidth-sharing issue markContentReady already fixed.
+  let pending = BOOKS.slice();
+  while (pending.length > 0) {
+    const batch = pending.splice(0, CONCURRENCY);
+    await Promise.all(
+      batch.map(async (book) => {
+        const url = `${base}characters/appearances/${book.id}.json`;
+        try {
+          let res = await cache.match(url);
+          if (!res) {
+            const fresh = await fetchWithTimeout(url);
+            if (!fresh.ok) return;
+            await cache.put(url, fresh.clone());
+            res = fresh;
+          }
+          const data = (await res.json()) as AppearanceFile;
+          for (const chapterIds of Object.values(data.chapters)) {
+            for (const id of chapterIds) ids.add(id);
+          }
+        } catch {
+          // Missing, unreachable, or unparseable for this book — fine, it
+          // just contributes no ids; see the function comment above.
         }
-        const data = (await res.json()) as AppearanceFile;
-        for (const chapterIds of Object.values(data.chapters)) {
-          for (const id of chapterIds) ids.add(id);
-        }
-      } catch {
-        // Missing, unreachable, or unparseable for this book — fine, it
-        // just contributes no ids; see the function comment above.
-      }
-    }),
-  );
+      }),
+    );
+  }
   return ids;
 }
 

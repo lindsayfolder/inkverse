@@ -352,7 +352,17 @@ export default function App() {
 
   // AI insights: every chapter ships pre-generated in the bundle (see
   // lib/insights.ts); the Genesis 1 seed is kept as a defensive fallback.
+  //
+  // Gated on `verses` (this chapter's actual scripture text) rather than
+  // firing immediately alongside it: on a slow connection, starting this
+  // plus the explain/characters fetches below at the exact same moment
+  // as the bible-text fetch makes all four compete for the same limited
+  // bandwidth — exactly the bug already fixed once for the background
+  // offline-download (see AppContext's markContentReady). Insights isn't
+  // even the visible tab by default, so it can wait the short extra beat
+  // for the reader's own chapter text to land first.
   useEffect(() => {
+    if (!verses) return;
     let cancelled = false;
     async function load() {
       const pre = await loadChapterPoints(bookId, chapter, lang);
@@ -369,13 +379,15 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [bookId, chapter, lang]);
+  }, [bookId, chapter, lang, verses]);
 
   // Second AI voice (see lib/explain.ts): summary/themes/application style,
   // merged below the trimmed 3-point list rather than a separate tab. Not
   // every chapter/language is covered yet, so this quietly resolves to
-  // null and the section is simply omitted.
+  // null and the section is simply omitted. Gated on `verses` — see the
+  // insights effect above for why.
   useEffect(() => {
+    if (!verses) return;
     let cancelled = false;
     loadChapterExplain(bookId, chapter, lang).then((e) => {
       if (!cancelled) setExplain(e);
@@ -383,23 +395,27 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [bookId, chapter, lang]);
+  }, [bookId, chapter, lang, verses]);
 
   // Character bios (lib/characters.ts): which named figures the appearance
   // manifest lists for this chapter, driving the "People in this chapter"
   // chip row below. Not every book has a manifest yet, so this quietly
-  // resolves to an empty list rather than throwing.
+  // resolves to an empty list rather than throwing. Gated on `verses` —
+  // see the insights effect above for why; the chip row already pops in
+  // asynchronously today, so starting it a beat later than the verse
+  // text is no visible change in how it already behaves.
   useEffect(() => {
-    let cancelled = false;
     setChapterCharacters([]);
     setPeopleExpanded(false);
+    if (!verses) return;
+    let cancelled = false;
     loadChapterCharacters(bookId, chapter, lang).then((list) => {
       if (!cancelled) setChapterCharacters(list);
     });
     return () => {
       cancelled = true;
     };
-  }, [bookId, chapter, lang]);
+  }, [bookId, chapter, lang, verses]);
 
   function openDetail(i: number) {
     tts.stop();
