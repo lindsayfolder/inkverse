@@ -1,5 +1,6 @@
 import { BOOKS } from "../data/books";
 import { BOOKS_WITH_MAPS } from "./maps";
+import { splitFileStems } from "./bookSplits";
 
 interface Task {
   url: string;
@@ -28,7 +29,11 @@ function buildFixedManifest(base: string): Task[] {
   const tasks: Task[] = [];
   for (const book of BOOKS) {
     for (const v of BIBLE_VERSIONS) {
-      tasks.push({ url: `${base}bible/${v}/${book.id}.json`, cacheName: "bible-text-v3" });
+      // One task per part for the ~15 largest books (see bookSplits.ts),
+      // one task (same as always) for everything else.
+      for (const stem of splitFileStems(book.id)) {
+        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v4" });
+      }
     }
     for (const l of INSIGHT_LANGS) {
       tasks.push({ url: `${base}insights/${l}/${book.id}.json`, cacheName: "bible-insights-v2" });
@@ -54,8 +59,10 @@ function buildFixedManifest(base: string): Task[] {
 // known a few milliseconds later. Computed from the same book list and
 // constants buildFixedManifest uses, rather than a hand-counted number, so
 // it can't quietly drift out of sync as books/languages/mapped books change.
+const BIBLE_TEXT_FILE_COUNT = BOOKS.reduce((sum, book) => sum + splitFileStems(book.id).length, 0);
 export const TOTAL_CONTENT_FILES =
-  BOOKS.length * (BIBLE_VERSIONS.length + INSIGHT_LANGS.length + EXPLAIN_LANGS.length + 1) +
+  BIBLE_TEXT_FILE_COUNT * BIBLE_VERSIONS.length +
+  BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + 1) +
   BOOKS_WITH_MAPS.size * 2 +
   INTRO_LANGS.length;
 
@@ -236,7 +243,7 @@ function waitForVisible(): Promise<void> {
 async function countCachedEntries(): Promise<number> {
   let total = 0;
   for (const name of [
-    "bible-text-v3",
+    "bible-text-v4",
     "bible-insights-v2",
     "bible-explain-v2",
     "bible-characters-v2",

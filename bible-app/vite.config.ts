@@ -77,8 +77,16 @@ export default defineConfig({
               // Bumped again to v3: the zh-hans text used the Traditional
               // particle 著 (帶著/接著/照著) throughout instead of the
               // correct Simplified 着 — see scripts/fix-zhuo-particle.py.
-              cacheName: "bible-text-v3",
-              expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              // Bumped again to v4: the ~15 largest books (Genesis, Psalms,
+              // ...) were split into 2-3 part files each (see
+              // lib/bookSplits.ts) so opening one chapter no longer
+              // downloads the whole book — the URL set changed, so the old
+              // whole-book files need to be dropped, not just added to.
+              // maxEntries raised to match: 51 unsplit books + 35 part
+              // files across the ~15 split ones = 86 files/version x 4
+              // versions = 344, with headroom.
+              cacheName: "bible-text-v4",
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
