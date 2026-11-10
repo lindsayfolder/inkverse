@@ -101,6 +101,8 @@ export interface UiStrings {
   introBackgroundLabel: string;
   introKeyPointsLabel: string;
   introUnavailableLabel: string;
+  prevBookLabel: string;
+  nextBookLabel: string;
   voiceLabel: string;
   voiceAutoLabel: string;
   voicePreviewLabel: string;
@@ -205,6 +207,8 @@ export const UI: Record<LangKey, UiStrings> = {
     introBackgroundLabel: "Background",
     introKeyPointsLabel: "Key Points",
     introUnavailableLabel: "This book's intro is on the way — check back soon.",
+    prevBookLabel: "Previous book",
+    nextBookLabel: "Next book",
     voiceLabel: "Voice",
     voiceAutoLabel: "Automatic (recommended)",
     voicePreviewLabel: "Preview",
@@ -307,6 +311,8 @@ export const UI: Record<LangKey, UiStrings> = {
     introBackgroundLabel: "Background",
     introKeyPointsLabel: "Key Points",
     introUnavailableLabel: "This book's intro is on the way — check back soon.",
+    prevBookLabel: "Previous book",
+    nextBookLabel: "Next book",
     voiceLabel: "Voice",
     voiceAutoLabel: "Automatic (recommended)",
     voicePreviewLabel: "Preview",
@@ -409,6 +415,8 @@ export const UI: Record<LangKey, UiStrings> = {
     introBackgroundLabel: "背景",
     introKeyPointsLabel: "重點",
     introUnavailableLabel: "這卷書的簡介還在準備中，請稍後再回來看看。",
+    prevBookLabel: "上一卷書",
+    nextBookLabel: "下一卷書",
     voiceLabel: "語音",
     voiceAutoLabel: "自動（建議）",
     voicePreviewLabel: "試聽",
@@ -511,6 +519,8 @@ export const UI: Record<LangKey, UiStrings> = {
     introBackgroundLabel: "背景",
     introKeyPointsLabel: "重点",
     introUnavailableLabel: "这卷书的简介还在准备中，请稍后再回来看看。",
+    prevBookLabel: "上一卷书",
+    nextBookLabel: "下一卷书",
     voiceLabel: "语音",
     voiceAutoLabel: "自动（建议）",
     voicePreviewLabel: "试听",

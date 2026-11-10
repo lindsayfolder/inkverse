@@ -15,7 +15,8 @@ export function ListenButton({ id, text }: { id: string; text: string | string[]
   return (
     <button
       type="button"
-      className={`listen-btn${speaking ? " playing" : ""}`}
+      className={`listen-icon-btn${speaking ? " active" : ""}`}
+      aria-label={speaking ? t.stopLabel : t.listenLabel}
       onClick={() => {
         if (!tts.isSupported) {
           toast(t.ttsUnavailable);
@@ -24,7 +25,7 @@ export function ListenButton({ id, text }: { id: string; text: string | string[]
         tts.toggle(id, text, lang, settings.voiceByLang[lang]);
       }}
     >
-      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
         {speaking ? (
           <>
             <rect x="5" y="4" width="4" height="12" rx="1" />
@@ -34,7 +35,6 @@ export function ListenButton({ id, text }: { id: string; text: string | string[]
           <path d="M6 4l10 6-10 6V4z" />
         )}
       </svg>
-      <span>{speaking ? t.stopLabel : t.listenLabel}</span>
     </button>
   );
 }

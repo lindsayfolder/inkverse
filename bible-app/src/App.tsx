@@ -1018,7 +1018,7 @@ export default function App() {
         )}
 
         {everOpened.has("bookIntro") && (
-          <BookIntroModal open={introOpen} bookId={bookId} bookLabel={book.label[lang]} onClose={() => setIntroOpen(false)} />
+          <BookIntroModal open={introOpen} bookId={bookId} onClose={() => setIntroOpen(false)} />
         )}
       </Suspense>
 
