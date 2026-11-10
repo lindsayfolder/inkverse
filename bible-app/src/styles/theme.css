@@ -205,9 +205,6 @@ button { font-family: inherit; }
 .tab-btn { flex: 1; font-weight: 800; font-size: 17.5px; letter-spacing: 0.03em; text-transform: uppercase; border: none; border-radius: 10px; padding: 8px 6px; background: transparent; color: var(--ink-soft); cursor: pointer; }
 .tab-btn.active { background: var(--ink); color: var(--paper); }
 
-.listen-icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 2.5px solid var(--ink); background: var(--paper-panel); display: flex; align-items: center; justify-content: center; color: var(--ink); cursor: pointer; margin-bottom: 12px; }
-.listen-icon-btn.active { background: var(--gold); }
-.listen-icon-btn:active { transform: translateY(1px) scale(0.96); }
 
 .verse-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 10px; }
 .verse-row { display: flex; gap: 10px; align-items: flex-start; border-radius: 10px; padding: 3px 6px; margin: -3px -6px; transition: background 0.6s ease; }
@@ -364,7 +361,7 @@ button { font-family: inherit; }
 }
 .modal-close:active { background: var(--gold); transform: scale(0.94); }
 .modal-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 14px 16px max(env(safe-area-inset-bottom), 28px); }
-.intro-nav-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 16px max(env(safe-area-inset-bottom), 9px); background: var(--paper-panel); border-top: 2.5px solid var(--ink); }
+.intro-nav-bar { flex: none; display: flex; align-items: center; gap: 10px; padding: 9px 16px max(env(safe-area-inset-bottom), 9px); background: var(--paper-panel); border-top: 2.5px solid var(--ink); }
 
 .book-strip { flex: none; display: flex; gap: 6px; overflow-x: auto; padding: 10px 16px; background: var(--paper); border-bottom: 2px solid var(--hairline); }
 .book-chip { flex: none; border: 2px solid var(--ink); background: var(--paper-panel); border-radius: 10px; padding: 6px 11px; font-weight: 800; font-size: 18px; color: var(--gold-strong); white-space: nowrap; cursor: pointer; transition: transform 0.1s ease, background 0.1s ease; }

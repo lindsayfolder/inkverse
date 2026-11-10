@@ -66,7 +66,6 @@ export function BookIntroModal({
       <div className="modal-body">
         {status === "ready" && intro ? (
           <>
-            <ListenButton id="book-intro" text={`${intro.background} ${intro.keyPoints}`} />
             <div className="section-label">
               <span>{t.introBackgroundLabel}</span>
             </div>
@@ -92,6 +91,11 @@ export function BookIntroModal({
         >
           <span aria-hidden="true">&larr;</span>
         </button>
+        <ListenButton
+          id="book-intro"
+          text={intro ? `${intro.background} ${intro.keyPoints}` : ""}
+          disabled={status !== "ready" || !intro}
+        />
         <button
           type="button"
           className="toolbar-nav-btn"
