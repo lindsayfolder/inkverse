@@ -144,7 +144,7 @@ button { font-family: inherit; }
 }
 .wordmark-btn:active { background: var(--gold); transform: scale(0.96); }
 .wordmark-btn:active .wordmark { color: #1c1207; }
-.wordmark { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 21px; letter-spacing: 0.04em; color: var(--ink); line-height: 1; }
+.wordmark { font-family: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Microsoft YaHei", "Heiti SC", system-ui, sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0; color: var(--ink); line-height: 1; }
 .search-btn {
   flex: none; width: 48px; height: 48px; border: none; background: none; padding: 0;
   cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: auto;
@@ -190,7 +190,7 @@ button { font-family: inherit; }
 .select-toggle-btn.active { background: var(--gold); color: #1c1207; }
 .chapter-head { padding: 6px 2px 14px; border-bottom: 3px solid var(--ink); margin-bottom: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
 .chapter-eyebrow { font-weight: 800; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-strong); }
-.chapter-title { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 26px; letter-spacing: 0.02em; margin: 3px 0 5px; color: var(--ink); }
+.chapter-title { font-family: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Microsoft YaHei", "Heiti SC", system-ui, sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0; margin: 3px 0 5px; color: var(--ink); }
 .chapter-sub { font-size: 17.5px; color: var(--ink-soft); line-height: 1.5; }
 .chapter-head-actions { flex: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 6px; }
 .map-btn { flex: none; display: flex; align-items: center; gap: 5px; border: 2.5px solid var(--ink); background: var(--paper-panel); border-radius: 20px; padding: 6px 12px 6px 10px; font-weight: 800; font-size: 16.5px; color: var(--ink); cursor: pointer; }
@@ -353,6 +353,7 @@ button { font-family: inherit; }
 .modal-screen.open { transform: translateY(0); visibility: visible; transition: transform 0.32s cubic-bezier(.2,.8,.2,1); }
 .modal-head { display: flex; align-items: center; justify-content: space-between; padding: max(calc(env(safe-area-inset-top) + 24px), 20px) 16px 12px; border-bottom: 3px solid var(--ink); flex: none; }
 .modal-head h2 { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 20px; font-weight: 400; margin: 0; color: var(--ink); }
+.plain-title h2 { font-family: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC", "PingFang TC", "Microsoft YaHei", "Heiti SC", system-ui, sans-serif; font-weight: 800; }
 .modal-close {
   width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid var(--ink);
   background: var(--paper-panel); color: var(--ink); font-size: 19px; line-height: 1; cursor: pointer;

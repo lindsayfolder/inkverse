@@ -59,7 +59,7 @@ export function ContentsModal({
 
   return (
     <div className={`modal-screen${open ? " open" : ""}`}>
-      <div className="modal-head">
+      <div className="modal-head plain-title">
         <h2>{t.contentsTitle}</h2>
         <button type="button" className="modal-close" onClick={onClose} aria-label="Close">
           &#10005;
