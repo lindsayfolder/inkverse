@@ -377,8 +377,8 @@ button { font-family: inherit; }
 .book-cell.nt .glyph { color: var(--azure); }
 .book-cell:active { background: var(--gold); transform: translateY(1px) scale(0.96); }
 .book-cell:active .glyph, .book-cell:active .code { color: #1c1207; }
-.book-cell .glyph { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 17px; display: block; color: var(--gold-strong); }
-.book-cell .code { font-size: 14.5px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; display: block; margin-top: 2px; }
+.book-cell .glyph { font-size: 17px; display: block; color: var(--gold-strong); }
+.book-cell .code { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 14.5px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; display: block; margin-top: 2px; }
 .contents-hint { font-size: 16.5px; color: var(--ink-faint); line-height: 1.5; margin-bottom: 12px; }
 
 .goto-chapter-btn {
