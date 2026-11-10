@@ -90,7 +90,9 @@ export function ContentsModal({
                     <button
                       key={b.id}
                       type="button"
-                      className={`book-cell ${b.testament === "OT" ? "ot" : "nt"}`}
+                      className={`book-cell ${b.testament === "OT" ? "ot" : "nt"}${
+                        lang === "zh-hant" || lang === "zh-hans" ? " zh" : ""
+                      }`}
                       onClick={() => openBook(b.id)}
                     >
                       <span className="glyph">{bookAbbr(b, lang)}</span>

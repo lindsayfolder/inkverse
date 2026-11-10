@@ -379,6 +379,12 @@ button { font-family: inherit; }
 .book-cell:active .glyph, .book-cell:active .code { color: #1c1207; }
 .book-cell .glyph { font-size: 17px; display: block; color: var(--gold-strong); }
 .book-cell .code { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; font-size: 14.5px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; display: block; margin-top: 2px; }
+/* Chinese book names (the "glyph" line) have no Bangers glyphs, so the
+   English/WEB font swap above has no visible effect on them -- only the
+   below "GEN"/"EXO" code line would visibly change font. Kept unswapped
+   for zh-hant/zh-hans, matching the original pre-swap look. */
+.book-cell.zh .glyph { font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif; }
+.book-cell.zh .code { font-family: inherit; }
 .contents-hint { font-size: 16.5px; color: var(--ink-faint); line-height: 1.5; margin-bottom: 12px; }
 
 .goto-chapter-btn {
