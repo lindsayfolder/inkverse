@@ -43,8 +43,8 @@ function buildFixedManifest(base: string): Task[] {
     }
     tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v2" });
     if (BOOKS_WITH_MAPS.has(book.id)) {
-      tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps" });
-      tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps" });
+      tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v2" });
+      tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v2" });
     }
   }
   for (const l of INTRO_LANGS) {
@@ -248,7 +248,7 @@ async function countCachedEntries(): Promise<number> {
     "bible-explain-v2",
     "bible-characters-v2",
     "bible-book-intro",
-    "bible-maps",
+    "bible-maps-v2",
   ]) {
     try {
       const cache = await caches.open(name);

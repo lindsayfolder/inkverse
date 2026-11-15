@@ -108,7 +108,12 @@ export default defineConfig({
             urlPattern: /\/maps\/.*\.svg$/,
             handler: "CacheFirst",
             options: {
-              cacheName: "bible-maps",
+              // Bumped to v2: the 1 Kings map's artwork changed (Tyre and
+              // the cedar-timber route added) — CacheFirst never re-checks
+              // the network once a URL is cached, so a reader who'd already
+              // opened that map would otherwise keep seeing the old version
+              // forever. Renaming the bucket forces every client to re-fetch.
+              cacheName: "bible-maps-v2",
               // 21 mapped books x 2 files (en + zh) = 42 — maxEntries was
               // 30, under the real count, so the bulk downloader's own
               // storage was silently evicting earlier maps as later ones

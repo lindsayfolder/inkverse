@@ -18,7 +18,7 @@ const CONTENT_CACHE_NAMES = [
   "bible-explain-v2",
   "bible-characters-v2",
   "bible-book-intro",
-  "bible-maps",
+  "bible-maps-v2",
 ];
 
 export async function getCachedEntryCount(): Promise<number> {
@@ -53,6 +53,7 @@ const RETIRED_CACHE_NAMES = [
   "bible-explain",
   "bible-insights",
   "bible-characters-v1",
+  "bible-maps",
 ];
 
 export async function cleanupLegacyCaches(): Promise<void> {
