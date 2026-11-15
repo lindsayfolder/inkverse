@@ -13,10 +13,10 @@
 // there instead, since it also includes however many character bios exist.
 
 const CONTENT_CACHE_NAMES = [
-  "bible-text-v7",
-  "bible-insights-v4",
+  "bible-text-v8",
+  "bible-insights-v5",
   "bible-explain-v4",
-  "bible-characters-v5",
+  "bible-characters-v6",
   "bible-book-intro-v2",
   "bible-maps-v3",
 ];

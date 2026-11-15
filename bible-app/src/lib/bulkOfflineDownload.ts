@@ -32,16 +32,16 @@ function buildFixedManifest(base: string): Task[] {
       // One task per part for the ~15 largest books (see bookSplits.ts),
       // one task (same as always) for everything else.
       for (const stem of splitFileStems(book.id)) {
-        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v7" });
+        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v8" });
       }
     }
     for (const l of INSIGHT_LANGS) {
-      tasks.push({ url: `${base}insights/${l}/${book.id}.json`, cacheName: "bible-insights-v4" });
+      tasks.push({ url: `${base}insights/${l}/${book.id}.json`, cacheName: "bible-insights-v5" });
     }
     for (const l of EXPLAIN_LANGS) {
       tasks.push({ url: `${base}explain/${l}/${book.id}.json`, cacheName: "bible-explain-v4" });
     }
-    tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v5" });
+    tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v6" });
     if (BOOKS_WITH_MAPS.has(book.id)) {
       tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v3" });
       tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v3" });
@@ -99,7 +99,7 @@ let running = false;
 // relaunches" approach rather than needing its own retry logic.
 async function discoverCharacterIds(base: string): Promise<Set<string>> {
   const ids = new Set<string>();
-  const cache = await caches.open("bible-characters-v5");
+  const cache = await caches.open("bible-characters-v6");
   // Batched at the same CONCURRENCY the main download loop uses below,
   // not one unthrottled Promise.all over all 66 books — on a cold cache
   // that used to fire 66 simultaneous fetches in one burst, right at the
@@ -171,7 +171,7 @@ export async function runBulkDownload(onProgress?: (done: number, total: number)
     const characterTasks: Task[] = [];
     for (const id of characterIds) {
       for (const lang of CHARACTER_LANGS) {
-        characterTasks.push({ url: `${base}characters/${lang}/${id}.json`, cacheName: "bible-characters-v5" });
+        characterTasks.push({ url: `${base}characters/${lang}/${id}.json`, cacheName: "bible-characters-v6" });
       }
     }
 
@@ -243,10 +243,10 @@ function waitForVisible(): Promise<void> {
 async function countCachedEntries(): Promise<number> {
   let total = 0;
   for (const name of [
-    "bible-text-v7",
-    "bible-insights-v4",
+    "bible-text-v8",
+    "bible-insights-v5",
     "bible-explain-v4",
-    "bible-characters-v5",
+    "bible-characters-v6",
     "bible-book-intro-v2",
     "bible-maps-v3",
   ]) {

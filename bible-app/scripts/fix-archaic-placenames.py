@@ -7,12 +7,25 @@ reprints -- 新标点和合本, 和合本修订版 -- and the AI-generated comme
 tracks on this app both already use the modern spelling):
 
   士班雅 -> 西班牙   (Spain, Romans 15:24)
-  大马色 -> 大马士革  (Damascus)
+  大马色 -> 大马士革  (Damascus, simplified)
+  大馬色 -> 大馬士革  (Damascus, traditional)
   革哩底 -> 克里特   (Crete)
   居比路 -> 塞浦路斯  (Cyprus)
-  该撒  -> 凯撒     (Caesar, as a title) -- this one substitution also
-                       correctly turns 该撒利亚 (Caesarea) into 凯撒利亚,
-                       since the latter is literally 该撒/凯撒 + 利亚.
+  该撒  -> 凯撒     (Caesar, as a title, simplified) -- this one
+                       substitution also correctly turns 该撒利亚
+                       (Caesarea) into 凯撒利亚, since the latter is
+                       literally 该撒/凯撒 + 利亚.
+  該撒  -> 凱撒     (Caesar, as a title, traditional) -- same note.
+
+Damascus and Caesar both needed a SEPARATE pair per script, because 马/馬
+and 该/該 and 凯/凱 are different characters between Simplified and
+Traditional Chinese -- unlike Spain/Crete/Cyprus/Lebanon, which happen to
+be spelled identically in both scripts. The first version of this script
+only had the simplified Damascus pair and missed every Traditional Chinese
+file as a result (confirmed after the fact by a reader's screenshot still
+showing 大馬色 in 繁體 mode) -- fixed here, and double-check this when
+adding any future pair: a term "looking the same" in a quick mental check
+is not the same as actually comparing the two scripts' characters.
 
 NOT included: 推罗/推羅 (Tyre). It looks like the same pattern at first
 (a 1919 spelling vs. a newer one, 泰尔/泰爾), but it isn't settled the way
@@ -52,6 +65,7 @@ import sys
 PAIRS = [
     ("士班雅", "西班牙"),
     ("大马色", "大马士革"),
+    ("大馬色", "大馬士革"),
     ("革哩底", "克里特"),
     ("居比路", "塞浦路斯"),
     ("该撒", "凯撒"),

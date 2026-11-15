@@ -95,7 +95,12 @@ export default defineConfig({
               // scripts/fix-archaic-placenames.py.
               // Bumped again to v7: 该撒/該撒 (Caesar) -> 凯撒/凱撒, same
               // way again.
-              cacheName: "bible-text-v7",
+              // Bumped again to v8: v6's Damascus fix only had the
+              // Simplified pair (大马色 -> 大马士革) -- missed every
+              // Traditional Chinese file (大馬色, with the traditional 馬
+              // character) entirely. A reader's screenshot in 繁體 mode
+              // caught it.
+              cacheName: "bible-text-v8",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -113,7 +118,9 @@ export default defineConfig({
               // plus one insights file (1ki) using 泰尔/泰爾 for Tyre
               // instead of the app's own 推罗/推羅 convention -- see
               // scripts/fix-tyre-stragglers.py.
-              cacheName: "bible-insights-v4",
+              // Bumped again to v5 alongside bible-text-v8 (the missed
+              // Traditional-Chinese Damascus fix).
+              cacheName: "bible-insights-v5",
               // 66 books x 3 languages = 198 — maxEntries was also 200,
               // leaving almost no headroom before LRU eviction started
               // dropping already-cached books. Bumped for breathing room.
@@ -174,7 +181,9 @@ export default defineConfig({
               // Bumped again to v4 alongside bible-text-v5 (利巴嫩 ->
               // 黎巴嫩 fix) -- the index is built from the scripture text.
               // Bumped again to v5 alongside bible-text-v6.
-              cacheName: "bible-search-index-v6",
+              // Bumped again to v6 alongside bible-text-v7.
+              // Bumped again to v7 alongside bible-text-v8.
+              cacheName: "bible-search-index-v7",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -233,7 +242,13 @@ export default defineConfig({
               // Bumped to v4: many more bios had a mix of archaic/modern
               // spellings for the same place (e.g. some used 大马色, others
               // 大马士革, for Damascus) -- see scripts/fix-archaic-placenames.py.
-              cacheName: "bible-characters-v5",
+              //
+              // Bumped to v5: 该撒/該撒 (Caesar) fixed the same way.
+              //
+              // Bumped to v6: v4's Damascus fix missed every Traditional
+              // Chinese bio (大馬色, the traditional 馬 character) -- see
+              // bible-text-v8's note above.
+              cacheName: "bible-characters-v6",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
