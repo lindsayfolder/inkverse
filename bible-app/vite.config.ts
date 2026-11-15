@@ -90,7 +90,10 @@ export default defineConfig({
               // 黎巴嫩 (the modern standard spelling every current CUV
               // reprint and mainstream Bible app uses) -- see
               // scripts/fix-lebanon-spelling.py.
-              cacheName: "bible-text-v5",
+              // Bumped again to v6: three more archaic place-name spellings
+              // (Spain, Damascus, Crete, Cyprus) fixed the same way -- see
+              // scripts/fix-archaic-placenames.py.
+              cacheName: "bible-text-v6",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -101,7 +104,10 @@ export default defineConfig({
             options: {
               // Bumped to v2: the zh-hans insights content had the same
               // 著/着 particle bug as bible-text-v3 above.
-              cacheName: "bible-insights-v2",
+              // Bumped again to v3: a few insights entries used the archaic
+              // 大马色/居比路 place-name spellings -- see
+              // scripts/fix-archaic-placenames.py.
+              cacheName: "bible-insights-v3",
               // 66 books x 3 languages = 198 — maxEntries was also 200,
               // leaving almost no headroom before LRU eviction started
               // dropping already-cached books. Bumped for breathing room.
@@ -118,7 +124,10 @@ export default defineConfig({
               // the network once a URL is cached, so a reader who'd already
               // opened that map would otherwise keep seeing the old version
               // forever. Renaming the bucket forces every client to re-fetch.
-              cacheName: "bible-maps-v2",
+              // Bumped again to v3: the Acts map's Chinese label used the
+              // archaic 居比路 spelling for Cyprus -- see
+              // scripts/fix-archaic-placenames.py.
+              cacheName: "bible-maps-v3",
               // 21 mapped books x 2 files (en + zh) = 42 — maxEntries was
               // 30, under the real count, so the bulk downloader's own
               // storage was silently evicting earlier maps as later ones
@@ -133,7 +142,10 @@ export default defineConfig({
             urlPattern: /\/bookintro\/.*\.json$/,
             handler: "CacheFirst",
             options: {
-              cacheName: "bible-book-intro",
+              // Bumped to v2: the Romans/Acts/Titus intros used the archaic
+              // 大马色/革哩底 place-name spellings -- see
+              // scripts/fix-archaic-placenames.py.
+              cacheName: "bible-book-intro-v2",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -151,7 +163,8 @@ export default defineConfig({
               // Bumped again to v3 alongside bible-text-v3.
               // Bumped again to v4 alongside bible-text-v5 (利巴嫩 ->
               // 黎巴嫩 fix) -- the index is built from the scripture text.
-              cacheName: "bible-search-index-v4",
+              // Bumped again to v5 alongside bible-text-v6.
+              cacheName: "bible-search-index-v5",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -168,7 +181,8 @@ export default defineConfig({
               // cached the old text.
               // 66 books x 3 languages = 198 — maxEntries was 200, leaving
               // almost no headroom; bumped alongside bible-insights-v2.
-              cacheName: "bible-explain-v2",
+              // Bumped again to v3 alongside bible-insights-v3.
+              cacheName: "bible-explain-v3",
               expiration: { maxEntries: 260, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -205,7 +219,11 @@ export default defineConfig({
               //
               // Bumped to v3: Solomon's and Adoram's bios used the archaic
               // 利巴嫩 spelling for Lebanon -- see scripts/fix-lebanon-spelling.py.
-              cacheName: "bible-characters-v3",
+              //
+              // Bumped to v4: many more bios had a mix of archaic/modern
+              // spellings for the same place (e.g. some used 大马色, others
+              // 大马士革, for Damascus) -- see scripts/fix-archaic-placenames.py.
+              cacheName: "bible-characters-v4",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },

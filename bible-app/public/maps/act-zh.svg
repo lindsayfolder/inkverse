@@ -90,8 +90,8 @@
   <circle cx="505" cy="262" r="9" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
   <text x="505" y="266" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="17" fill="#fbf6ea">3</text>
   <text x="505" y="228" text-anchor="middle" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="14" fill="#1c1a17">
-    <tspan x="505" dy="0">居比路</tspan>
-    <tspan x="505" dy="1.15em">居比路</tspan>
+    <tspan x="505" dy="0">塞浦路斯</tspan>
+    <tspan x="505" dy="1.15em">塞浦路斯</tspan>
   </text>
 
   <!-- 4 Galatia: Iconium/Lystra -->

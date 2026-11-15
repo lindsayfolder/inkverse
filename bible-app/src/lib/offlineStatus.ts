@@ -13,12 +13,12 @@
 // there instead, since it also includes however many character bios exist.
 
 const CONTENT_CACHE_NAMES = [
-  "bible-text-v5",
-  "bible-insights-v2",
-  "bible-explain-v2",
-  "bible-characters-v3",
-  "bible-book-intro",
-  "bible-maps-v2",
+  "bible-text-v6",
+  "bible-insights-v3",
+  "bible-explain-v3",
+  "bible-characters-v4",
+  "bible-book-intro-v2",
+  "bible-maps-v3",
 ];
 
 export async function getCachedEntryCount(): Promise<number> {
@@ -49,14 +49,21 @@ const RETIRED_CACHE_NAMES = [
   "bible-text-v2",
   "bible-text-v3",
   "bible-text-v4",
+  "bible-text-v5",
   "bible-search-index",
   "bible-search-index-v2",
   "bible-search-index-v3",
+  "bible-search-index-v4",
   "bible-explain",
+  "bible-explain-v2",
   "bible-insights",
+  "bible-insights-v2",
   "bible-characters-v1",
   "bible-characters-v2",
+  "bible-characters-v3",
   "bible-maps",
+  "bible-maps-v2",
+  "bible-book-intro",
 ];
 
 export async function cleanupLegacyCaches(): Promise<void> {
