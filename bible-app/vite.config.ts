@@ -93,7 +93,9 @@ export default defineConfig({
               // Bumped again to v6: three more archaic place-name spellings
               // (Spain, Damascus, Crete, Cyprus) fixed the same way -- see
               // scripts/fix-archaic-placenames.py.
-              cacheName: "bible-text-v6",
+              // Bumped again to v7: 该撒/該撒 (Caesar) -> 凯撒/凱撒, same
+              // way again.
+              cacheName: "bible-text-v7",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -107,7 +109,11 @@ export default defineConfig({
               // Bumped again to v3: a few insights entries used the archaic
               // 大马色/居比路 place-name spellings -- see
               // scripts/fix-archaic-placenames.py.
-              cacheName: "bible-insights-v3",
+              // Bumped again to v4: 该撒/該撒 (Caesar) fixed the same way,
+              // plus one insights file (1ki) using 泰尔/泰爾 for Tyre
+              // instead of the app's own 推罗/推羅 convention -- see
+              // scripts/fix-tyre-stragglers.py.
+              cacheName: "bible-insights-v4",
               // 66 books x 3 languages = 198 — maxEntries was also 200,
               // leaving almost no headroom before LRU eviction started
               // dropping already-cached books. Bumped for breathing room.
@@ -142,9 +148,13 @@ export default defineConfig({
             urlPattern: /\/bookintro\/.*\.json$/,
             handler: "CacheFirst",
             options: {
-              // Bumped to v2: the Romans/Acts/Titus intros used the archaic
-              // 大马色/革哩底 place-name spellings -- see
-              // scripts/fix-archaic-placenames.py.
+              // Bumped to v2 during the archaic-place-name audit (see
+              // scripts/fix-archaic-placenames.py) on the assumption these
+              // intros needed the same fix as the other content tracks --
+              // double-checked afterward and they never actually contained
+              // any of the affected spellings, so this bump turned out to
+              // be unneeded. Left as v2 rather than reverted, since
+              // reverting now would just be a second unnecessary bump.
               cacheName: "bible-book-intro-v2",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
@@ -164,7 +174,7 @@ export default defineConfig({
               // Bumped again to v4 alongside bible-text-v5 (利巴嫩 ->
               // 黎巴嫩 fix) -- the index is built from the scripture text.
               // Bumped again to v5 alongside bible-text-v6.
-              cacheName: "bible-search-index-v5",
+              cacheName: "bible-search-index-v6",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -182,7 +192,7 @@ export default defineConfig({
               // 66 books x 3 languages = 198 — maxEntries was 200, leaving
               // almost no headroom; bumped alongside bible-insights-v2.
               // Bumped again to v3 alongside bible-insights-v3.
-              cacheName: "bible-explain-v3",
+              cacheName: "bible-explain-v4",
               expiration: { maxEntries: 260, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -223,7 +233,7 @@ export default defineConfig({
               // Bumped to v4: many more bios had a mix of archaic/modern
               // spellings for the same place (e.g. some used 大马色, others
               // 大马士革, for Damascus) -- see scripts/fix-archaic-placenames.py.
-              cacheName: "bible-characters-v4",
+              cacheName: "bible-characters-v5",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
