@@ -1,45 +1,61 @@
-<svg viewBox="0 0 720 480" width="100%" height="480" xmlns="http://www.w3.org/2000/svg">
-  <rect width="720" height="480" fill="#fbf6ea"/>
+<svg viewBox="0 0 720 580" width="100%" height="580" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="580" fill="#fbf6ea"/>
 
-  <!-- Mediterranean Sea -->
-  <path d="M0,20 C40,10 70,40 60,90 C50,150 70,220 55,290 C45,350 65,410 40,460 L0,460 Z"
+  <!-- Mediterranean Sea, running the full coast past Tyre down to Judah -->
+  <path d="M0,0 C34,-5 60,22 54,58 C48,92 32,108 40,130 C40,118 68,142 60,190 C50,250 70,320 55,390 C45,450 65,510 40,560 L0,560 Z"
         fill="#dce8ec" stroke="#2c5f7c" stroke-width="2.5"/>
-  <text x="8" y="120" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#2c5f7c" transform="rotate(90 8 120)">Great Sea</text>
+  <text x="8" y="220" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#2c5f7c" transform="rotate(90 8 220)">Great Sea</text>
+
+  <!-- Tyre (Phoenicia) -->
+  <path d="M85,18 C140,8 205,12 232,38 C250,58 244,88 212,104 C180,118 128,116 98,100 C74,86 66,52 85,18 Z"
+        fill="#f1e9d8" stroke="#1c1a17" stroke-width="3"/>
+  <text x="125" y="68" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#1c1a17">TYRE</text>
+  <!-- Tyre's port, where the cedar rafts set out -->
+  <circle cx="110" cy="64" r="7" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
 
   <!-- Israel (northern kingdom) -->
-  <path d="M140,55 C210,40 320,45 380,68 C420,88 428,140 405,178 C388,212 345,230 295,224 C245,218 185,214 158,188 C128,162 118,105 140,55 Z"
+  <path d="M140,155 C210,140 320,145 380,168 C420,188 428,240 405,278 C388,312 345,330 295,324 C245,318 185,314 158,288 C128,262 118,205 140,155 Z"
         fill="#f1e9d8" stroke="#1c1a17" stroke-width="3"/>
-  <text x="185" y="90" font-family="Georgia, serif" font-weight="700" font-size="31" fill="#1c1a17">ISRAEL</text>
+  <text x="185" y="190" font-family="Georgia, serif" font-weight="700" font-size="31" fill="#1c1a17">ISRAEL</text>
 
   <!-- Judah (southern kingdom) -->
-  <path d="M160,240 C225,232 340,236 382,256 C412,276 417,326 400,366 C384,406 338,436 288,441 C238,446 188,426 163,386 C142,346 148,280 160,240 Z"
+  <path d="M160,340 C225,332 340,336 382,356 C412,376 417,426 400,466 C384,506 338,536 288,541 C238,546 188,526 163,486 C142,446 148,380 160,340 Z"
         fill="#f1e9d8" stroke="#1c1a17" stroke-width="3"/>
-  <text x="195" y="428" font-family="Georgia, serif" font-weight="700" font-size="31" fill="#1c1a17">JUDAH</text>
+  <text x="195" y="528" font-family="Georgia, serif" font-weight="700" font-size="31" fill="#1c1a17">JUDAH</text>
 
   <!-- border / split between the two kingdoms -->
-  <path d="M150,226 C220,214 320,216 400,232" fill="none" stroke="#1c1a17" stroke-width="2" stroke-dasharray="6,6"/>
+  <path d="M150,326 C220,314 320,316 400,332" fill="none" stroke="#1c1a17" stroke-width="2" stroke-dasharray="6,6"/>
 
   <!-- Samaria marker -->
-  <circle cx="300" cy="135" r="7" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
-  <text x="200" y="120" font-family="Georgia, serif" font-weight="700" font-size="22" fill="#1c1a17">Samaria</text>
+  <circle cx="300" cy="235" r="7" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
+  <text x="200" y="220" font-family="Georgia, serif" font-weight="700" font-size="22" fill="#1c1a17">Samaria</text>
 
   <!-- Jerusalem marker -->
-  <circle cx="278" cy="345" r="7" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
-  <text x="180" y="365" font-family="Georgia, serif" font-weight="700" font-size="22" fill="#1c1a17">Jerusalem</text>
-  <text x="205" y="382" font-family="Georgia, serif" font-style="italic" font-size="19" fill="#55503f">the Temple</text>
+  <circle cx="278" cy="445" r="7" fill="#c97a12" stroke="#1c1a17" stroke-width="2.5"/>
+  <text x="180" y="465" font-family="Georgia, serif" font-weight="700" font-size="22" fill="#1c1a17">Jerusalem</text>
+  <text x="205" y="482" font-family="Georgia, serif" font-style="italic" font-size="19" fill="#55503f">the Temple</text>
 
   <!-- Dead Sea -->
-  <path d="M410,330 C432,320 456,332 460,362 C464,392 440,415 415,410 C395,405 386,378 390,352 C392,340 400,335 410,330 Z"
+  <path d="M410,430 C432,420 456,432 460,462 C464,492 440,515 415,510 C395,505 386,478 390,452 C392,440 400,435 410,430 Z"
         fill="#dce8ec" stroke="#2c5f7c" stroke-width="2.5"/>
-  <text x="470" y="360" font-family="Georgia, serif" font-style="italic" font-size="19" fill="#2c5f7c">Dead Sea</text>
+  <text x="470" y="460" font-family="Georgia, serif" font-style="italic" font-size="19" fill="#2c5f7c">Dead Sea</text>
+
+  <!-- Cedar route: rafts of cedar and fir floated down the coast from Tyre, then hauled inland to Jerusalem (1 Kings 5:6-9) -->
+  <path d="M107,70 C82,122 60,178 70,246 C78,316 76,364 100,398 C128,416 180,428 236,440"
+        fill="none" stroke="#c97a12" stroke-width="4" stroke-dasharray="2,10" stroke-linecap="round"/>
+  <path d="M230,432 L246,440 L229,447 Z" fill="#c97a12" stroke="#1c1a17" stroke-width="1.5"/>
+  <text x="118" y="168" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">cedar rafts</text>
+  <text x="122" y="187" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">by sea</text>
+  <text x="96" y="372" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">hauled</text>
+  <text x="92" y="390" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">inland</text>
 
   <!-- compass -->
-  <g transform="translate(70,430)">
+  <g transform="translate(70,530)">
     <circle r="26" fill="#fbf6ea" stroke="#1c1a17" stroke-width="2.5"/>
     <path d="M0,-18 L6,0 L0,18 L-6,0 Z" fill="#1c1a17"/>
     <text y="-30" font-family="Georgia, serif" font-weight="700" font-size="20" fill="#1c1a17" text-anchor="middle">N</text>
   </g>
 
   <!-- border frame -->
-  <rect x="2" y="2" width="716" height="476" fill="none" stroke="#1c1a17" stroke-width="2"/>
+  <rect x="2" y="2" width="716" height="576" fill="none" stroke="#1c1a17" stroke-width="2"/>
 </svg>
