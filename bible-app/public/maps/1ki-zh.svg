@@ -65,24 +65,24 @@
   </text>
 
   <!-- Cedar route: rafts of cedar and fir floated down the coast from Tyre, then hauled inland to Jerusalem (1 Kings 5:6-9) -->
-  <path d="M107,70 C82,122 60,178 70,246 C78,316 76,364 100,398 C128,416 180,428 236,440"
+  <path d="M100,70 C62,85 26,105 20,150 C14,195 24,240 18,285 C15,315 30,345 62,368 C92,390 160,418 236,440"
         fill="none" stroke="#c97a12" stroke-width="4" stroke-dasharray="2,10" stroke-linecap="round"/>
   <path d="M230,432 L246,440 L229,447 Z" fill="#c97a12" stroke="#1c1a17" stroke-width="1.5"/>
-  <text x="118" y="162" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
-    <tspan x="118" dy="0">香柏筏</tspan>
-    <tspan x="118" dy="1.15em">香柏筏</tspan>
+  <text x="8" y="38" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
+    <tspan x="8" dy="0">香柏筏</tspan>
+    <tspan x="8" dy="1.15em">香柏筏</tspan>
   </text>
-  <text x="122" y="206" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
-    <tspan x="122" dy="0">海路</tspan>
-    <tspan x="122" dy="1.15em">海路</tspan>
+  <text x="8" y="72" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
+    <tspan x="8" dy="0">海路</tspan>
+    <tspan x="8" dy="1.15em">海路</tspan>
   </text>
-  <text x="114" y="366" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
-    <tspan x="114" dy="0">陸運</tspan>
-    <tspan x="114" dy="1.15em">陆运</tspan>
+  <text x="116" y="366" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
+    <tspan x="116" dy="0">陸運</tspan>
+    <tspan x="116" dy="1.15em">陆运</tspan>
   </text>
-  <text x="112" y="410" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
-    <tspan x="112" dy="0">入城</tspan>
-    <tspan x="112" dy="1.15em">入城</tspan>
+  <text x="114" y="410" font-family="PingFang TC, PingFang SC, Microsoft YaHei, Heiti SC, sans-serif" font-weight="700" font-size="15" fill="#a8620a">
+    <tspan x="114" dy="0">入城</tspan>
+    <tspan x="114" dy="1.15em">入城</tspan>
   </text>
 
   <!-- compass -->

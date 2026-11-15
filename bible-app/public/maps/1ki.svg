@@ -41,13 +41,13 @@
   <text x="470" y="460" font-family="Georgia, serif" font-style="italic" font-size="19" fill="#2c5f7c">Dead Sea</text>
 
   <!-- Cedar route: rafts of cedar and fir floated down the coast from Tyre, then hauled inland to Jerusalem (1 Kings 5:6-9) -->
-  <path d="M107,70 C82,122 60,178 70,246 C78,316 76,364 100,398 C128,416 180,428 236,440"
+  <path d="M100,70 C62,85 26,105 20,150 C14,195 24,240 18,285 C15,315 30,345 62,368 C92,390 160,418 236,440"
         fill="none" stroke="#c97a12" stroke-width="4" stroke-dasharray="2,10" stroke-linecap="round"/>
   <path d="M230,432 L246,440 L229,447 Z" fill="#c97a12" stroke="#1c1a17" stroke-width="1.5"/>
-  <text x="118" y="168" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">cedar rafts</text>
-  <text x="122" y="187" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">by sea</text>
-  <text x="96" y="372" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">hauled</text>
-  <text x="92" y="390" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">inland</text>
+  <text x="8" y="45" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">cedar rafts</text>
+  <text x="8" y="64" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">by sea</text>
+  <text x="116" y="378" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">hauled</text>
+  <text x="112" y="396" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#a8620a">inland</text>
 
   <!-- compass -->
   <g transform="translate(70,530)">
