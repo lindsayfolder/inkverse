@@ -85,7 +85,12 @@ export default defineConfig({
               // maxEntries raised to match: 51 unsplit books + 35 part
               // files across the ~15 split ones = 86 files/version x 4
               // versions = 344, with headroom.
-              cacheName: "bible-text-v4",
+              // Bumped again to v5: the Chinese text used the archaic 1919
+              // transliteration 利巴嫩 for "Lebanon" throughout, instead of
+              // 黎巴嫩 (the modern standard spelling every current CUV
+              // reprint and mainstream Bible app uses) -- see
+              // scripts/fix-lebanon-spelling.py.
+              cacheName: "bible-text-v5",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -144,7 +149,9 @@ export default defineConfig({
               // Bumped to v2 alongside bible-text-v2 above -- the index was
               // rebuilt from the corrected scripture text.
               // Bumped again to v3 alongside bible-text-v3.
-              cacheName: "bible-search-index-v3",
+              // Bumped again to v4 alongside bible-text-v5 (利巴嫩 ->
+              // 黎巴嫩 fix) -- the index is built from the scripture text.
+              cacheName: "bible-search-index-v4",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -195,7 +202,10 @@ export default defineConfig({
               // forever — same class of bug already hit and fixed for
               // bible-text and bible-insights/explain above. Renaming the
               // bucket forces every client to re-fetch fresh.
-              cacheName: "bible-characters-v2",
+              //
+              // Bumped to v3: Solomon's and Adoram's bios used the archaic
+              // 利巴嫩 spelling for Lebanon -- see scripts/fix-lebanon-spelling.py.
+              cacheName: "bible-characters-v3",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
