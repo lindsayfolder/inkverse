@@ -13,12 +13,12 @@
 // there instead, since it also includes however many character bios exist.
 
 const CONTENT_CACHE_NAMES = [
-  "bible-text-v8",
+  "bible-text-v9",
   "bible-insights-v5",
   "bible-explain-v4",
-  "bible-characters-v6",
+  "bible-characters-v7",
   "bible-book-intro-v2",
-  "bible-maps-v3",
+  "bible-maps-v4",
 ];
 
 export async function getCachedEntryCount(): Promise<number> {

@@ -100,7 +100,13 @@ export default defineConfig({
               // Traditional Chinese file (大馬色, with the traditional 馬
               // character) entirely. A reader's screenshot in 繁體 mode
               // caught it.
-              cacheName: "bible-text-v8",
+              // Bumped again to v9: zh-hans used 义大利 for "Italy" -- a
+              // naive character-by-character simplification of Taiwan's
+              // 義大利, not the actual Mainland standard term, which is an
+              // entirely different word, 意大利. A different category of
+              // bug from the others above (wrong word, not an old word) --
+              // see scripts/fix-italy-spelling.py.
+              cacheName: "bible-text-v9",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -140,7 +146,10 @@ export default defineConfig({
               // Bumped again to v3: the Acts map's Chinese label used the
               // archaic 居比路 spelling for Cyprus -- see
               // scripts/fix-archaic-placenames.py.
-              cacheName: "bible-maps-v3",
+              // Bumped again to v4: the same map's simplified-Chinese Italy
+              // label used 义大利 instead of the real Mainland standard
+              // 意大利 -- see scripts/fix-italy-spelling.py.
+              cacheName: "bible-maps-v4",
               // 21 mapped books x 2 files (en + zh) = 42 — maxEntries was
               // 30, under the real count, so the bulk downloader's own
               // storage was silently evicting earlier maps as later ones
@@ -183,7 +192,8 @@ export default defineConfig({
               // Bumped again to v5 alongside bible-text-v6.
               // Bumped again to v6 alongside bible-text-v7.
               // Bumped again to v7 alongside bible-text-v8.
-              cacheName: "bible-search-index-v7",
+              // Bumped again to v8 alongside bible-text-v9.
+              cacheName: "bible-search-index-v8",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -248,7 +258,11 @@ export default defineConfig({
               // Bumped to v6: v4's Damascus fix missed every Traditional
               // Chinese bio (大馬色, the traditional 馬 character) -- see
               // bible-text-v8's note above.
-              cacheName: "bible-characters-v6",
+              //
+              // Bumped to v7: Julius's bio used 意大利 for "Italy" while
+              // every other zh-hant file in this app uses 義大利 -- see
+              // scripts/fix-italy-spelling.py.
+              cacheName: "bible-characters-v7",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
