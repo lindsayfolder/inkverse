@@ -501,7 +501,7 @@ export default function App() {
     if (!v) return;
     setSharingVerse(verse);
     const reference = `${book.label[lang]} ${chapter}:${verse}`;
-    const outcome = await shareVerse({ reference, text: v.t, appName: "Inkverse" });
+    const outcome = await shareVerse({ reference, text: v.t });
     setSharingVerse(null);
     if (outcome === "copied") toast(t.shareCopiedToast);
     else if (outcome === "failed" || outcome === "unavailable") toast(t.shareFailedToast);
@@ -521,7 +521,7 @@ export default function App() {
       .filter((v) => selectedVerses.includes(v.n))
       .map((v) => ({ n: v.n, text: v.t }));
     const reference = `${book.label[lang]} ${chapter}:${formatVerseRange(selectedVerses)}`;
-    const outcome = await shareVerses({ reference, verses: chosen, appName: "Inkverse" });
+    const outcome = await shareVerses({ reference, verses: chosen });
     setSharingSelection(false);
     if (outcome === "copied") toast(t.shareCopiedToast);
     else if (outcome === "failed" || outcome === "unavailable") toast(t.shareFailedToast);

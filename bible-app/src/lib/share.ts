@@ -26,7 +26,6 @@ export type ShareOutcome = "shared" | "copied" | "cancelled" | "unavailable" | "
 export interface ShareVersesInput {
   reference: string;
   verses: { n: number; text: string }[];
-  appName: string;
 }
 
 let sharing = false;
@@ -103,8 +102,8 @@ export async function shareVerses(input: ShareVersesInput): Promise<ShareOutcome
 // Kept as a thin single-verse convenience wrapper — same call shape every
 // existing call site already uses, unchanged output for the one-verse
 // case (buildShareText and renderVerseCard both special-case length 1).
-export function shareVerse(input: { reference: string; text: string; appName: string }): Promise<ShareOutcome> {
-  return shareVerses({ reference: input.reference, appName: input.appName, verses: [{ n: 0, text: input.text }] });
+export function shareVerse(input: { reference: string; text: string }): Promise<ShareOutcome> {
+  return shareVerses({ reference: input.reference, verses: [{ n: 0, text: input.text }] });
 }
 
 // Collapses a reader's tapped-in-any-order verse selection into the
@@ -218,12 +217,6 @@ async function renderVerseCard(input: ShareVersesInput): Promise<File | null> {
     ctx.font = `700 40px Georgia, "Times New Roman", serif`;
     ctx.fillText(input.reference, CARD_WIDTH / 2, y + lineHeight + 20);
 
-    ctx.fillStyle = ink;
-    ctx.globalAlpha = 0.55;
-    ctx.font = `600 28px "Segoe UI", Helvetica, Arial, sans-serif`;
-    ctx.fillText(input.appName, CARD_WIDTH / 2, MIN_CARD_HEIGHT - margin / 2);
-    ctx.globalAlpha = 1;
-
     return toFile(canvas);
   }
 
@@ -279,12 +272,6 @@ async function renderVerseCard(input: ShareVersesInput): Promise<File | null> {
   ctx.textAlign = "center";
   ctx.font = `700 40px Georgia, "Times New Roman", serif`;
   ctx.fillText(input.reference, CARD_WIDTH / 2, cardHeight - footerHeight / 2 - 20);
-
-  ctx.fillStyle = ink;
-  ctx.globalAlpha = 0.55;
-  ctx.font = `600 28px "Segoe UI", Helvetica, Arial, sans-serif`;
-  ctx.fillText(input.appName, CARD_WIDTH / 2, cardHeight - margin / 2);
-  ctx.globalAlpha = 1;
 
   return toFile(canvas);
 }
