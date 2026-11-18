@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { LangKey } from "../data/languages";
 import { UI } from "../data/languages";
-import { DEFAULT_SETTINGS, emergencyTrim, loadSettings, pruneOldPlans, saveSettings, type AppSettings } from "../lib/db";
+import { DEFAULT_SETTINGS, emergencyTrim, loadSettings, pruneOldNotes, pruneOldPlans, saveSettings, type AppSettings } from "../lib/db";
 import { isReadyCount } from "../lib/offlineStatus";
 import { runBulkDownload, TOTAL_CONTENT_FILES } from "../lib/bulkOfflineDownload";
 import { applyUpdate, checkForUpdate, getUpdateState, subscribeUpdateState } from "../lib/appUpdate";
@@ -77,8 +77,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // years" means "pruned on the first launch after that window has
       // elapsed," which is the standard pattern for this kind of cleanup
       // in a web app.
-      const prunedPlans = pruneOldPlans(s.readingPlans, s.planRetention, Date.now());
-      const cleaned = prunedPlans.length === s.readingPlans.length ? s : { ...s, readingPlans: prunedPlans };
+      const now = Date.now();
+      const prunedPlans = pruneOldPlans(s.readingPlans, s.planRetention, now);
+      const prunedNotes = pruneOldNotes(s.notes, s.noteRetention, now);
+      const cleaned =
+        prunedPlans.length === s.readingPlans.length && prunedNotes.length === s.notes.length
+          ? s
+          : { ...s, readingPlans: prunedPlans, notes: prunedNotes };
       setSettings(cleaned);
       setLangState(cleaned.lastLang);
       setReady(true);

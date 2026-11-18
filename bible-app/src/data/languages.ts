@@ -21,6 +21,7 @@ export interface UiStrings {
   drawerSearch: string;
   drawerBookmarks: string;
   drawerPlans: string;
+  drawerNotes: string;
   drawerSettings: string;
   bookmarksTitle: string;
   bookmarksEmptyLabel: string;
@@ -29,6 +30,24 @@ export interface UiStrings {
   bookmarkAddedToast: string;
   bookmarkRemovedToast: string;
   bookmarkHintToast: string;
+  verseNoteLabel: string;
+  notesTitle: string;
+  notesEmptyLabel: string;
+  noteEditorTitle: string;
+  noteColorLabel: string;
+  noteColorNone: string;
+  noteColorYellow: string;
+  noteColorGreen: string;
+  noteColorBlue: string;
+  noteColorPink: string;
+  noteTextPlaceholder: string;
+  noteCharCountTpl: string;
+  noteSaveLabel: string;
+  noteDeleteLabel: string;
+  noteSavedToast: string;
+  noteDeletedToast: string;
+  noteRetentionSectionLabel: string;
+  noteRetentionToggleLabel: string;
   shareLabel: string;
   shareCopiedToast: string;
   shareFailedToast: string;
@@ -127,6 +146,7 @@ export const UI: Record<LangKey, UiStrings> = {
     drawerSearch: "Search",
     drawerBookmarks: "Bookmarks",
     drawerPlans: "Plans",
+    drawerNotes: "Highlights & Notes",
     drawerSettings: "Settings",
     bookmarksTitle: "Bookmarks",
     bookmarksEmptyLabel: "No bookmarks yet — tap a verse number to save it here.",
@@ -135,6 +155,24 @@ export const UI: Record<LangKey, UiStrings> = {
     bookmarkAddedToast: "Verse bookmarked",
     bookmarkRemovedToast: "Bookmark removed",
     bookmarkHintToast: "Tip: tap a verse number to bookmark it",
+    verseNoteLabel: "Highlight or add a note",
+    notesTitle: "Highlights & Notes",
+    notesEmptyLabel: "No highlights or notes yet — tap any verse's text to add one.",
+    noteEditorTitle: "Highlight & Note",
+    noteColorLabel: "Highlight",
+    noteColorNone: "None",
+    noteColorYellow: "Yellow",
+    noteColorGreen: "Green",
+    noteColorBlue: "Blue",
+    noteColorPink: "Pink",
+    noteTextPlaceholder: "Write a note…",
+    noteCharCountTpl: "{n}/{max}",
+    noteSaveLabel: "Save",
+    noteDeleteLabel: "Delete",
+    noteSavedToast: "Saved",
+    noteDeletedToast: "Removed",
+    noteRetentionSectionLabel: "Highlights & Notes History",
+    noteRetentionToggleLabel: "Automatically clean up old notes",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -231,6 +269,7 @@ export const UI: Record<LangKey, UiStrings> = {
     drawerSearch: "Search",
     drawerBookmarks: "Bookmarks",
     drawerPlans: "Plans",
+    drawerNotes: "Highlights & Notes",
     drawerSettings: "Settings",
     bookmarksTitle: "Bookmarks",
     bookmarksEmptyLabel: "No bookmarks yet — tap a verse number to save it here.",
@@ -239,6 +278,24 @@ export const UI: Record<LangKey, UiStrings> = {
     bookmarkAddedToast: "Verse bookmarked",
     bookmarkRemovedToast: "Bookmark removed",
     bookmarkHintToast: "Tip: tap a verse number to bookmark it",
+    verseNoteLabel: "Highlight or add a note",
+    notesTitle: "Highlights & Notes",
+    notesEmptyLabel: "No highlights or notes yet — tap any verse's text to add one.",
+    noteEditorTitle: "Highlight & Note",
+    noteColorLabel: "Highlight",
+    noteColorNone: "None",
+    noteColorYellow: "Yellow",
+    noteColorGreen: "Green",
+    noteColorBlue: "Blue",
+    noteColorPink: "Pink",
+    noteTextPlaceholder: "Write a note…",
+    noteCharCountTpl: "{n}/{max}",
+    noteSaveLabel: "Save",
+    noteDeleteLabel: "Delete",
+    noteSavedToast: "Saved",
+    noteDeletedToast: "Removed",
+    noteRetentionSectionLabel: "Highlights & Notes History",
+    noteRetentionToggleLabel: "Automatically clean up old notes",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -335,6 +392,7 @@ export const UI: Record<LangKey, UiStrings> = {
     drawerSearch: "搜尋",
     drawerBookmarks: "書籤",
     drawerPlans: "讀經計畫",
+    drawerNotes: "標記與筆記",
     drawerSettings: "設定",
     bookmarksTitle: "書籤",
     bookmarksEmptyLabel: "還沒有書籤——點一下經文編號即可收藏。",
@@ -343,6 +401,24 @@ export const UI: Record<LangKey, UiStrings> = {
     bookmarkAddedToast: "已加入書籤",
     bookmarkRemovedToast: "已移除書籤",
     bookmarkHintToast: "提示：點一下經文編號即可收藏",
+    verseNoteLabel: "標記或新增筆記",
+    notesTitle: "標記與筆記",
+    notesEmptyLabel: "還沒有標記或筆記——點一下經文內容即可新增。",
+    noteEditorTitle: "標記與筆記",
+    noteColorLabel: "標記顏色",
+    noteColorNone: "無",
+    noteColorYellow: "黃色",
+    noteColorGreen: "綠色",
+    noteColorBlue: "藍色",
+    noteColorPink: "粉色",
+    noteTextPlaceholder: "寫下筆記…",
+    noteCharCountTpl: "{n}/{max}",
+    noteSaveLabel: "儲存",
+    noteDeleteLabel: "刪除",
+    noteSavedToast: "已儲存",
+    noteDeletedToast: "已刪除",
+    noteRetentionSectionLabel: "標記與筆記紀錄",
+    noteRetentionToggleLabel: "自動清除舊的筆記",
     shareLabel: "分享這節經文",
     shareCopiedToast: "已複製到剪貼簿",
     shareFailedToast: "分享失敗，請重試",
@@ -439,6 +515,7 @@ export const UI: Record<LangKey, UiStrings> = {
     drawerSearch: "搜索",
     drawerBookmarks: "书签",
     drawerPlans: "读经计划",
+    drawerNotes: "标记与笔记",
     drawerSettings: "设置",
     bookmarksTitle: "书签",
     bookmarksEmptyLabel: "还没有书签——点一下经文编号即可收藏。",
@@ -447,6 +524,24 @@ export const UI: Record<LangKey, UiStrings> = {
     bookmarkAddedToast: "已加入书签",
     bookmarkRemovedToast: "已移除书签",
     bookmarkHintToast: "提示：点一下经文编号即可收藏",
+    verseNoteLabel: "标记或添加笔记",
+    notesTitle: "标记与笔记",
+    notesEmptyLabel: "还没有标记或笔记——点一下经文内容即可添加。",
+    noteEditorTitle: "标记与笔记",
+    noteColorLabel: "标记颜色",
+    noteColorNone: "无",
+    noteColorYellow: "黄色",
+    noteColorGreen: "绿色",
+    noteColorBlue: "蓝色",
+    noteColorPink: "粉色",
+    noteTextPlaceholder: "写下笔记…",
+    noteCharCountTpl: "{n}/{max}",
+    noteSaveLabel: "保存",
+    noteDeleteLabel: "删除",
+    noteSavedToast: "已保存",
+    noteDeletedToast: "已删除",
+    noteRetentionSectionLabel: "标记与笔记记录",
+    noteRetentionToggleLabel: "自动清除旧的笔记",
     shareLabel: "分享这节经文",
     shareCopiedToast: "已复制到剪贴板",
     shareFailedToast: "分享失败，请重试",

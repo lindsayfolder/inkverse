@@ -7,6 +7,37 @@ export interface Bookmark {
   addedAt: number;
 }
 
+export type HighlightColor = "yellow" | "green" | "blue" | "pink";
+
+// One record per verse that has a highlight color and/or a personal note —
+// a record only exists while it holds at least one of the two (see
+// App.tsx's save/delete handling), so a highlight-only verse costs a
+// handful of bytes, not a whole note's worth.
+export interface VerseNote {
+  bookId: string;
+  chapter: number;
+  verse: number;
+  color?: HighlightColor;
+  text?: string;
+  updatedAt: number;
+}
+
+// Character caps for the free-form note text, not the highlight color —
+// kept deliberately short (a few sentences, not an essay) for two
+// reasons: it's a better fit for a small on-screen text box either way,
+// and it keeps this reader-written, genuinely unbounded-in-principle data
+// from ever being able to approach localStorage's per-origin quota
+// (5-10MB depending on browser). A CJK character costs ~3 bytes in UTF-8
+// against a Latin character's ~1, so the Chinese cap is tighter in
+// characters but lands in the same ballpark in bytes — both caps land
+// comfortably under even a few thousand notes' worth of storage.
+export const NOTE_CHAR_LIMIT_EN = 300;
+export const NOTE_CHAR_LIMIT_ZH = 200;
+
+export function noteCharLimit(lang: LangKey): number {
+  return lang === "zh-hant" || lang === "zh-hans" ? NOTE_CHAR_LIMIT_ZH : NOTE_CHAR_LIMIT_EN;
+}
+
 // One record per reading plan the reader has ever started (see
 // data/readingPlans.ts and components/PlansModal.tsx) — restarting a plan
 // resets this same record rather than creating a new one, so the array can
@@ -65,6 +96,30 @@ export function pruneOldPlans(plans: PlanProgress[], retention: PlanRetentionSet
   return next;
 }
 
+// Same hard-backstop philosophy as MAX_PLAN_RECORDS above: this never
+// actually binds under realistic use (a note capped at NOTE_CHAR_LIMIT_ZH
+// characters times this many records is still only a couple of MB — see
+// the byte-math note on NOTE_CHAR_LIMIT_EN/ZH above), but growth stays
+// bounded by construction rather than by today's usage happening to be
+// light.
+const MAX_NOTE_RECORDS = 2000;
+
+// Unlike a reading plan, a note has no "in progress" vs. "finished" state
+// — it just exists, so age here means time since it was last written or
+// edited (updatedAt), with nothing exempted from the retention window the
+// way an active plan is in pruneOldPlans above.
+export function pruneOldNotes(notes: VerseNote[], retention: PlanRetentionSetting, now: number): VerseNote[] {
+  let next = notes;
+  if (retention.enabled) {
+    const maxAge = retentionMs(retention);
+    next = next.filter((n) => now - n.updatedAt < maxAge);
+  }
+  if (next.length > MAX_NOTE_RECORDS) {
+    next = [...next].sort((a, b) => a.updatedAt - b.updatedAt).slice(-MAX_NOTE_RECORDS);
+  }
+  return next;
+}
+
 export interface AppSettings {
   id: "app";
   fontScale: number;
@@ -111,6 +166,15 @@ export interface AppSettings {
   // later, since notes (free-form, reader-written text) are the one piece
   // of future data that could plausibly grow large.
   planRetention: PlanRetentionSetting;
+  // Highlights and personal notes, one record per marked verse — see
+  // VerseNote above. Not keyed by language, same reasoning as bookmarks:
+  // a highlighted verse is the same place in the text regardless of which
+  // version it's currently being read in.
+  notes: VerseNote[];
+  // Same shape and same "off by default" reasoning as planRetention, but
+  // a separate setting — a reader may want their reading-plan history
+  // cleaned up automatically while keeping notes forever, or vice versa.
+  noteRetention: PlanRetentionSetting;
 }
 
 const STORAGE_KEY = "inkverse-settings";
@@ -129,6 +193,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   seenOfflineReadyToast: false,
   readingPlans: [],
   planRetention: { enabled: false, amount: 90, unit: "days" },
+  notes: [],
+  noteRetention: { enabled: false, amount: 90, unit: "days" },
 };
 
 // localStorage, not IndexedDB: writes are synchronous and commit
@@ -174,10 +240,16 @@ export async function saveSettings(settings: AppSettings): Promise<boolean> {
 // plan), so this is the one place they're ever capped — keeping the most
 // recent ones, since those are the most likely to still matter.
 const EMERGENCY_BOOKMARK_CAP = 300;
+// Notes have a reader-facing retention control (noteRetention), unlike
+// bookmarks, but it might be off or set to a long window — same reasoning
+// as the plan-retention override below: an emergency trim isn't the place
+// to respect a preference that's already proven unaffordable this run.
+const EMERGENCY_NOTE_CAP = 300;
 export function emergencyTrim(settings: AppSettings): AppSettings {
   return {
     ...settings,
     bookmarks: settings.bookmarks.slice(-EMERGENCY_BOOKMARK_CAP),
     readingPlans: pruneOldPlans(settings.readingPlans, { enabled: true, amount: 7, unit: "days" }, Date.now()),
+    notes: [...settings.notes].sort((a, b) => a.updatedAt - b.updatedAt).slice(-EMERGENCY_NOTE_CAP),
   };
 }

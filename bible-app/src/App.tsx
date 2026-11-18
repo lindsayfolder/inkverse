@@ -13,7 +13,7 @@ import { loadChapterCharacters, type CharacterBio } from "./lib/characters";
 import { renderBioHtml, stripBioMarkdown } from "./lib/bioMarkdown";
 import { bookHasMap } from "./lib/maps";
 import { stripHtml, tts } from "./lib/tts";
-import type { Bookmark } from "./lib/db";
+import type { Bookmark, HighlightColor, VerseNote } from "./lib/db";
 import { markDayComplete, startOrRestartPlan } from "./lib/readingPlans";
 import { shareVerse, shareVerses, formatVerseRange } from "./lib/share";
 
@@ -29,12 +29,14 @@ const Drawer = lazy(() => import("./components/Drawer").then((m) => ({ default: 
 const ContentsModal = lazy(() => import("./components/ContentsModal").then((m) => ({ default: m.ContentsModal })));
 const SearchModal = lazy(() => import("./components/SearchModal").then((m) => ({ default: m.SearchModal })));
 const BookmarksModal = lazy(() => import("./components/BookmarksModal").then((m) => ({ default: m.BookmarksModal })));
+const NotesModal = lazy(() => import("./components/NotesModal").then((m) => ({ default: m.NotesModal })));
+const NoteEditorModal = lazy(() => import("./components/NoteEditorModal").then((m) => ({ default: m.NoteEditorModal })));
 const PlansModal = lazy(() => import("./components/PlansModal").then((m) => ({ default: m.PlansModal })));
 const SettingsModal = lazy(() => import("./components/SettingsModal").then((m) => ({ default: m.SettingsModal })));
 const MapModal = lazy(() => import("./components/MapModal").then((m) => ({ default: m.MapModal })));
 const BookIntroModal = lazy(() => import("./components/BookIntroModal").then((m) => ({ default: m.BookIntroModal })));
 
-export type ModalKey = "contents" | "search" | "bookmarks" | "plans" | "settings";
+export type ModalKey = "contents" | "search" | "bookmarks" | "plans" | "notes" | "settings";
 
 // Genealogy-heavy chapters (Genesis 10, 36, 46...) can list dozens of
 // people; showing them all before verse 1 would bury the actual text. Cap
@@ -53,6 +55,11 @@ export default function App() {
   const [modal, setModal] = useState<ModalKey | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   const [introOpen, setIntroOpen] = useState(false);
+  // Which verse (if any) has the highlight/note editor open — a per-verse
+  // contextual editor like map/bookIntro above, not a drawer-navigable
+  // ModalKey screen, since it's always tied to one specific verse number
+  // rather than being a standalone destination.
+  const [noteEditorVerse, setNoteEditorVerse] = useState<number | null>(null);
   // Which of the lazy-loaded drawer/modals have ever been opened — each
   // only mounts (and so only fetches its own chunk) the first time it's
   // actually needed, then stays mounted so closing/reopening it is instant
@@ -67,6 +74,7 @@ export default function App() {
   if (modal) everOpenedRef.current.add(modal);
   if (mapOpen) everOpenedRef.current.add("map");
   if (introOpen) everOpenedRef.current.add("bookIntro");
+  if (noteEditorVerse !== null) everOpenedRef.current.add("noteEditor");
   const everOpened = everOpenedRef.current;
   const [verses, setVerses] = useState<Verse[] | null>(null);
   const [points, setPoints] = useState<Point[] | null>(null);
@@ -495,6 +503,32 @@ export default function App() {
     }
   }
 
+  function getVerseNote(verse: number): VerseNote | undefined {
+    return settings.notes.find((n) => n.bookId === bookId && n.chapter === chapter && n.verse === verse);
+  }
+
+  // Saving with neither a color nor any text removes the record entirely,
+  // same spirit as a bookmark that's been un-bookmarked — there's nothing
+  // left worth keeping a row for.
+  function saveVerseNote(verse: number, color: HighlightColor | undefined, text: string) {
+    const rest = settings.notes.filter((n) => !(n.bookId === bookId && n.chapter === chapter && n.verse === verse));
+    if (!color && !text) {
+      updateSettings({ notes: rest });
+      toast(t.noteDeletedToast);
+    } else {
+      const next: VerseNote = { bookId, chapter, verse, color, text: text || undefined, updatedAt: Date.now() };
+      updateSettings({ notes: [...rest, next] });
+      toast(t.noteSavedToast);
+    }
+    setNoteEditorVerse(null);
+  }
+
+  function deleteVerseNote(verse: number) {
+    updateSettings({ notes: settings.notes.filter((n) => !(n.bookId === bookId && n.chapter === chapter && n.verse === verse)) });
+    toast(t.noteDeletedToast);
+    setNoteEditorVerse(null);
+  }
+
   async function shareVerseText(verse: number) {
     if (sharingVerse !== null) return;
     const v = verses?.find((vv) => vv.n === verse);
@@ -746,7 +780,9 @@ export default function App() {
                   </div>
                 )}
                 <div className="verse-list">
-                  {verses.map((v) => (
+                  {verses.map((v) => {
+                    const note = getVerseNote(v.n);
+                    return (
                     <div
                       className={`verse-row${v.n === pendingVerse || v.n === spokenVerseNum ? " highlighted" : ""}`}
                       data-verse={v.n}
@@ -760,7 +796,16 @@ export default function App() {
                       >
                         {v.n}
                       </button>
-                      <div className="verse-text">{v.t}</div>
+                      <button
+                        type="button"
+                        className="verse-text"
+                        data-mark={note?.color}
+                        aria-label={t.verseNoteLabel}
+                        onClick={() => setNoteEditorVerse(v.n)}
+                      >
+                        {v.t}
+                        {note?.text && <span className="note-indicator" aria-hidden="true" />}
+                      </button>
                       {selectMode ? (
                         <button
                           type="button"
@@ -792,7 +837,8 @@ export default function App() {
                         </button>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <div className="scripture-note">{t.scriptureNote}</div>
               </div>
@@ -996,6 +1042,28 @@ export default function App() {
             onClose={() => setModal(null)}
             onSelect={(bId, c, verse) => goToChapter(bId, c, verse)}
             onRemove={(bm) => updateSettings({ bookmarks: settings.bookmarks.filter((b) => b !== bm) })}
+          />
+        )}
+
+        {everOpened.has("notes") && (
+          <NotesModal
+            open={modal === "notes"}
+            notes={settings.notes}
+            onClose={() => setModal(null)}
+            onSelect={(bId, c, verse) => goToChapter(bId, c, verse)}
+            onRemove={(n) => updateSettings({ notes: settings.notes.filter((x) => x !== n) })}
+          />
+        )}
+
+        {everOpened.has("noteEditor") && (
+          <NoteEditorModal
+            open={noteEditorVerse !== null}
+            reference={noteEditorVerse !== null ? `${book.label[lang]} ${chapter}:${noteEditorVerse}` : ""}
+            verseText={noteEditorVerse !== null ? (verses?.find((v) => v.n === noteEditorVerse)?.t ?? "") : ""}
+            existing={noteEditorVerse !== null ? getVerseNote(noteEditorVerse) : undefined}
+            onSave={(color, text) => noteEditorVerse !== null && saveVerseNote(noteEditorVerse, color, text)}
+            onDelete={() => noteEditorVerse !== null && deleteVerseNote(noteEditorVerse)}
+            onClose={() => setNoteEditorVerse(null)}
           />
         )}
 

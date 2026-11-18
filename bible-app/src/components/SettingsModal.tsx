@@ -50,6 +50,11 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
     setRetentionAmountText(String(settings.planRetention.amount));
   }, [settings.planRetention.amount]);
 
+  const [noteRetentionAmountText, setNoteRetentionAmountText] = useState(String(settings.noteRetention.amount));
+  useEffect(() => {
+    setNoteRetentionAmountText(String(settings.noteRetention.amount));
+  }, [settings.noteRetention.amount]);
+
   return (
     <div className={`modal-screen${open ? " open" : ""}`}>
       <div className="modal-head">
@@ -162,6 +167,47 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
                 className="voice-select retention-unit-select"
                 value={settings.planRetention.unit}
                 onChange={(e) => updateSettings({ planRetention: { ...settings.planRetention, unit: e.target.value as RetentionUnit } })}
+              >
+                <option value="days">{t.planRetentionUnitDays}</option>
+                <option value="months">{t.planRetentionUnitMonths}</option>
+                <option value="years">{t.planRetentionUnitYears}</option>
+              </select>
+            </div>
+          )}
+        </div>
+
+        <div className="settings-section">
+          <div className="settings-label">{t.noteRetentionSectionLabel}</div>
+          <label className="retention-toggle-row">
+            <input
+              type="checkbox"
+              checked={settings.noteRetention.enabled}
+              onChange={(e) => updateSettings({ noteRetention: { ...settings.noteRetention, enabled: e.target.checked } })}
+            />
+            <span>{t.noteRetentionToggleLabel}</span>
+          </label>
+          {settings.noteRetention.enabled && (
+            <div className="retention-detail-row">
+              <span>{t.planRetentionAfterLabel}</span>
+              <input
+                type="number"
+                min={1}
+                className="retention-amount-input"
+                value={noteRetentionAmountText}
+                onChange={(e) => {
+                  const text = e.target.value;
+                  setNoteRetentionAmountText(text);
+                  const n = Number(text);
+                  if (text !== "" && Number.isFinite(n) && n >= 1) {
+                    updateSettings({ noteRetention: { ...settings.noteRetention, amount: Math.floor(n) } });
+                  }
+                }}
+                onBlur={() => setNoteRetentionAmountText(String(settings.noteRetention.amount))}
+              />
+              <select
+                className="voice-select retention-unit-select"
+                value={settings.noteRetention.unit}
+                onChange={(e) => updateSettings({ noteRetention: { ...settings.noteRetention, unit: e.target.value as RetentionUnit } })}
               >
                 <option value="days">{t.planRetentionUnitDays}</option>
                 <option value="months">{t.planRetentionUnitMonths}</option>
