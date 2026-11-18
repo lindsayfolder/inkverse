@@ -16,6 +16,7 @@ import { stripHtml, tts } from "./lib/tts";
 import type { Bookmark, HighlightColor, VerseNote } from "./lib/db";
 import { markDayComplete, startOrRestartPlan } from "./lib/readingPlans";
 import { shareVerse, shareVerses, formatVerseRange } from "./lib/share";
+import { isJesusWords } from "./data/jesusWords";
 
 // Lazy-loaded rather than imported statically: none of these render
 // anything visible until the reader actually opens them (drawer, Contents,
@@ -800,6 +801,7 @@ export default function App() {
                         type="button"
                         className="verse-text"
                         data-mark={note?.color}
+                        data-redletter={settings.redLetterEnabled && isJesusWords(bookId, chapter, v.n) ? "true" : undefined}
                         aria-label={t.verseNoteLabel}
                         onClick={() => setNoteEditorVerse(v.n)}
                       >

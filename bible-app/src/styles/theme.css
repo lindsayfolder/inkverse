@@ -42,6 +42,7 @@
   --mark-green: #b9e0ba;
   --mark-blue: #b7d6ec;
   --mark-pink: #f0c3d8;
+  --red-letter: #a8391a;
 }
 
 :root[data-theme="dark"] {
@@ -63,6 +64,7 @@
   --mark-green: #2c4830;
   --mark-blue: #294157;
   --mark-pink: #5a3245;
+  --red-letter: #e8714a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -85,6 +87,7 @@
     --mark-green: #2c4830;
     --mark-blue: #294157;
     --mark-pink: #5a3245;
+    --red-letter: #e8714a;
   }
 }
 
@@ -244,6 +247,7 @@ button { font-family: inherit; }
 .verse-text[data-mark="green"] { background: var(--mark-green); }
 .verse-text[data-mark="blue"] { background: var(--mark-blue); }
 .verse-text[data-mark="pink"] { background: var(--mark-pink); }
+.verse-text[data-redletter="true"] { color: var(--red-letter); }
 .note-indicator {
   display: inline-block; width: 7px; height: 7px; margin-left: 5px; margin-bottom: 1px; border-radius: 50%;
   background: var(--azure); vertical-align: middle;

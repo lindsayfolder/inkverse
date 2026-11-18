@@ -175,6 +175,10 @@ export interface AppSettings {
   // a separate setting — a reader may want their reading-plan history
   // cleaned up automatically while keeping notes forever, or vice versa.
   noteRetention: PlanRetentionSetting;
+  // Whether Jesus's words render in red (see data/jesusWords.ts) — on by
+  // default like a standard red-letter print edition, with an off switch
+  // in Settings for readers who find it distracting.
+  redLetterEnabled: boolean;
 }
 
 const STORAGE_KEY = "inkverse-settings";
@@ -195,6 +199,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   planRetention: { enabled: false, amount: 90, unit: "days" },
   notes: [],
   noteRetention: { enabled: false, amount: 90, unit: "days" },
+  redLetterEnabled: true,
 };
 
 // localStorage, not IndexedDB: writes are synchronous and commit

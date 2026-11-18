@@ -48,6 +48,8 @@ export interface UiStrings {
   noteDeletedToast: string;
   noteRetentionSectionLabel: string;
   noteRetentionToggleLabel: string;
+  redLetterSectionLabel: string;
+  redLetterToggleLabel: string;
   shareLabel: string;
   shareCopiedToast: string;
   shareFailedToast: string;
@@ -173,6 +175,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteDeletedToast: "Removed",
     noteRetentionSectionLabel: "Highlights & Notes History",
     noteRetentionToggleLabel: "Automatically clean up old notes",
+    redLetterSectionLabel: "Red Letter",
+    redLetterToggleLabel: "Show Jesus's words in red",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -296,6 +300,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteDeletedToast: "Removed",
     noteRetentionSectionLabel: "Highlights & Notes History",
     noteRetentionToggleLabel: "Automatically clean up old notes",
+    redLetterSectionLabel: "Red Letter",
+    redLetterToggleLabel: "Show Jesus's words in red",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -419,6 +425,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteDeletedToast: "已刪除",
     noteRetentionSectionLabel: "標記與筆記紀錄",
     noteRetentionToggleLabel: "自動清除舊的筆記",
+    redLetterSectionLabel: "紅字版",
+    redLetterToggleLabel: "以紅色顯示耶穌的話語",
     shareLabel: "分享這節經文",
     shareCopiedToast: "已複製到剪貼簿",
     shareFailedToast: "分享失敗，請重試",
@@ -542,6 +550,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteDeletedToast: "已删除",
     noteRetentionSectionLabel: "标记与笔记记录",
     noteRetentionToggleLabel: "自动清除旧的笔记",
+    redLetterSectionLabel: "红字版",
+    redLetterToggleLabel: "以红色显示耶稣的话语",
     shareLabel: "分享这节经文",
     shareCopiedToast: "已复制到剪贴板",
     shareFailedToast: "分享失败，请重试",

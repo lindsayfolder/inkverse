@@ -177,6 +177,18 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <div className="settings-section">
+          <div className="settings-label">{t.redLetterSectionLabel}</div>
+          <label className="retention-toggle-row">
+            <input
+              type="checkbox"
+              checked={settings.redLetterEnabled}
+              onChange={(e) => updateSettings({ redLetterEnabled: e.target.checked })}
+            />
+            <span>{t.redLetterToggleLabel}</span>
+          </label>
+        </div>
+
+        <div className="settings-section">
           <div className="settings-label">{t.noteRetentionSectionLabel}</div>
           <label className="retention-toggle-row">
             <input
