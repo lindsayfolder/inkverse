@@ -11,6 +11,8 @@ export interface UiStrings {
   chapterEyebrow: string;
   tabScripture: string;
   tabInsights: string;
+  tabDevotional: string;
+  devotionalEmptyLabel: string;
   sectionLeft: string;
   sectionRight: string;
   aiTag: string;
@@ -138,6 +140,8 @@ export const UI: Record<LangKey, UiStrings> = {
     chapterEyebrow: "{book} · Chapter {c}",
     tabScripture: "Scripture",
     tabInsights: "Insights",
+    tabDevotional: "Devotional",
+    devotionalEmptyLabel: "A devotional for this chapter is coming soon.",
     sectionLeft: "3 Main Points",
     sectionRight: "AI-drawn",
     aiTag: "AI deep dive",
@@ -263,6 +267,8 @@ export const UI: Record<LangKey, UiStrings> = {
     chapterEyebrow: "{book} · Chapter {c}",
     tabScripture: "Scripture",
     tabInsights: "Insights",
+    tabDevotional: "Devotional",
+    devotionalEmptyLabel: "A devotional for this chapter is coming soon.",
     sectionLeft: "3 Main Points",
     sectionRight: "AI-drawn",
     aiTag: "AI deep dive",
@@ -388,6 +394,8 @@ export const UI: Record<LangKey, UiStrings> = {
     chapterEyebrow: "{book} · 第 {c} 章",
     tabScripture: "經文",
     tabInsights: "洞見",
+    tabDevotional: "靈修",
+    devotionalEmptyLabel: "本章的靈修內容即將推出。",
     sectionLeft: "三個要點",
     sectionRight: "AI 生成",
     aiTag: "AI 深度解析",
@@ -513,6 +521,8 @@ export const UI: Record<LangKey, UiStrings> = {
     chapterEyebrow: "{book} · 第 {c} 章",
     tabScripture: "经文",
     tabInsights: "洞见",
+    tabDevotional: "灵修",
+    devotionalEmptyLabel: "本章的灵修内容即将推出。",
     sectionLeft: "三个要点",
     sectionRight: "AI 生成",
     aiTag: "AI 深度解析",

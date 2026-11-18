@@ -3,12 +3,14 @@ import { useApp } from "./context/AppContext";
 import { UI, LANGUAGES, fmt, type LangKey } from "./data/languages";
 import { GENESIS_1, type Verse, type Point } from "./data/genesis1";
 import type { ChapterExplain } from "./data/explain";
+import type { ChapterDevotional } from "./data/devotional";
 import { BOOKS } from "./data/books";
 import { ChapterPlayerButton, type ChapterPlayerState } from "./components/ChapterPlayerButton";
 import { Toast } from "./components/Toast";
 import { loadChapterVerses } from "./lib/scripture";
 import { loadChapterPoints } from "./lib/insights";
 import { loadChapterExplain } from "./lib/explain";
+import { loadChapterDevotional } from "./lib/devotional";
 import { loadChapterCharacters, type CharacterBio } from "./lib/characters";
 import { renderBioHtml, stripBioMarkdown } from "./lib/bioMarkdown";
 import { bookHasMap } from "./lib/maps";
@@ -50,7 +52,7 @@ export default function App() {
 
   const [bookId, setBookId] = useState("gen");
   const [chapter, setChapter] = useState(1);
-  const [tab, setTab] = useState<"scripture" | "insights">("scripture");
+  const [tab, setTab] = useState<"scripture" | "insights" | "devotional">("scripture");
   const [openPointIndex, setOpenPointIndex] = useState<number | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [modal, setModal] = useState<ModalKey | null>(null);
@@ -80,6 +82,7 @@ export default function App() {
   const [verses, setVerses] = useState<Verse[] | null>(null);
   const [points, setPoints] = useState<Point[] | null>(null);
   const [explain, setExplain] = useState<ChapterExplain | null>(null);
+  const [devotional, setDevotional] = useState<ChapterDevotional | null>(null);
   const [chapterCharacters, setChapterCharacters] = useState<CharacterBio[]>([]);
   const [openCharacterId, setOpenCharacterId] = useState<string | null>(null);
   const [peopleExpanded, setPeopleExpanded] = useState(false);
@@ -406,6 +409,24 @@ export default function App() {
     };
   }, [bookId, chapter, lang, verses]);
 
+  // Devotional tab (lib/devotional.ts): a short, gently-toned reflection on
+  // the chapter, separate from Insights' study notes and Explain's
+  // summary/application — see its own tab rather than Insights' merged
+  // list, since it's meant to be read slowly on its own rather than
+  // scanned alongside study notes. Only a small sample is generated so
+  // far; most chapters resolve to null and the tab shows a "coming soon"
+  // state instead of a permanent loading spinner.
+  useEffect(() => {
+    if (!verses) return;
+    let cancelled = false;
+    loadChapterDevotional(bookId, chapter, lang).then((d) => {
+      if (!cancelled) setDevotional(d);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bookId, chapter, lang, verses]);
+
   // Character bios (lib/characters.ts): which named figures the appearance
   // manifest lists for this chapter, driving the "People in this chapter"
   // chip row below. Not every book has a manifest yet, so this quietly
@@ -455,7 +476,7 @@ export default function App() {
     setOpenPointIndex(null);
     setOpenCharacterId(null);
   }
-  function switchTab(next: "scripture" | "insights") {
+  function switchTab(next: "scripture" | "insights" | "devotional") {
     tts.stop();
     resetPlayers();
     setTab(next);
@@ -650,6 +671,8 @@ export default function App() {
     ? { id: "character", text: stripBioMarkdown(character.bio) }
     : tab === "insights" && explain
     ? { id: "explain", text: [explain.summary, ...explain.keyPoints, explain.application] }
+    : tab === "devotional" && devotional
+    ? { id: "devotional", text: [devotional.title, ...devotional.body] }
     : null;
 
   function togglePagePlayer() {
@@ -754,6 +777,9 @@ export default function App() {
             <button type="button" className={`tab-btn${tab === "insights" ? " active" : ""}`} onClick={() => switchTab("insights")}>
               {t.tabInsights}
             </button>
+            <button type="button" className={`tab-btn${tab === "devotional" ? " active" : ""}`} onClick={() => switchTab("devotional")}>
+              {t.tabDevotional}
+            </button>
           </div>
 
           {tab === "scripture" ? (
@@ -847,6 +873,21 @@ export default function App() {
             ) : (
               <div className="empty-note">{t.loadingLabel}</div>
             )
+          ) : tab === "devotional" ? (
+            <div>
+              {devotional ? (
+                <div className="devotional-block">
+                  <h3 className="devotional-title">{devotional.title}</h3>
+                  {devotional.body.map((p, i) => (
+                    <p key={i} className="devotional-para">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-note">{t.devotionalEmptyLabel}</div>
+              )}
+            </div>
           ) : (
             <div>
               <div className="section-label">
