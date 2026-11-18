@@ -217,6 +217,19 @@ export default defineConfig({
             },
           },
           {
+            // Devotional tab (lib/devotional.ts) — only Genesis is populated
+            // so far (see scripts/.devo-batch for the generation batches),
+            // more books to follow. maxEntries sized for the eventual full
+            // 66 books x 3 languages, same headroom pattern as bible-explain.
+            urlPattern: /\/devotional\/.*\.json$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "bible-devotional-v1",
+              expiration: { maxEntries: 260, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             // Character bios + per-book appearance manifests
             // (lib/characters.ts), now covering every named individual in
             // every book of the Bible — included in the bulk offline
