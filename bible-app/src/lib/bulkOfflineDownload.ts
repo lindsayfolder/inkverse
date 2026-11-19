@@ -12,6 +12,7 @@ const INSIGHT_LANGS = ["en", "zh-hant", "zh-hans"] as const;
 const EXPLAIN_LANGS = ["en", "zh-hant", "zh-hans"] as const;
 const CHARACTER_LANGS = ["en", "zh-hant", "zh-hans"] as const;
 const INTRO_LANGS = ["en", "zh-hant", "zh-hans"] as const;
+const DEVOTIONAL_LANGS = ["en", "zh-hant", "zh-hans"] as const;
 
 interface AppearanceFile {
   chapters: Record<string, string[]>;
@@ -41,6 +42,9 @@ function buildFixedManifest(base: string): Task[] {
     for (const l of EXPLAIN_LANGS) {
       tasks.push({ url: `${base}explain/${l}/${book.id}.json`, cacheName: "bible-explain-v4" });
     }
+    for (const l of DEVOTIONAL_LANGS) {
+      tasks.push({ url: `${base}devotional/${l}/${book.id}.json`, cacheName: "bible-devotional-v1" });
+    }
     tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v7" });
     if (BOOKS_WITH_MAPS.has(book.id)) {
       tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v4" });
@@ -62,7 +66,7 @@ function buildFixedManifest(base: string): Task[] {
 const BIBLE_TEXT_FILE_COUNT = BOOKS.reduce((sum, book) => sum + splitFileStems(book.id).length, 0);
 export const TOTAL_CONTENT_FILES =
   BIBLE_TEXT_FILE_COUNT * BIBLE_VERSIONS.length +
-  BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + 1) +
+  BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + DEVOTIONAL_LANGS.length + 1) +
   BOOKS_WITH_MAPS.size * 2 +
   INTRO_LANGS.length;
 
@@ -246,6 +250,7 @@ async function countCachedEntries(): Promise<number> {
     "bible-text-v9",
     "bible-insights-v5",
     "bible-explain-v4",
+    "bible-devotional-v1",
     "bible-characters-v7",
     "bible-book-intro-v2",
     "bible-maps-v4",

@@ -217,10 +217,10 @@ export default defineConfig({
             },
           },
           {
-            // Devotional tab (lib/devotional.ts) — only Genesis is populated
-            // so far (see scripts/.devo-batch for the generation batches),
-            // more books to follow. maxEntries sized for the eventual full
-            // 66 books x 3 languages, same headroom pattern as bible-explain.
+            // Devotional tab (lib/devotional.ts) — all 66 books populated
+            // in all 3 languages. maxEntries sized with headroom above the
+            // full 66 books x 3 languages = 198 files, same pattern as
+            // bible-explain.
             urlPattern: /\/devotional\/.*\.json$/,
             handler: "CacheFirst",
             options: {
