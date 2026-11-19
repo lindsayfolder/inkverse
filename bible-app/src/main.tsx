@@ -6,7 +6,9 @@ import { AppProvider } from "./context/AppContext";
 import { registerUpdateHooks, setUpdateAvailable } from "./lib/appUpdate";
 import { cleanupLegacyCaches, requestPersistentStorage } from "./lib/offlineStatus";
 import { initViewportHeight } from "./lib/viewportHeight";
+import { markTiming } from "./lib/debugTiming";
 
+markTiming("scriptStart");
 cleanupLegacyCaches();
 requestPersistentStorage();
 initViewportHeight();
