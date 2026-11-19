@@ -77,3 +77,23 @@ export async function cleanupLegacyCaches(): Promise<void> {
     }
   }
 }
+
+// Chrome treats an installed (home-screen) PWA's origin as implicitly
+// persistent, but iOS Safari does not -- it keeps Cache Storage for a
+// standalone web app "best-effort" by default, evictable under storage
+// pressure the same as any other site's data. For a reader whose whole
+// point is to have the Bible available offline, losing that cache between
+// launches means every cold open on iOS has to re-fetch content from
+// scratch over whatever connection is available, which is especially
+// painful on cellular. Requesting persistence is the standard way to ask
+// the browser not to do that; it's a best-effort request (the browser can
+// still say no, and older/non-standard WebKit versions may not implement
+// it at all), so this is a strict improvement with no downside, never a
+// guarantee.
+export async function requestPersistentStorage(): Promise<void> {
+  try {
+    await navigator.storage?.persist?.();
+  } catch {
+    // Not supported or refused -- fine, this is best-effort.
+  }
+}

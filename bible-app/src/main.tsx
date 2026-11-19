@@ -4,10 +4,11 @@ import "./styles/theme.css";
 import App from "./App.tsx";
 import { AppProvider } from "./context/AppContext";
 import { registerUpdateHooks, setUpdateAvailable } from "./lib/appUpdate";
-import { cleanupLegacyCaches } from "./lib/offlineStatus";
+import { cleanupLegacyCaches, requestPersistentStorage } from "./lib/offlineStatus";
 import { initViewportHeight } from "./lib/viewportHeight";
 
 cleanupLegacyCaches();
+requestPersistentStorage();
 initViewportHeight();
 
 createRoot(document.getElementById("root")!).render(
