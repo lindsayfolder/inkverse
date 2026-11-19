@@ -11,9 +11,52 @@
     <meta name="apple-mobile-web-app-title" content="Inkverse" />
     <meta name="description" content="A comic-styled, AI-assisted Bible reader — scripture, 5 AI-drawn points per chapter, and deep dives, in English and Chinese." />
     <title>Inkverse</title>
+    <style>
+      /* Shown instantly from the raw HTML response itself, before the JS
+         bundle has even downloaded, let alone parsed and executed --
+         covering the one stretch of a cold open that App.tsx's own
+         "Loading..." state can't reach, since nothing in src/ has run
+         yet. React's root.render() call replaces #root's whole subtree
+         on its first commit, so this disappears on its own the instant
+         the app actually mounts -- no JS of its own needed to remove it.
+         Colors match theme.css's light-mode defaults (--paper/--ink/
+         --gold) with a prefers-color-scheme fallback for dark mode,
+         duplicated rather than shared since this has to render before
+         any stylesheet does. */
+      #app-splash {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: #e8dcc3;
+        color: #1c1a17;
+      }
+      #app-splash svg { animation: app-splash-pulse 1.6s ease-in-out infinite; }
+      #app-splash span { font-size: 15px; letter-spacing: 0.02em; opacity: 0.75; }
+      @keyframes app-splash-pulse {
+        0%, 100% { opacity: 0.55; }
+        50% { opacity: 1; }
+      }
+      @media (prefers-color-scheme: dark) {
+        #app-splash { background: #1b1a22; color: #f3ede0; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="app-splash">
+        <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="#c97a12" stroke="currentColor" stroke-width="2.5" />
+          <path d="M11 14c3-2 6-2 9 0v13c-3-2-6-2-9 0V14z" fill="#f2e7d3" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+          <path d="M29 14c-3-2-6-2-9 0v13c3-2 6-2 9 0V14z" fill="#f2e7d3" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+          <path d="M20 14v13" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+        <span>Inkverse</span>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
