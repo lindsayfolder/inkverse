@@ -20,6 +20,7 @@ const CONTENT_CACHE_NAMES = [
   "bible-characters-v7",
   "bible-book-intro-v2",
   "bible-maps-v4",
+  "bible-search-index-v8",
 ];
 
 export async function getCachedEntryCount(): Promise<number> {

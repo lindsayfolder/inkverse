@@ -58,6 +58,15 @@ export function SearchModal({
   const recent = settings.recentSearches[activeLang] ?? RECENT_SEEDS[activeLang];
   const [hits, setHits] = useState<SearchHit[] | null>(null);
   const [loading, setLoading] = useState(false);
+  // Distinct from "ran the search and found zero hits": the search index
+  // itself only ever gets cached the first time Search is opened while
+  // online (see bulkOfflineDownload.ts's comment on why it's included
+  // there too) or after that first time. A reader offline before either of
+  // those has nothing to search against, and searchScripture's fetch
+  // rejects -- without this, that looked identical to "no matches found,"
+  // which reads as "your search term isn't in the Bible" rather than the
+  // true "this device hasn't got Search's data yet."
+  const [indexFailed, setIndexFailed] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   function recordSearch(l: LangKey, q: string) {
@@ -103,6 +112,7 @@ export function SearchModal({
     }
     let cancelled = false;
     setLoading(true);
+    setIndexFailed(false);
     searchScripture(q, activeLangs, bookIds)
       .then((results) => {
         if (!cancelled) {
@@ -113,6 +123,7 @@ export function SearchModal({
       .catch(() => {
         if (!cancelled) {
           setHits([]);
+          setIndexFailed(true);
           setLoading(false);
         }
       });
@@ -199,7 +210,7 @@ export function SearchModal({
               })}
             </div>
           ) : (
-            <div className="empty-note">{searchT.noResults}</div>
+            <div className="empty-note">{indexFailed ? searchT.searchUnavailableOffline : searchT.noResults}</div>
           )
         ) : (
           <div>

@@ -54,6 +54,16 @@ function buildFixedManifest(base: string): Task[] {
   for (const l of INTRO_LANGS) {
     tasks.push({ url: `${base}bookintro/${l}.json`, cacheName: "bible-book-intro-v2" });
   }
+  // One whole-Bible search index per version (lib/search.ts) -- without
+  // this, Search only ever gets cached the first time a reader opens it
+  // while online; a reader who goes offline before ever using Search once
+  // finds it silently broken (loadSearchIndex's fetch fails, and the
+  // caller treats that identically to "no matches found" -- see
+  // SearchModal.tsx). Same cache name search's own runtime-caching rule
+  // reads from (see vite.config.ts), same as every other track here.
+  for (const v of BIBLE_VERSIONS) {
+    tasks.push({ url: `${base}search-index/${v}.json`, cacheName: "bible-search-index-v8" });
+  }
   return tasks;
 }
 
@@ -68,7 +78,8 @@ export const TOTAL_CONTENT_FILES =
   BIBLE_TEXT_FILE_COUNT * BIBLE_VERSIONS.length +
   BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + DEVOTIONAL_LANGS.length + 1) +
   BOOKS_WITH_MAPS.size * 2 +
-  INTRO_LANGS.length;
+  INTRO_LANGS.length +
+  BIBLE_VERSIONS.length;
 
 const CONCURRENCY = 6;
 const MAX_ATTEMPTS_PER_URL = 4;
@@ -254,6 +265,7 @@ async function countCachedEntries(): Promise<number> {
     "bible-characters-v7",
     "bible-book-intro-v2",
     "bible-maps-v4",
+    "bible-search-index-v8",
   ]) {
     try {
       const cache = await caches.open(name);

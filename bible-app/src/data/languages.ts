@@ -89,6 +89,7 @@ export interface UiStrings {
   scopeNT: string;
   recentLabel: string;
   noResults: string;
+  searchUnavailableOffline: string;
   fontSizeLabel: string;
   themeLabel: string;
   themeLight: string;
@@ -218,6 +219,7 @@ export const UI: Record<LangKey, UiStrings> = {
     scopeNT: "NT",
     recentLabel: "Recent",
     noResults: "No matches found.",
+    searchUnavailableOffline: "Search isn't available offline yet — connect to the internet once to download it.",
     fontSizeLabel: "Text size",
     themeLabel: "Appearance",
     themeLight: "Light",
@@ -345,6 +347,7 @@ export const UI: Record<LangKey, UiStrings> = {
     scopeNT: "NT",
     recentLabel: "Recent",
     noResults: "No matches found.",
+    searchUnavailableOffline: "Search isn't available offline yet — connect to the internet once to download it.",
     fontSizeLabel: "Text size",
     themeLabel: "Appearance",
     themeLight: "Light",
@@ -472,6 +475,7 @@ export const UI: Record<LangKey, UiStrings> = {
     scopeNT: "新約",
     recentLabel: "最近搜尋",
     noResults: "沒有找到相符的結果。",
+    searchUnavailableOffline: "搜尋功能尚未離線可用——請先連上網路一次，以下載搜尋資料。",
     fontSizeLabel: "文字大小",
     themeLabel: "外觀",
     themeLight: "淺色",
@@ -599,6 +603,7 @@ export const UI: Record<LangKey, UiStrings> = {
     scopeNT: "新约",
     recentLabel: "最近搜索",
     noResults: "没有找到相符的结果。",
+    searchUnavailableOffline: "搜索功能尚未离线可用——请先连上网络一次，以下载搜索数据。",
     fontSizeLabel: "文字大小",
     themeLabel: "外观",
     themeLight: "浅色",
