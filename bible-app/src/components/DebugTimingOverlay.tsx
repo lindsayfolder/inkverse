@@ -30,13 +30,22 @@ export default function DebugTimingOverlay() {
         top: 0,
         left: 0,
         right: 0,
+        maxHeight: "80vh",
+        overflowY: "auto",
         zIndex: 9999,
         background: "rgba(10, 14, 10, 0.92)",
         color: "#4ee44e",
         fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
         fontSize: 11,
         lineHeight: 1.55,
-        padding: "10px 46px 10px 12px",
+        // Every screenshot so far has had its top lines obscured by the
+        // iPhone status bar sitting on top of this fixed-position overlay
+        // (the app's apple-mobile-web-app-status-bar-style is
+        // black-translucent, so page content renders underneath it, not
+        // below it) -- padding-top below the safe area pushes all the
+        // actual text clear of that, instead of just the title getting
+        // lost under the clock/battery icons.
+        padding: `max(40px, env(safe-area-inset-top)) 46px 10px 12px`,
       }}
     >
       <div style={{ fontWeight: 700, marginBottom: 2 }}>DEBUG load timing</div>
@@ -49,7 +58,7 @@ export default function DebugTimingOverlay() {
         onClick={() => setDismissed(true)}
         style={{
           position: "absolute",
-          top: 10,
+          top: "max(40px, env(safe-area-inset-top))",
           right: 10,
           width: 26,
           height: 26,
