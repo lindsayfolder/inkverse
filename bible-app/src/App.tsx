@@ -7,7 +7,6 @@ import type { ChapterDevotional } from "./data/devotional";
 import { BOOKS } from "./data/books";
 import { ChapterPlayerButton, type ChapterPlayerState } from "./components/ChapterPlayerButton";
 import { Toast } from "./components/Toast";
-import DebugTimingOverlay from "./components/DebugTimingOverlay";
 import { loadChapterVerses } from "./lib/scripture";
 import { loadChapterPoints } from "./lib/insights";
 import { loadChapterExplain } from "./lib/explain";
@@ -19,7 +18,6 @@ import { stripHtml, tts } from "./lib/tts";
 import type { Bookmark, HighlightColor, VerseNote } from "./lib/db";
 import { markDayComplete, startOrRestartPlan } from "./lib/readingPlans";
 import { shareVerse, shareVerses, formatVerseRange } from "./lib/share";
-import { markTiming } from "./lib/debugTiming";
 import { isJesusWords } from "./data/jesusWords";
 
 // Lazy-loaded rather than imported statically: none of these render
@@ -270,7 +268,6 @@ export default function App() {
         if (!cancelled) {
           setVerses(v);
           versesKeyRef.current = `${bookId}/${chapter}`;
-          markTiming("firstVersesLoaded");
         }
       })
       .catch(() => {
@@ -700,7 +697,6 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <DebugTimingOverlay />
       <div className="appbar">
         <button className="menu-btn" type="button" aria-label="Open menu" onClick={() => setDrawerOpen(true)}>
           <span />

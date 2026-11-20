@@ -5,7 +5,6 @@ import { DEFAULT_SETTINGS, emergencyTrim, loadSettings, pruneOldNotes, pruneOldP
 import { isReadyCount } from "../lib/offlineStatus";
 import { runBulkDownload, TOTAL_CONTENT_FILES } from "../lib/bulkOfflineDownload";
 import { applyUpdate, checkForUpdate, getUpdateState, subscribeUpdateState } from "../lib/appUpdate";
-import { markTiming } from "../lib/debugTiming";
 
 interface AppContextValue {
   lang: LangKey;
@@ -88,7 +87,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSettings(cleaned);
       setLangState(cleaned.lastLang);
       setReady(true);
-      markTiming("settingsReady");
     });
   }, []);
 
