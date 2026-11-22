@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../context/AppContext";
 import { UI } from "../data/languages";
-import { loadBookMap, loadBookMapZh } from "../lib/maps";
+import { loadBookMap, loadBookMapZh, bookHasTempleDiagram, getTempleDiagramUrl, getTempleDiagramUrlZh } from "../lib/maps";
 
 export function MapModal({ open, bookId, bookLabel, onClose }: { open: boolean; bookId: string; bookLabel: string; onClose: () => void }) {
   const { lang } = useApp();
@@ -46,6 +46,13 @@ export function MapModal({ open, bookId, bookLabel, onClose }: { open: boolean; 
           <>
             <div className="map-section-label">{t.mapChineseSection}</div>
             <div className="maparea" dangerouslySetInnerHTML={{ __html: svgZh }} />
+          </>
+        )}
+        {bookHasTempleDiagram(bookId) && (
+          <>
+            <div className="map-section-label">{t.mapTempleSection}</div>
+            <img className="maparea" src={getTempleDiagramUrl(bookId) ?? undefined} alt="" />
+            <img className="maparea" src={getTempleDiagramUrlZh(bookId) ?? undefined} alt="" />
           </>
         )}
       </div>

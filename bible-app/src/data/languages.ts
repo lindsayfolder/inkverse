@@ -107,6 +107,7 @@ export interface UiStrings {
   mapLabel: string;
   mapEnglishSection: string;
   mapChineseSection: string;
+  mapTempleSection: string;
   offlineStatusLabel: string;
   offlinePreparingTpl: string;
   offlineReadyLabel: string;
@@ -237,6 +238,7 @@ export const UI: Record<LangKey, UiStrings> = {
     mapLabel: "Map",
     mapEnglishSection: "English",
     mapChineseSection: "Chinese (Traditional / Simplified)",
+    mapTempleSection: "Temple of the LORD — Diagram",
     offlineStatusLabel: "Offline copy",
     offlinePreparingTpl: "Downloading… {n} / {total} — keep this open on wifi",
     offlineReadyLabel: "Ready — works with no connection",
@@ -365,6 +367,7 @@ export const UI: Record<LangKey, UiStrings> = {
     mapLabel: "Map",
     mapEnglishSection: "English",
     mapChineseSection: "Chinese (Traditional / Simplified)",
+    mapTempleSection: "Temple of the LORD — Diagram",
     offlineStatusLabel: "Offline copy",
     offlinePreparingTpl: "Downloading… {n} / {total} — keep this open on wifi",
     offlineReadyLabel: "Ready — works with no connection",
@@ -493,6 +496,7 @@ export const UI: Record<LangKey, UiStrings> = {
     mapLabel: "地圖",
     mapEnglishSection: "英文",
     mapChineseSection: "中文（繁體／簡體）",
+    mapTempleSection: "耶和華的殿 — 圖解",
     offlineStatusLabel: "離線副本",
     offlinePreparingTpl: "下載中…… {n} / {total}——請保持開啟並連線 Wi-Fi",
     offlineReadyLabel: "已就緒——無需連線即可使用",
@@ -621,6 +625,7 @@ export const UI: Record<LangKey, UiStrings> = {
     mapLabel: "地图",
     mapEnglishSection: "英文",
     mapChineseSection: "中文（繁体／简体）",
+    mapTempleSection: "耶和华的殿 — 图解",
     offlineStatusLabel: "离线副本",
     offlinePreparingTpl: "下载中…… {n} / {total}——请保持开启并连接 Wi-Fi",
     offlineReadyLabel: "已就绪——无需联网即可使用",

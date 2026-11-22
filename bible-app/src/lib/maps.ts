@@ -49,3 +49,24 @@ export async function loadBookMapZh(bookId: string): Promise<string | null> {
     return null;
   }
 }
+
+// A one-off supplementary illustration (not a map) shown under 1 Kings'
+// map: a diagram of the temple from 1 Kings 6-7, with English and Chinese
+// label versions as separate image files, same naming convention as the
+// maps above. Unlike loadMapFile, these are plain images (not SVG markup
+// to inline), so callers just need the URL for an <img src>.
+export const BOOKS_WITH_TEMPLE_DIAGRAM = new Set(["1ki"]);
+
+export function bookHasTempleDiagram(bookId: string): boolean {
+  return BOOKS_WITH_TEMPLE_DIAGRAM.has(bookId);
+}
+
+export function getTempleDiagramUrl(bookId: string): string | null {
+  if (!bookHasTempleDiagram(bookId)) return null;
+  return `${import.meta.env.BASE_URL}maps/${bookId}-temple.jpg`;
+}
+
+export function getTempleDiagramUrlZh(bookId: string): string | null {
+  if (!bookHasTempleDiagram(bookId)) return null;
+  return `${import.meta.env.BASE_URL}maps/${bookId}-temple-zh.jpg`;
+}

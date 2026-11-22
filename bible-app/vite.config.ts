@@ -135,7 +135,11 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /\/maps\/.*\.svg$/,
+            // Widened to also match 1 Kings' temple-diagram JPEGs
+            // (lib/maps.ts's getTempleDiagramUrl/Zh) -- same bucket, same
+            // per-book illustration pattern as the SVG maps, just a
+            // different file extension for a photographic image.
+            urlPattern: /\/maps\/.*\.(svg|jpg)$/,
             handler: "CacheFirst",
             options: {
               // Bumped to v2: the 1 Kings map's artwork changed (Tyre and
@@ -150,10 +154,9 @@ export default defineConfig({
               // label used 义大利 instead of the real Mainland standard
               // 意大利 -- see scripts/fix-italy-spelling.py.
               cacheName: "bible-maps-v4",
-              // 21 mapped books x 2 files (en + zh) = 42 — maxEntries was
-              // 30, under the real count, so the bulk downloader's own
-              // storage was silently evicting earlier maps as later ones
-              // were cached. Bumped with headroom for more mapped books.
+              // 21 mapped books x 2 files (en + zh) = 42, plus 1 Kings'
+              // extra temple-diagram pair = 44 — maxEntries was 60 already,
+              // still has headroom.
               expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },

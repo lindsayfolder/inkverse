@@ -1,5 +1,5 @@
 import { BOOKS } from "../data/books";
-import { BOOKS_WITH_MAPS } from "./maps";
+import { BOOKS_WITH_MAPS, BOOKS_WITH_TEMPLE_DIAGRAM } from "./maps";
 import { splitFileStems } from "./bookSplits";
 
 interface Task {
@@ -50,6 +50,10 @@ function buildFixedManifest(base: string): Task[] {
       tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v4" });
       tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v4" });
     }
+    if (BOOKS_WITH_TEMPLE_DIAGRAM.has(book.id)) {
+      tasks.push({ url: `${base}maps/${book.id}-temple.jpg`, cacheName: "bible-maps-v4" });
+      tasks.push({ url: `${base}maps/${book.id}-temple-zh.jpg`, cacheName: "bible-maps-v4" });
+    }
   }
   for (const l of INTRO_LANGS) {
     tasks.push({ url: `${base}bookintro/${l}.json`, cacheName: "bible-book-intro-v2" });
@@ -78,6 +82,7 @@ export const TOTAL_CONTENT_FILES =
   BIBLE_TEXT_FILE_COUNT * BIBLE_VERSIONS.length +
   BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + DEVOTIONAL_LANGS.length + 1) +
   BOOKS_WITH_MAPS.size * 2 +
+  BOOKS_WITH_TEMPLE_DIAGRAM.size * 2 +
   INTRO_LANGS.length +
   BIBLE_VERSIONS.length;
 
