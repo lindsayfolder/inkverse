@@ -131,6 +131,11 @@ button { font-family: inherit; }
   flex-direction: column;
 }
 
+/* Fixed to the same #c97a12 set as the PWA's theme-color (index.html /
+   vite.config.ts manifest), not var(--gold) -- that meta tag isn't updated
+   for dark mode, so this shouldn't drift from it into the dark variant. */
+.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #c97a12; z-index: 100; pointer-events: none; }
+
 .appbar {
   flex: none;
   display: flex;

@@ -697,6 +697,12 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      {/* iOS's status-bar-style is black-translucent (see index.html), which lets
+          the page render under the notch instead of the OS drawing a status bar --
+          Safari has no theme-color support to tint it, so without this it just
+          shows whatever's behind it. Paints that one strip the app's own orange,
+          to roughly match what Android Chrome already does with theme-color. */}
+      <div className="status-bar-fill" aria-hidden="true" />
       <div className="appbar">
         <button className="menu-btn" type="button" aria-label="Open menu" onClick={() => setDrawerOpen(true)}>
           <span />
