@@ -51,8 +51,8 @@ export function MapModal({ open, bookId, bookLabel, onClose }: { open: boolean; 
         {bookHasTempleDiagram(bookId) && (
           <>
             <div className="map-section-label">{t.mapTempleSection}</div>
-            <img className="maparea" src={getTempleDiagramUrl(bookId) ?? undefined} alt="" />
-            <img className="maparea" src={getTempleDiagramUrlZh(bookId) ?? undefined} alt="" />
+            <img className="maparea" src={getTempleDiagramUrl(bookId) ?? undefined} alt={t.mapTempleAlt} />
+            <img className="maparea" src={getTempleDiagramUrlZh(bookId) ?? undefined} alt={t.mapTempleAltZhSame} />
           </>
         )}
       </div>

@@ -119,6 +119,8 @@ export interface UiStrings {
   mapEnglishSection: string;
   mapChineseSection: string;
   mapTempleSection: string;
+  mapTempleAlt: string;
+  mapTempleAltZhSame: string;
   offlineStatusLabel: string;
   offlinePreparingTpl: string;
   offlineReadyLabel: string;
@@ -261,6 +263,8 @@ export const UI: Record<LangKey, UiStrings> = {
     mapEnglishSection: "English",
     mapChineseSection: "Chinese (Traditional / Simplified)",
     mapTempleSection: "Temple of the LORD — Diagram",
+    mapTempleAlt: "Diagram of the Temple of the LORD: exterior view 60 cubits long, 20 cubits wide, and 30 cubits high (about 90 by 30 by 45 feet); floor plan showing the 20-by-10-cubit porch, the 40-by-20-cubit Holy Place, and the 20-by-20-cubit Most Holy Place, for a total length of 70 cubits; a cross-section showing the veil between the Holy Place and Most Holy Place, with 10-cubit cherubim; and the temple courtyard with the bronze altar (about 15 feet high) and the bronze sea (about 5 feet high and 10 feet across).",
+    mapTempleAltZhSame: "The same temple diagram, with its labels in Chinese instead of English.",
     offlineStatusLabel: "Offline copy",
     offlinePreparingTpl: "Downloading… {n} / {total} — keep this open on wifi",
     offlineReadyLabel: "Ready — works with no connection",
@@ -401,6 +405,8 @@ export const UI: Record<LangKey, UiStrings> = {
     mapEnglishSection: "English",
     mapChineseSection: "Chinese (Traditional / Simplified)",
     mapTempleSection: "Temple of the LORD — Diagram",
+    mapTempleAlt: "Diagram of the Temple of the LORD: exterior view 60 cubits long, 20 cubits wide, and 30 cubits high (about 90 by 30 by 45 feet); floor plan showing the 20-by-10-cubit porch, the 40-by-20-cubit Holy Place, and the 20-by-20-cubit Most Holy Place, for a total length of 70 cubits; a cross-section showing the veil between the Holy Place and Most Holy Place, with 10-cubit cherubim; and the temple courtyard with the bronze altar (about 15 feet high) and the bronze sea (about 5 feet high and 10 feet across).",
+    mapTempleAltZhSame: "The same temple diagram, with its labels in Chinese instead of English.",
     offlineStatusLabel: "Offline copy",
     offlinePreparingTpl: "Downloading… {n} / {total} — keep this open on wifi",
     offlineReadyLabel: "Ready — works with no connection",
@@ -541,6 +547,8 @@ export const UI: Record<LangKey, UiStrings> = {
     mapEnglishSection: "英文",
     mapChineseSection: "中文（繁體／簡體）",
     mapTempleSection: "耶和華的殿 — 圖解",
+    mapTempleAlt: "耶和華的殿圖解：外觀長60肘、寬20肘、高30肘（約90×30×45英尺）；平面圖顯示門廊20×10肘、聖所40×20肘、至聖所20×20肘，全長70肘；剖面圖顯示聖所與至聖所之間的幔子，以及高10肘的基路伯；院子中有銅祭壇（高約15英尺）與銅海（高約5英尺，直徑10英尺）。",
+    mapTempleAltZhSame: "同一份聖殿圖解，標示改為中文。",
     offlineStatusLabel: "離線副本",
     offlinePreparingTpl: "下載中…… {n} / {total}——請保持開啟並連線 Wi-Fi",
     offlineReadyLabel: "已就緒——無需連線即可使用",
@@ -681,6 +689,8 @@ export const UI: Record<LangKey, UiStrings> = {
     mapEnglishSection: "英文",
     mapChineseSection: "中文（繁体／简体）",
     mapTempleSection: "耶和华的殿 — 图解",
+    mapTempleAlt: "耶和华的殿图解：外观长60肘、宽20肘、高30肘（约90×30×45英尺）；平面图显示门廊20×10肘、圣所40×20肘、至圣所20×20肘，全长70肘；剖面图显示圣所与至圣所之间的幔子，以及高10肘的基路伯；院子中有铜祭坛（高约15英尺）与铜海（高约5英尺，直径10英尺）。",
+    mapTempleAltZhSame: "同一份圣殿图解，标示改为中文。",
     offlineStatusLabel: "离线副本",
     offlinePreparingTpl: "下载中…… {n} / {total}——请保持开启并连接 Wi-Fi",
     offlineReadyLabel: "已就绪——无需联网即可使用",
