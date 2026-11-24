@@ -47,12 +47,12 @@ function buildFixedManifest(base: string): Task[] {
     }
     tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v7" });
     if (BOOKS_WITH_MAPS.has(book.id)) {
-      tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v4" });
-      tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v4" });
+      tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v5" });
+      tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v5" });
     }
     if (BOOKS_WITH_TEMPLE_DIAGRAM.has(book.id)) {
-      tasks.push({ url: `${base}maps/${book.id}-temple.jpg`, cacheName: "bible-maps-v4" });
-      tasks.push({ url: `${base}maps/${book.id}-temple-zh.jpg`, cacheName: "bible-maps-v4" });
+      tasks.push({ url: `${base}maps/${book.id}-temple.jpg`, cacheName: "bible-maps-v5" });
+      tasks.push({ url: `${base}maps/${book.id}-temple-zh.jpg`, cacheName: "bible-maps-v5" });
     }
   }
   for (const l of INTRO_LANGS) {
@@ -269,7 +269,7 @@ async function countCachedEntries(): Promise<number> {
     "bible-devotional-v1",
     "bible-characters-v7",
     "bible-book-intro-v2",
-    "bible-maps-v4",
+    "bible-maps-v5",
     "bible-search-index-v9",
   ]) {
     try {

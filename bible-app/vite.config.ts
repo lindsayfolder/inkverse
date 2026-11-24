@@ -171,7 +171,11 @@ export default defineConfig({
               // Bumped again to v4: the same map's simplified-Chinese Italy
               // label used 义大利 instead of the real Mainland standard
               // 意大利 -- see scripts/fix-italy-spelling.py.
-              cacheName: "bible-maps-v4",
+              // Bumped again to v5: 1 Kings' temple-diagram pair was
+              // swapped for the reader's own corrected reference images --
+              // same URLs, different content, so this needed the same
+              // forced re-fetch as the v2 bump above.
+              cacheName: "bible-maps-v5",
               // 21 mapped books x 2 files (en + zh) = 42, plus 1 Kings'
               // extra temple-diagram pair = 44 — maxEntries was 60 already,
               // still has headroom.
