@@ -14,7 +14,7 @@
 
 const CONTENT_CACHE_NAMES = [
   "bible-text-v9",
-  "bible-insights-v5",
+  "bible-insights-v6",
   "bible-explain-v4",
   "bible-devotional-v1",
   "bible-characters-v7",
@@ -60,6 +60,9 @@ const RETIRED_CACHE_NAMES = [
   "bible-explain-v2",
   "bible-insights",
   "bible-insights-v2",
+  "bible-insights-v3",
+  "bible-insights-v4",
+  "bible-insights-v5",
   "bible-characters-v1",
   "bible-characters-v2",
   "bible-characters-v3",

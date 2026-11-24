@@ -37,7 +37,7 @@ function buildFixedManifest(base: string): Task[] {
       }
     }
     for (const l of INSIGHT_LANGS) {
-      tasks.push({ url: `${base}insights/${l}/${book.id}.json`, cacheName: "bible-insights-v5" });
+      tasks.push({ url: `${base}insights/${l}/${book.id}.json`, cacheName: "bible-insights-v6" });
     }
     for (const l of EXPLAIN_LANGS) {
       tasks.push({ url: `${base}explain/${l}/${book.id}.json`, cacheName: "bible-explain-v4" });
@@ -264,7 +264,7 @@ async function countCachedEntries(): Promise<number> {
   let total = 0;
   for (const name of [
     "bible-text-v9",
-    "bible-insights-v5",
+    "bible-insights-v6",
     "bible-explain-v4",
     "bible-devotional-v1",
     "bible-characters-v7",

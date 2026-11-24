@@ -126,7 +126,13 @@ export default defineConfig({
               // scripts/fix-tyre-stragglers.py.
               // Bumped again to v5 alongside bible-text-v8 (the missed
               // Traditional-Chinese Damascus fix).
-              cacheName: "bible-insights-v5",
+              // Bumped again to v6: every one of the 5,945 AI-Insights
+              // points in all 66 books was rewritten for clarity --
+              // CacheFirst never re-checks the network once a URL is
+              // cached, so a reader who'd already done the full offline
+              // download before this project would otherwise keep seeing
+              // the old pre-rewrite text forever.
+              cacheName: "bible-insights-v6",
               // 66 books x 3 languages = 198 — maxEntries was also 200,
               // leaving almost no headroom before LRU eviction started
               // dropping already-cached books. Bumped for breathing room.
