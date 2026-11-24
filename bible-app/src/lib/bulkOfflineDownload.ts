@@ -33,7 +33,7 @@ function buildFixedManifest(base: string): Task[] {
       // One task per part for the ~15 largest books (see bookSplits.ts),
       // one task (same as always) for everything else.
       for (const stem of splitFileStems(book.id)) {
-        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v9" });
+        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v10" });
       }
     }
     for (const l of INSIGHT_LANGS) {
@@ -263,7 +263,7 @@ function waitForVisible(): Promise<void> {
 async function countCachedEntries(): Promise<number> {
   let total = 0;
   for (const name of [
-    "bible-text-v9",
+    "bible-text-v10",
     "bible-insights-v6",
     "bible-explain-v4",
     "bible-devotional-v1",

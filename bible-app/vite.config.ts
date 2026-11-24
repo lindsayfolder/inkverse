@@ -106,7 +106,14 @@ export default defineConfig({
               // entirely different word, 意大利. A different category of
               // bug from the others above (wrong word, not an old word) --
               // see scripts/fix-italy-spelling.py.
-              cacheName: "bible-text-v9",
+              // Bumped again to v10: 69 verses in both zh-hans and zh-hant
+              // held the literal placeholder "a" instead of real text --
+              // left over from the data pipeline mishandling verse slots
+              // that the Chinese Union Version's own versification merges
+              // into a neighboring verse (e.g. 1 Chronicles 16:39-40,
+              // Psalm 8:6-8). Fixed to the empty string, matching the
+              // app's existing convention for genuinely omitted verses.
+              cacheName: "bible-text-v10",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
