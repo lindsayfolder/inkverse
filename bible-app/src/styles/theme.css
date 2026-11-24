@@ -136,10 +136,13 @@ button { font-family: inherit; }
    so the flat #c97a12 theme-color (index.html / vite.config.ts manifest)
    read visibly washed-out on a real iPhone, even though Android's
    theme-color tinting (full opacity, no blending) looked correct with that
-   same value. Deliberately darker/more saturated than the theme-color to
-   compensate -- #a8620a is the app's own --gold-strong, not a new color --
-   this needs a real-device check after each change, not just Chromium. */
-.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #a8620a; z-index: 100; pointer-events: none; }
+   same value. A straight darkening attempt (--gold-strong, #a8620a) just
+   read muddy/brown on a reader's iPhone instead of fixing the washed-out
+   look -- so this shifts the hue toward red/more saturated (less of the
+   yellow that darkening amplified) while keeping brightness close to the
+   original, rather than just lowering lightness. Still needs a real-device
+   check after each change, not just Chromium. */
+.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #cc5814; z-index: 100; pointer-events: none; }
 
 .appbar {
   flex: none;
