@@ -191,7 +191,13 @@ button { font-family: inherit; }
 .compare-toggle-btn:active { transform: scale(0.9); }
 .compare-toggle-btn.active { background: var(--gold); color: #1c1207; }
 .compare-row { justify-content: flex-start; align-items: center; padding-top: 0; }
-.compare-row-label { font-size: 14px; font-weight: 700; color: var(--ink-faint); margin-right: 2px; }
+/* Fixed width (sized to the longest of the 4 translations' labels, "Compare
+   with") rather than auto -- the label's own text is much narrower in
+   Chinese ("對照版本"/"对照版本") than in English, and without a fixed width
+   the pills right after it in this flex row would start further left
+   whenever the shorter label was showing, shifting position every time the
+   active language changed. */
+.compare-row-label { flex: none; width: 96px; font-size: 14px; font-weight: 700; color: var(--ink-faint); margin-right: 2px; }
 /* The comparison text is read-only (no bookmark/note/share controls, unlike
    the primary verse-row above it) -- keeping it to a label + text pair
    avoids re-implementing every per-verse interaction for a second version
