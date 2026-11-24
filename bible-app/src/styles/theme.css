@@ -512,6 +512,10 @@ button { font-family: inherit; }
 .settings-section { margin-bottom: 22px; }
 .settings-about { margin-top: auto; margin-bottom: 0; }
 .settings-label { font-weight: 800; font-size: 16.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+/* Credits/About body text: fixed size on purpose -- the font-size slider
+   above is for scripture reading comfort, not app chrome, so this doesn't
+   read var(--font-scale) the way .caption-box does. */
+.credits-box { background: var(--paper-panel); border: 2px solid var(--hairline); border-radius: 14px; padding: 13px 15px; font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 12px; }
 .settings-slider { flex: 1; accent-color: var(--gold); width: 100%; }
 .font-preview { background: var(--paper-panel); border: 2px solid var(--hairline); border-radius: 12px; padding: 12px 14px; margin: 10px 0 4px; font-size: calc(13.5px * var(--font-scale, 1)); line-height: 1.7; color: var(--ink); }
 .seg-row { display: flex; gap: 6px; }

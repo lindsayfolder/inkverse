@@ -18,22 +18,22 @@ export function CreditsModal({ open, onClose }: { open: boolean; onClose: () => 
 
         <div className="settings-section">
           <div className="settings-label">{t.creditsKjvHeading}</div>
-          <p className="caption-box">{t.creditsKjvBody}</p>
+          <p className="credits-box">{t.creditsKjvBody}</p>
         </div>
 
         <div className="settings-section">
           <div className="settings-label">{t.creditsWebHeading}</div>
-          <p className="caption-box">{t.creditsWebBody}</p>
+          <p className="credits-box">{t.creditsWebBody}</p>
         </div>
 
         <div className="settings-section">
           <div className="settings-label">{t.creditsCuvHeading}</div>
-          <p className="caption-box">{t.creditsCuvBody}</p>
+          <p className="credits-box">{t.creditsCuvBody}</p>
         </div>
 
         <div className="settings-section">
           <div className="settings-label">{t.creditsInsightsHeading}</div>
-          <p className="caption-box">{t.creditsInsightsBody}</p>
+          <p className="credits-box">{t.creditsInsightsBody}</p>
         </div>
       </div>
     </div>
