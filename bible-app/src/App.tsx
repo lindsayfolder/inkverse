@@ -886,7 +886,17 @@ export default function App() {
             <div>
               {devotional ? (
                 <div className="devotional-block">
-                  <h3 className="devotional-title">{devotional.title}</h3>
+                  <h3 className="devotional-title">
+                    {devotional.title.split(/(\d+)/).map((part, i) =>
+                      /^\d+$/.test(part) ? (
+                        <span key={i} className="devotional-title-num">
+                          {part}
+                        </span>
+                      ) : (
+                        part
+                      )
+                    )}
+                  </h3>
                   {devotional.body.map((p, i) => (
                     <p key={i} className="devotional-para">
                       {p}

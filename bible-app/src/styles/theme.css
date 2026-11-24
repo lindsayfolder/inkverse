@@ -347,6 +347,12 @@ button { font-family: inherit; }
   font-family: "Bangers", "PingFang SC", "PingFang TC", sans-serif;
   font-size: 22px; font-weight: 400; letter-spacing: 0.02em; color: var(--ink); margin: 0 0 16px;
 }
+/* Bangers has no CJK glyphs (Chinese titles correctly fall back to PingFang)
+   but does have digit glyphs, so a chapter number mid-title rendered in two
+   visibly different typefaces side by side. Pulling just the digits out of
+   Bangers and into the surrounding font removes that clash; the gold tint
+   keeps it reading as a deliberate accent instead of a plain number. */
+.devotional-title-num { font-family: "Nunito", "PingFang SC", "PingFang TC", "Microsoft YaHei", "Heiti SC", sans-serif; color: var(--gold-strong); font-weight: 800; }
 .devotional-para { font-size: calc(14px * var(--font-scale, 1)); line-height: 1.85; color: var(--ink); margin: 0 0 16px; }
 .devotional-para:last-child { margin-bottom: 0; }
 
