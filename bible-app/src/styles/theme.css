@@ -182,9 +182,11 @@ button { font-family: inherit; }
 .lang-pill { font-weight: 800; font-size: 16px; letter-spacing: 0.02em; border: 2px solid var(--ink); border-radius: 20px; padding: 4px 9px; background: var(--paper-panel); color: var(--ink-soft); cursor: pointer; }
 .lang-pill.active { background: var(--gold); color: #1c1207; }
 .compare-toggle-btn {
-  /* 42px, not .select-toggle-btn's 30px -- a reader found that one too small
-     to tap reliably; this one gets its own larger size rather than sharing. */
-  flex: none; width: 42px; height: 42px; border: 2px solid var(--ink); border-radius: 50%; padding: 0;
+  /* 54px wide to match the "簡體"/"简体" lang-pill's footprint (same 42px
+     row height already, but a circle that size reads narrower and felt
+     squeezed next to the pills) -- not .select-toggle-btn's 30px, which
+     this button never shared a size with. */
+  flex: none; width: 54px; height: 42px; border: 2px solid var(--ink); border-radius: 21px; padding: 0;
   background: var(--paper-panel); color: var(--ink); display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: transform 0.1s ease, background 0.15s ease, color 0.15s ease;
 }
