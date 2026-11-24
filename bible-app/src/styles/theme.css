@@ -192,7 +192,11 @@ button { font-family: inherit; }
 }
 .compare-toggle-btn:active { transform: scale(0.9); }
 .compare-toggle-btn.active { background: var(--gold); color: #1c1207; }
-.compare-row { justify-content: flex-start; align-items: center; padding-top: 0; }
+/* flex-end, same as .lang-row above it -- flex-start here was hugging the
+   left edge while the row above hugs the right, so the two rows never
+   shared an edge and visibly "shifted" against each other. Right-aligning
+   both gives them the same indent. */
+.compare-row { justify-content: flex-end; align-items: center; padding-top: 0; }
 /* Fixed width (sized to the longest of the 4 translations' labels, "Compare
    with") rather than auto -- the label's own text is much narrower in
    Chinese ("對照版本"/"对照版本") than in English, and without a fixed width
