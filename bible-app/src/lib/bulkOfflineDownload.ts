@@ -33,7 +33,7 @@ function buildFixedManifest(base: string): Task[] {
       // One task per part for the ~15 largest books (see bookSplits.ts),
       // one task (same as always) for everything else.
       for (const stem of splitFileStems(book.id)) {
-        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v10" });
+        tasks.push({ url: `${base}bible/${v}/${stem}.json`, cacheName: "bible-text-v11" });
       }
     }
     for (const l of INSIGHT_LANGS) {
@@ -66,7 +66,7 @@ function buildFixedManifest(base: string): Task[] {
   // SearchModal.tsx). Same cache name search's own runtime-caching rule
   // reads from (see vite.config.ts), same as every other track here.
   for (const v of BIBLE_VERSIONS) {
-    tasks.push({ url: `${base}search-index/${v}.json`, cacheName: "bible-search-index-v8" });
+    tasks.push({ url: `${base}search-index/${v}.json`, cacheName: "bible-search-index-v9" });
   }
   return tasks;
 }
@@ -263,14 +263,14 @@ function waitForVisible(): Promise<void> {
 async function countCachedEntries(): Promise<number> {
   let total = 0;
   for (const name of [
-    "bible-text-v10",
+    "bible-text-v11",
     "bible-insights-v6",
     "bible-explain-v4",
     "bible-devotional-v1",
     "bible-characters-v7",
     "bible-book-intro-v2",
     "bible-maps-v4",
-    "bible-search-index-v8",
+    "bible-search-index-v9",
   ]) {
     try {
       const cache = await caches.open(name);

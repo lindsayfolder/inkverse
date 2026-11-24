@@ -113,7 +113,12 @@ export default defineConfig({
               // into a neighboring verse (e.g. 1 Chronicles 16:39-40,
               // Psalm 8:6-8). Fixed to the empty string, matching the
               // app's existing convention for genuinely omitted verses.
-              cacheName: "bible-text-v10",
+              // Bumped again to v11: public/bible/web -- every instance of
+              // "Yahweh" changed to "Jehovah" (same Hebrew name, the WEB's
+              // translators' vocalization choice vs. the one most readers
+              // of this app already know from the Chinese 耶和華
+              // tradition). Public-domain text, by request.
+              cacheName: "bible-text-v11",
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -209,7 +214,8 @@ export default defineConfig({
               // Bumped again to v6 alongside bible-text-v7.
               // Bumped again to v7 alongside bible-text-v8.
               // Bumped again to v8 alongside bible-text-v9.
-              cacheName: "bible-search-index-v8",
+              // Bumped again to v9 alongside bible-text-v10 and -v11.
+              cacheName: "bible-search-index-v9",
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },

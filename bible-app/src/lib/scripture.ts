@@ -11,7 +11,7 @@ interface BookFile {
 const memCache = new Map<string, Promise<BookFile>>();
 
 // Must match vite.config.ts's bible-text runtime-caching rule's cacheName.
-const BIBLE_TEXT_CACHE = "bible-text-v10";
+const BIBLE_TEXT_CACHE = "bible-text-v11";
 
 // A cold-launched iOS home-screen app's service worker can take a moment
 // to actually take control of the page after boot. Until it does, a plain
