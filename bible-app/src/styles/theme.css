@@ -132,17 +132,21 @@ button { font-family: inherit; }
 }
 
 /* iOS's "black-translucent" status-bar-style is a true translucent overlay,
-   not an opaque fill -- WebKit blends/lightens whatever sits underneath it,
-   so the flat #c97a12 theme-color (index.html / vite.config.ts manifest)
-   read visibly washed-out on a real iPhone, even though Android's
-   theme-color tinting (full opacity, no blending) looked correct with that
-   same value. A straight darkening attempt (--gold-strong, #a8620a) just
-   read muddy/brown on a reader's iPhone instead of fixing the washed-out
-   look -- so this shifts the hue toward red/more saturated (less of the
-   yellow that darkening amplified) while keeping brightness close to the
-   original, rather than just lowering lightness. Still needs a real-device
-   check after each change, not just Chromium. */
-.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #cc5814; z-index: 100; pointer-events: none; }
+   not an opaque fill -- WebKit blends/lightens whatever sits underneath it.
+   Pixel-sampling 3 real-iPhone screenshots (one per color tried here) against
+   the app's own true, unblended #c97a12 (the "繁體" pill, rendered as plain
+   page content) and fitting a line through the 3 input/output pairs showed
+   this isn't a simple "too light" or "too dark" problem: the blend has a
+   hard floor on every channel (e.g. blue renders around 90+ even at a CSS
+   input of 0), so no hex code can make this strip read as fully saturated
+   as in-page gold does -- that's a platform limit, not a wrong color pick.
+   Given that ceiling, this stops trying to fake vivid orange and picks a
+   deliberately muted, dusty terracotta instead (chosen by solving the fitted
+   model for an intentionally soft target, not guessed by eye) -- if this
+   still doesn't read as intentional on a real device, the fallback is
+   reverting to the original #c97a12 and accepting the platform's own
+   washed-out rendering rather than keep guessing. */
+.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #b14b34; z-index: 100; pointer-events: none; }
 
 .appbar {
   flex: none;
