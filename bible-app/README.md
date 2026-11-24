@@ -93,8 +93,8 @@ something like Capacitor) — not required for personal installs.
   conversion (matching how most digital Simplified 和合本 editions are
   produced). A handful of archaic 1919 proper-noun spellings (Lebanon,
   Spain, Damascus, Crete, Cyprus, and the title "Caesar") have been
-  updated to the modern standard spelling used by current CUV reprints
-  (新标点和合本, 和合本修订版) — see `scripts/fix-lebanon-spelling.py` and
+  updated to the modern standard spelling used throughout contemporary
+  Chinese publishing — see `scripts/fix-lebanon-spelling.py` and
   `scripts/fix-archaic-placenames.py`. A separate bug, a naive
   character-by-character Simplified rendering of "Italy" (义大利), was
   corrected to the actual Mainland standard term, 意大利 — see
