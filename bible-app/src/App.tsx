@@ -83,6 +83,9 @@ export default function App() {
   if (noteEditorVerse !== null) everOpenedRef.current.add("noteEditor");
   const everOpened = everOpenedRef.current;
   const [verses, setVerses] = useState<Verse[] | null>(null);
+  const [compareLang, setCompareLang] = useState<LangKey | null>(null);
+  const [compareVerses, setCompareVerses] = useState<Verse[] | null>(null);
+  const [comparePickerOpen, setComparePickerOpen] = useState(false);
   const [points, setPoints] = useState<Point[] | null>(null);
   const [explain, setExplain] = useState<ChapterExplain | null>(null);
   const [devotional, setDevotional] = useState<ChapterDevotional | null>(null);
@@ -288,6 +291,31 @@ export default function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, lang]);
+
+  // Side-by-side version comparison: a second, read-only text track shown
+  // under each primary verse. Comparing a version against itself makes no
+  // sense, so switching the primary version to match the active compare
+  // version turns comparison off instead of leaving a no-op picked.
+  useEffect(() => {
+    if (compareLang === lang) {
+      setCompareLang(null);
+    }
+  }, [lang, compareLang]);
+
+  useEffect(() => {
+    if (!compareLang) {
+      setCompareVerses(null);
+      return;
+    }
+    let cancelled = false;
+    setCompareVerses(null);
+    loadChapterVerses(bookId, chapter, compareLang).then((v) => {
+      if (!cancelled) setCompareVerses(v);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bookId, chapter, compareLang]);
 
   // One-time "tap a verse number to bookmark it" tip: the feature isn't
   // obvious at a glance on its own (see the dashed-ring hint on .verse-num
@@ -738,7 +766,36 @@ export default function App() {
             {l.label}
           </button>
         ))}
+        {tab === "scripture" && (
+          <button
+            type="button"
+            className={`compare-toggle-btn${comparePickerOpen || compareLang ? " active" : ""}`}
+            aria-label={t.compareToggleLabel}
+            onClick={() => setComparePickerOpen((v) => !v)}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="5" width="7" height="14" rx="1.5" stroke="currentColor" strokeWidth="2" />
+              <rect x="14" y="5" width="7" height="14" rx="1.5" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </button>
+        )}
       </div>
+
+      {tab === "scripture" && comparePickerOpen && (
+        <div className="lang-row compare-row">
+          <span className="compare-row-label">{t.compareLabel}</span>
+          {LANGUAGES.filter((l) => l.key !== lang).map((l) => (
+            <button
+              key={l.key}
+              type="button"
+              className={`lang-pill${compareLang === l.key ? " active" : ""}`}
+              onClick={() => setCompareLang((cur) => (cur === l.key ? null : l.key))}
+            >
+              {l.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="chapter-bar">
         <span className="chapter-eyebrow">{chapterEyebrow}</span>
@@ -818,11 +875,12 @@ export default function App() {
                 <div className="verse-list">
                   {verses.map((v) => {
                     const note = getVerseNote(v.n);
+                    const compareText = compareLang ? compareVerses?.find((cv) => cv.n === v.n)?.t : undefined;
                     return (
+                    <div key={v.n}>
                     <div
                       className={`verse-row${v.n === pendingVerse || v.n === spokenVerseNum ? " highlighted" : ""}`}
                       data-verse={v.n}
-                      key={v.n}
                     >
                       <button
                         type="button"
@@ -873,6 +931,13 @@ export default function App() {
                           </svg>
                         </button>
                       )}
+                    </div>
+                    {compareLang && (
+                      <div className="verse-compare-row">
+                        <span className="verse-compare-label">{LANGUAGES.find((l) => l.key === compareLang)?.label}</span>
+                        <span className="verse-compare-text">{compareText ?? t.loadingLabel}</span>
+                      </div>
+                    )}
                     </div>
                     );
                   })}

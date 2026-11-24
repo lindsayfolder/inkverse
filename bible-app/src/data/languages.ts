@@ -60,6 +60,8 @@ export interface UiStrings {
   selectVerseLabel: string;
   selectedVerseLabel: string;
   shareSelectedLabel: string;
+  compareToggleLabel: string;
+  compareLabel: string;
   plansTitle: string;
   planBackLabel: string;
   planStartButton: string;
@@ -204,6 +206,8 @@ export const UI: Record<LangKey, UiStrings> = {
     selectVerseLabel: "Select this verse",
     selectedVerseLabel: "Deselect this verse",
     shareSelectedLabel: "Share",
+    compareToggleLabel: "Compare versions",
+    compareLabel: "Compare with",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -346,6 +350,8 @@ export const UI: Record<LangKey, UiStrings> = {
     selectVerseLabel: "Select this verse",
     selectedVerseLabel: "Deselect this verse",
     shareSelectedLabel: "Share",
+    compareToggleLabel: "Compare versions",
+    compareLabel: "Compare with",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -488,6 +494,8 @@ export const UI: Record<LangKey, UiStrings> = {
     selectVerseLabel: "選取這節經文",
     selectedVerseLabel: "取消選取這節經文",
     shareSelectedLabel: "分享",
+    compareToggleLabel: "版本對照",
+    compareLabel: "對照版本",
     plansTitle: "讀經計畫",
     planBackLabel: "讀經計畫",
     planStartButton: "開始計畫",
@@ -630,6 +638,8 @@ export const UI: Record<LangKey, UiStrings> = {
     selectVerseLabel: "选取这节经文",
     selectedVerseLabel: "取消选取这节经文",
     shareSelectedLabel: "分享",
+    compareToggleLabel: "版本对照",
+    compareLabel: "对照版本",
     plansTitle: "读经计划",
     planBackLabel: "读经计划",
     planStartButton: "开始计划",
