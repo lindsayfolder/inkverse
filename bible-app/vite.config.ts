@@ -144,7 +144,12 @@ export default defineConfig({
               // cached, so a reader who'd already done the full offline
               // download before this project would otherwise keep seeing
               // the old pre-rewrite text forever.
-              cacheName: "bible-insights-v6",
+              // Bumped again to v7: a routine audit found stray
+              // simplified/traditional character leaks (里 for 裡, 于 for
+              // 於, 系 for 繫) in a handful of zh-hant insights files
+              // (gen, exo, num, 1ch) and 於 instead of 于 in a few
+              // zh-hans ones (psa, pro, lev, mar).
+              cacheName: "bible-insights-v7",
               // 66 books x 3 languages = 198 — maxEntries was also 200,
               // leaving almost no headroom before LRU eviction started
               // dropping already-cached books. Bumped for breathing room.
@@ -237,7 +242,9 @@ export default defineConfig({
               // 66 books x 3 languages = 198 — maxEntries was 200, leaving
               // almost no headroom; bumped alongside bible-insights-v2.
               // Bumped again to v3 alongside bible-insights-v3.
-              cacheName: "bible-explain-v4",
+              // Bumped again to v5: a routine audit found a stray 于
+              // instead of 於 in one zh-hant file (exo).
+              cacheName: "bible-explain-v5",
               expiration: { maxEntries: 260, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -250,7 +257,9 @@ export default defineConfig({
             urlPattern: /\/devotional\/.*\.json$/,
             handler: "CacheFirst",
             options: {
-              cacheName: "bible-devotional-v1",
+              // Bumped to v2: a routine audit found a stray 於 instead of
+              // 于 in one zh-hans file (gen, exo).
+              cacheName: "bible-devotional-v2",
               expiration: { maxEntries: 260, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
@@ -301,7 +310,10 @@ export default defineConfig({
               // Bumped to v7: Julius's bio used 意大利 for "Italy" while
               // every other zh-hant file in this app uses 義大利 -- see
               // scripts/fix-italy-spelling.py.
-              cacheName: "bible-characters-v7",
+              //
+              // Bumped to v8: a routine audit found stray 于 instead of 於
+              // in 3 zh-hant bios (moab, benammi, david).
+              cacheName: "bible-characters-v8",
               expiration: { maxEntries: 3000, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
