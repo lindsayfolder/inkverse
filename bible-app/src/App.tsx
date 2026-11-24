@@ -38,6 +38,7 @@ const PlansModal = lazy(() => import("./components/PlansModal").then((m) => ({ d
 const SettingsModal = lazy(() => import("./components/SettingsModal").then((m) => ({ default: m.SettingsModal })));
 const MapModal = lazy(() => import("./components/MapModal").then((m) => ({ default: m.MapModal })));
 const BookIntroModal = lazy(() => import("./components/BookIntroModal").then((m) => ({ default: m.BookIntroModal })));
+const CreditsModal = lazy(() => import("./components/CreditsModal").then((m) => ({ default: m.CreditsModal })));
 
 export type ModalKey = "contents" | "search" | "bookmarks" | "plans" | "notes" | "settings";
 
@@ -58,6 +59,7 @@ export default function App() {
   const [modal, setModal] = useState<ModalKey | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   const [introOpen, setIntroOpen] = useState(false);
+  const [creditsOpen, setCreditsOpen] = useState(false);
   // Which verse (if any) has the highlight/note editor open — a per-verse
   // contextual editor like map/bookIntro above, not a drawer-navigable
   // ModalKey screen, since it's always tied to one specific verse number
@@ -77,6 +79,7 @@ export default function App() {
   if (modal) everOpenedRef.current.add(modal);
   if (mapOpen) everOpenedRef.current.add("map");
   if (introOpen) everOpenedRef.current.add("bookIntro");
+  if (creditsOpen) everOpenedRef.current.add("credits");
   if (noteEditorVerse !== null) everOpenedRef.current.add("noteEditor");
   const everOpened = everOpenedRef.current;
   const [verses, setVerses] = useState<Verse[] | null>(null);
@@ -1128,7 +1131,11 @@ export default function App() {
           />
         )}
 
-        {everOpened.has("settings") && <SettingsModal open={modal === "settings"} onClose={() => setModal(null)} />}
+        {everOpened.has("settings") && (
+          <SettingsModal open={modal === "settings"} onClose={() => setModal(null)} onOpenCredits={() => setCreditsOpen(true)} />
+        )}
+
+        {everOpened.has("credits") && <CreditsModal open={creditsOpen} onClose={() => setCreditsOpen(false)} />}
 
         {everOpened.has("map") && (
           <MapModal open={mapOpen} bookId={bookId} bookLabel={book.label[lang]} onClose={() => setMapOpen(false)} />

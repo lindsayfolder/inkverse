@@ -5,7 +5,7 @@ import { GENESIS_1 } from "../data/genesis1";
 import { tts } from "../lib/tts";
 import type { RetentionUnit } from "../lib/db";
 
-export function SettingsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function SettingsModal({ open, onClose, onOpenCredits }: { open: boolean; onClose: () => void; onOpenCredits: () => void }) {
   const {
     lang,
     settings,
@@ -251,6 +251,9 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
             <span>{t.versionLabel}</span>
             <span className="v">0.1.0</span>
           </div>
+          <button type="button" className="update-btn" onClick={onOpenCredits}>
+            {t.creditsButtonLabel}
+          </button>
         </div>
       </div>
     </div>

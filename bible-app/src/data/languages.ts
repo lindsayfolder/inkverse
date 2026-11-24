@@ -97,6 +97,17 @@ export interface UiStrings {
   themeAuto: string;
   aboutLabel: string;
   versionLabel: string;
+  creditsButtonLabel: string;
+  creditsTitle: string;
+  creditsIntro: string;
+  creditsKjvHeading: string;
+  creditsKjvBody: string;
+  creditsWebHeading: string;
+  creditsWebBody: string;
+  creditsCuvHeading: string;
+  creditsCuvBody: string;
+  creditsInsightsHeading: string;
+  creditsInsightsBody: string;
   listenLabel: string;
   stopLabel: string;
   listenPauseLabel: string;
@@ -228,6 +239,17 @@ export const UI: Record<LangKey, UiStrings> = {
     themeAuto: "Auto",
     aboutLabel: "About",
     versionLabel: "Version",
+    creditsButtonLabel: "Credits",
+    creditsTitle: "Credits",
+    creditsIntro: "This app uses the following public-domain translations and original content:",
+    creditsKjvHeading: "King James Version (KJV)",
+    creditsKjvBody: "Public domain. Sourced from the aruljohn/Bible-kjv dataset.",
+    creditsWebHeading: "World English Bible (WEB)",
+    creditsWebBody: "Public domain -- dedicated to the public domain by its translators. Sourced from the TehShrike/world-english-bible dataset. This app renders the Hebrew divine name (YHWH) as “Jehovah” rather than the original WEB's “Yahweh”, to match the transliteration used in the Chinese text below.",
+    creditsCuvHeading: "和合本 (Chinese Union Version, Traditional & Simplified)",
+    creditsCuvBody: "Public domain (published 1919). Traditional text sourced from the zh/cuv dataset (MaatheusGois/bible); the Simplified text is mechanically derived from the Traditional original via OpenCC, the standard tool for this conversion.",
+    creditsInsightsHeading: "AI Insights, Explanations & Devotionals",
+    creditsInsightsBody: "Original commentary written for this app -- not sourced from any translation or outside work.",
     listenLabel: "Listen",
     stopLabel: "Stop",
     listenPauseLabel: "Pause",
@@ -357,6 +379,17 @@ export const UI: Record<LangKey, UiStrings> = {
     themeAuto: "Auto",
     aboutLabel: "About",
     versionLabel: "Version",
+    creditsButtonLabel: "Credits",
+    creditsTitle: "Credits",
+    creditsIntro: "This app uses the following public-domain translations and original content:",
+    creditsKjvHeading: "King James Version (KJV)",
+    creditsKjvBody: "Public domain. Sourced from the aruljohn/Bible-kjv dataset.",
+    creditsWebHeading: "World English Bible (WEB)",
+    creditsWebBody: "Public domain -- dedicated to the public domain by its translators. Sourced from the TehShrike/world-english-bible dataset. This app renders the Hebrew divine name (YHWH) as “Jehovah” rather than the original WEB's “Yahweh”, to match the transliteration used in the Chinese text below.",
+    creditsCuvHeading: "和合本 (Chinese Union Version, Traditional & Simplified)",
+    creditsCuvBody: "Public domain (published 1919). Traditional text sourced from the zh/cuv dataset (MaatheusGois/bible); the Simplified text is mechanically derived from the Traditional original via OpenCC, the standard tool for this conversion.",
+    creditsInsightsHeading: "AI Insights, Explanations & Devotionals",
+    creditsInsightsBody: "Original commentary written for this app -- not sourced from any translation or outside work.",
     listenLabel: "Listen",
     stopLabel: "Stop",
     listenPauseLabel: "Pause",
@@ -486,6 +519,17 @@ export const UI: Record<LangKey, UiStrings> = {
     themeAuto: "自動",
     aboutLabel: "關於",
     versionLabel: "版本",
+    creditsButtonLabel: "版本來源",
+    creditsTitle: "版本來源與授權",
+    creditsIntro: "本應用程式使用以下公有領域譯本及原創內容：",
+    creditsKjvHeading: "英王詹姆士譯本（KJV）",
+    creditsKjvBody: "公有領域。文字取自 aruljohn/Bible-kjv 資料集。",
+    creditsWebHeading: "世界英語聖經（WEB）",
+    creditsWebBody: "公有領域，譯者已將全文獻入公有領域。文字取自 TehShrike/world-english-bible 資料集。本應用程式將原文中代表希伯來文聖名（YHWH）的〔Yahweh〕改為〔Jehovah〕，以配合下方中文譯本採用的音譯方式（耶和華）。",
+    creditsCuvHeading: "和合本（繁體／簡體）",
+    creditsCuvBody: "公有領域（1919年出版）。繁體文字取自 zh/cuv 資料集（MaatheusGois/bible）；簡體文字則透過 OpenCC（業界標準轉換工具）由繁體原文機械轉換而成。",
+    creditsInsightsHeading: "AI 洞見、解經與靈修內容",
+    creditsInsightsBody: "本應用程式原創撰寫的註釋內容，並非取自任何譯本或其他著作。",
     listenLabel: "朗讀",
     stopLabel: "停止",
     listenPauseLabel: "暫停",
@@ -615,6 +659,17 @@ export const UI: Record<LangKey, UiStrings> = {
     themeAuto: "自动",
     aboutLabel: "关于",
     versionLabel: "版本",
+    creditsButtonLabel: "版本来源",
+    creditsTitle: "版本来源与授权",
+    creditsIntro: "本应用程序使用以下公有领域译本及原创内容：",
+    creditsKjvHeading: "英王詹姆士译本（KJV）",
+    creditsKjvBody: "公有领域。文字取自 aruljohn/Bible-kjv 数据集。",
+    creditsWebHeading: "世界英语圣经（WEB）",
+    creditsWebBody: "公有领域，译者已将全文献入公有领域。文字取自 TehShrike/world-english-bible 数据集。本应用程序将原文中代表希伯来文圣名（YHWH）的〔Yahweh〕改为〔Jehovah〕，以配合下方中文译本采用的音译方式（耶和华）。",
+    creditsCuvHeading: "和合本（繁体/简体）",
+    creditsCuvBody: "公有领域（1919年出版）。繁体文字取自 zh/cuv 数据集（MaatheusGois/bible）；简体文字则通过 OpenCC（行业标准转换工具）由繁体原文机械转换而成。",
+    creditsInsightsHeading: "AI 洞见、解经与灵修内容",
+    creditsInsightsBody: "本应用程序原创撰写的注释内容，并非取自任何译本或其他著作。",
     listenLabel: "朗读",
     stopLabel: "停止",
     listenPauseLabel: "暂停",
