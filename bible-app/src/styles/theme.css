@@ -131,10 +131,15 @@ button { font-family: inherit; }
   flex-direction: column;
 }
 
-/* Fixed to the same #c97a12 set as the PWA's theme-color (index.html /
-   vite.config.ts manifest), not var(--gold) -- that meta tag isn't updated
-   for dark mode, so this shouldn't drift from it into the dark variant. */
-.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #c97a12; z-index: 100; pointer-events: none; }
+/* iOS's "black-translucent" status-bar-style is a true translucent overlay,
+   not an opaque fill -- WebKit blends/lightens whatever sits underneath it,
+   so the flat #c97a12 theme-color (index.html / vite.config.ts manifest)
+   read visibly washed-out on a real iPhone, even though Android's
+   theme-color tinting (full opacity, no blending) looked correct with that
+   same value. Deliberately darker/more saturated than the theme-color to
+   compensate -- #a8620a is the app's own --gold-strong, not a new color --
+   this needs a real-device check after each change, not just Chromium. */
+.status-bar-fill { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: #a8620a; z-index: 100; pointer-events: none; }
 
 .appbar {
   flex: none;
