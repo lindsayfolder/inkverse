@@ -40,7 +40,6 @@ export function SearchModal({
   onResult: (lang: LangKey, bookId: string, chapter: number, verse: number) => void;
 }) {
   const { lang, setLang, settings, updateSettings } = useApp();
-  const t = UI[lang];
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [scope, setScope] = useState<"all" | "ot" | "nt">("all");
@@ -48,9 +47,13 @@ export function SearchModal({
   // is ever searched at a time, and everything on screen (the rail's book
   // abbreviations, recent-search seeds) follows whichever one is lit up here.
   const [activeLang, setActiveLang] = useState<LangKey>(lang);
-  // Result-panel copy (loading/no-results) follows the version being
-  // searched rather than the app's reading language — showing a Chinese
-  // "no results" message while searching KJV read as broken.
+  // The whole modal's copy (title, scope labels, placeholder, recent-list
+  // heading, result-panel loading/no-results text) follows the version
+  // being searched, not the app's reading language -- a reader whose app
+  // language is English but who picks 簡體/简体 here to search Chinese
+  // wants the rest of this screen in Chinese too, not a title bar and
+  // filter labels stuck in English while everything else follows their
+  // pick (that mismatch is what a reader actually ran into).
   const searchT = UI[activeLang];
   // Real history once the reader has searched in this version; the seed
   // words are only an illustrative placeholder shown before that, so they
@@ -135,7 +138,7 @@ export function SearchModal({
   return (
     <div className={`modal-screen${open ? " open" : ""}`}>
       <div className="modal-head">
-        <h2>{t.searchTitle}</h2>
+        <h2>{searchT.searchTitle}</h2>
         <button type="button" className="modal-close" onClick={onClose} aria-label="Close">
           &#10005;
         </button>
@@ -143,13 +146,13 @@ export function SearchModal({
       <div className="search-controls">
         <div className="scope-row">
           <button type="button" className={`scope-btn${scope === "all" ? " active" : ""}`} onClick={() => setScope("all")}>
-            {t.scopeAll}
+            {searchT.scopeAll}
           </button>
           <button type="button" className={`scope-btn${scope === "ot" ? " active" : ""}`} onClick={() => setScope("ot")}>
-            {t.scopeOT}
+            {searchT.scopeOT}
           </button>
           <button type="button" className={`scope-btn${scope === "nt" ? " active" : ""}`} onClick={() => setScope("nt")}>
-            {t.scopeNT}
+            {searchT.scopeNT}
           </button>
         </div>
         <div className="lang-chip-row">
@@ -172,7 +175,7 @@ export function SearchModal({
           <input
             className="search-input"
             type="text"
-            placeholder={t.searchPlaceholder}
+            placeholder={searchT.searchPlaceholder}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
@@ -215,7 +218,7 @@ export function SearchModal({
         ) : (
           <div>
             <div className="recent-head">
-              <span>{t.recentLabel}</span>
+              <span>{searchT.recentLabel}</span>
               <button
                 type="button"
                 className="trash-btn"
