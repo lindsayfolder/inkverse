@@ -43,6 +43,7 @@
   --mark-blue: #b7d6ec;
   --mark-pink: #f0c3d8;
   --red-letter: #a8391a;
+  --highlight-overlay: color-mix(in srgb, var(--gold) 28%, transparent);
 }
 
 :root[data-theme="dark"] {
@@ -65,6 +66,13 @@
   --mark-blue: #294157;
   --mark-pink: #5a3245;
   --red-letter: #e8714a;
+  /* 28% (the light theme's figure) composited over this dark, near-
+     neutral paper desaturates gold down to a muddy brown rather than a
+     "dark orange" -- a reader found the result's hue genuinely different
+     between light/dark, not just darker. A higher mix percentage keeps
+     enough of --gold's own saturation to read as orange even once
+     darkened by the paper underneath. */
+  --highlight-overlay: color-mix(in srgb, var(--gold) 65%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -88,6 +96,7 @@
     --mark-blue: #294157;
     --mark-pink: #5a3245;
     --red-letter: #e8714a;
+    --highlight-overlay: color-mix(in srgb, var(--gold) 65%, transparent);
   }
 }
 
@@ -313,7 +322,7 @@ button { font-family: inherit; }
 
 .verse-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 10px; }
 .verse-row { display: flex; gap: 10px; align-items: flex-start; border-radius: 10px; padding: 3px 6px; margin: -3px -6px; transition: background 0.6s ease; }
-.verse-row.highlighted { background: color-mix(in srgb, var(--gold) 28%, transparent); }
+.verse-row.highlighted { background: var(--highlight-overlay); }
 .verse-num {
   flex: none; width: 28px; height: 28px; border-radius: 50%; border: none; padding: 0;
   background: var(--azure-soft); color: var(--azure); display: flex; align-items: center; justify-content: center;
