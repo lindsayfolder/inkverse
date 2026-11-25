@@ -68,21 +68,24 @@
   --mark-blue: #294157;
   --mark-pink: #5a3245;
   --red-letter: #e8714a;
-  /* A reader first wanted this to match an active pill's vivid solid gold
-     exactly (a translucent 65%-opacity attempt read as "dark"/muddy to
-     them), but found the resulting full --gold too strong once seen
-     covering a whole verse rather than a small button -- lightened
-     toward white to keep the same warm hue at lower intensity. Needs the
-     same text-color flip active pills use (--highlight-text below), or
-     near-white verse text would have poor contrast against it. */
-  --highlight-overlay: color-mix(in srgb, var(--gold) 70%, white);
-  --highlight-text: #1c1207;
-  /* --red-letter itself (#e8714a, a light coral) reads fine against the
-     page's own near-black background, but on the highlight's lighter
-     gold it's too close in lightness to stay legible -- a reader found it
-     "blurry." A darker red keeps the Jesus's-words signal while actually
-     contrasting against this specific background. */
-  --highlight-redletter-text: #6b1710;
+  /* This went through several rounds: a low mix read as muddy brown; a
+     mix toward white (to match an active pill's vivid gold) read as
+     glowing/bright against the near-black page -- mixing toward white can
+     only ever raise lightness past pure gold itself, never below it, so
+     that direction could never land on "gentle." Mixing toward transparent
+     (i.e. toward this dark page) at a moderate percentage keeps enough
+     saturation to read as orange, not brown, while staying close in
+     lightness to the page instead of jumping to a pale glow. At this
+     lightness the page's own default --ink already has good contrast on
+     it, so no text-color override is needed here (unlike the lighter
+     attempts, which needed a dark-text flip). */
+  --highlight-overlay: color-mix(in srgb, var(--gold) 40%, transparent);
+  --highlight-text: var(--ink);
+  /* --red-letter itself (#e8714a) is too close in lightness to this
+     overlay to stay legible. A lighter, still-visibly-red tone keeps the
+     Jesus's-words signal distinct from the surrounding (light) highlighted
+     text while actually contrasting against this darker background. */
+  --highlight-redletter-text: #f5bfa6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -106,9 +109,9 @@
     --mark-blue: #294157;
     --mark-pink: #5a3245;
     --red-letter: #e8714a;
-    --highlight-overlay: color-mix(in srgb, var(--gold) 70%, white);
-    --highlight-text: #1c1207;
-    --highlight-redletter-text: #6b1710;
+    --highlight-overlay: color-mix(in srgb, var(--gold) 40%, transparent);
+    --highlight-text: var(--ink);
+    --highlight-redletter-text: #f5bfa6;
   }
 }
 
