@@ -45,6 +45,7 @@
   --red-letter: #a8391a;
   --highlight-overlay: color-mix(in srgb, var(--gold) 28%, transparent);
   --highlight-text: var(--ink);
+  --highlight-redletter-text: var(--red-letter);
 }
 
 :root[data-theme="dark"] {
@@ -75,6 +76,12 @@
      have poor contrast against it. */
   --highlight-overlay: var(--gold);
   --highlight-text: #1c1207;
+  /* --red-letter itself (#e8714a, a light coral) reads fine against the
+     page's own near-black background, but on the highlight's now-solid
+     bright gold it's too close in lightness to stay legible -- a reader
+     found it "blurry." A darker red keeps the Jesus's-words signal while
+     actually contrasting against this specific background. */
+  --highlight-redletter-text: #6b1710;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -100,6 +107,7 @@
     --red-letter: #e8714a;
     --highlight-overlay: var(--gold);
     --highlight-text: #1c1207;
+    --highlight-redletter-text: #6b1710;
   }
 }
 
@@ -326,13 +334,16 @@ button { font-family: inherit; }
 .verse-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 10px; }
 .verse-row { display: flex; gap: 10px; align-items: flex-start; border-radius: 10px; padding: 3px 6px; margin: -3px -6px; transition: background 0.6s ease; }
 .verse-row.highlighted { background: var(--highlight-overlay); }
-/* --highlight-text is a no-op in light mode (same as --ink, the
-   verse-text default already) -- it only matters in dark mode, where
-   --highlight-overlay is now a fully solid gold and near-white verse
-   text would be hard to read on it. Excludes red-letter verses so the
-   red-letter setting still wins while a Jesus's-words verse happens to
-   be highlighted, same as it would unhighlighted. */
+/* --highlight-text/--highlight-redletter-text are no-ops in light mode
+   (same as --ink/--red-letter, the verse-text defaults already) -- they
+   only matter in dark mode, where --highlight-overlay is now a fully
+   solid gold and both the normal near-white verse text and (separately)
+   --red-letter's light coral would be hard to read on it. Red-letter
+   gets its own darker color here rather than just being excluded, so a
+   highlighted Jesus's-words verse still reads as red, just a shade that
+   actually contrasts against this specific background. */
 .verse-row.highlighted .verse-text:not([data-redletter="true"]) { color: var(--highlight-text); }
+.verse-row.highlighted .verse-text[data-redletter="true"] { color: var(--highlight-redletter-text); }
 .verse-num {
   flex: none; width: 28px; height: 28px; border-radius: 50%; border: none; padding: 0;
   background: var(--azure-soft); color: var(--azure); display: flex; align-items: center; justify-content: center;
