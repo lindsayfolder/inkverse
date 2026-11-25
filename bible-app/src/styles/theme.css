@@ -234,6 +234,23 @@ button { font-family: inherit; }
    --font-scale slider) -- a reader found the smaller, italic, tighter-
    spaced version it had before felt "squeezed" next to the primary verse. */
 .verse-compare-text { display: block; font-size: calc(14px * var(--font-scale, 1)); line-height: 1.75; color: var(--ink-soft); }
+/* Cross-reference tags under a verse (lib/crossrefs.ts) -- azure rather
+   than the verse-compare-row's gold, so the two secondary-content rows a
+   verse can show stay visually distinct from each other. Same 44px
+   indent as verse-compare-row, to align under .verse-text. */
+.xref-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 2px 6px 10px 44px; }
+.xref-label { flex: none; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--azure); margin-right: 2px; }
+.xref-tag { font-size: 12px; font-weight: 700; color: var(--azure); background: var(--azure-soft); border: 1.5px solid var(--azure); border-radius: 14px; padding: 3px 10px; cursor: pointer; }
+.xref-tag:active { background: var(--azure); color: var(--paper-panel); }
+/* The "Back to X" breadcrumb a key-verse/cross-reference jump leaves
+   behind (see goToChapter's rememberFrom) -- sits right above the
+   chapter-bar, same azure as the xref tags that most often create it. */
+.return-to-chip {
+  flex: none; display: flex; align-items: center; gap: 6px; margin: 0 18px 8px; align-self: flex-start;
+  font-size: 13px; font-weight: 700; color: var(--azure); background: var(--azure-soft);
+  border: 1.5px solid var(--azure); border-radius: 16px; padding: 6px 12px; cursor: pointer;
+}
+.return-to-chip:active { background: var(--azure); color: var(--paper-panel); }
 
 .panels { position: relative; flex: 1; min-height: 0; }
 .view { position: absolute; inset: 0; overflow: hidden; transition: transform 0.38s cubic-bezier(.2,.8,.2,1), opacity 0.3s ease; }

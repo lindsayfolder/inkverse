@@ -12,6 +12,7 @@ import { loadChapterPoints } from "./lib/insights";
 import { loadChapterExplain } from "./lib/explain";
 import { loadChapterDevotional } from "./lib/devotional";
 import { loadChapterCharacters, type CharacterBio } from "./lib/characters";
+import { loadChapterCrossRefs, type CrossRef } from "./lib/crossrefs";
 import { renderBioHtml, stripBioMarkdown } from "./lib/bioMarkdown";
 import { bookHasMap } from "./lib/maps";
 import { stripHtml, tts } from "./lib/tts";
@@ -90,6 +91,8 @@ export default function App() {
   const [explain, setExplain] = useState<ChapterExplain | null>(null);
   const [devotional, setDevotional] = useState<ChapterDevotional | null>(null);
   const [chapterCharacters, setChapterCharacters] = useState<CharacterBio[]>([]);
+  const [chapterCrossRefs, setChapterCrossRefs] = useState<Record<string, CrossRef[]>>({});
+  const [returnTo, setReturnTo] = useState<{ bookId: string; chapter: number; verse: number } | null>(null);
   const [openCharacterId, setOpenCharacterId] = useState<string | null>(null);
   const [peopleExpanded, setPeopleExpanded] = useState(false);
   // Which verse (if any) has a share in flight — just enough state to
@@ -478,6 +481,21 @@ export default function App() {
     };
   }, [bookId, chapter, lang, verses]);
 
+  // Cross-references (lib/crossrefs.ts): verse-address pairs, the same for
+  // every translation, so this only depends on bookId/chapter, not lang.
+  // Gated on `verses` for the same reason as the characters effect above.
+  useEffect(() => {
+    setChapterCrossRefs({});
+    if (!verses) return;
+    let cancelled = false;
+    loadChapterCrossRefs(bookId, chapter).then((map) => {
+      if (!cancelled) setChapterCrossRefs(map);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bookId, chapter, verses]);
+
   function openDetail(i: number) {
     tts.stop();
     resetPlayers();
@@ -521,9 +539,18 @@ export default function App() {
       setModal(target);
     }
   }
-  function goToChapter(bId: string, c: number, verse?: number) {
+  // rememberFrom lets a jump-away (a key-verse tag or a cross-reference)
+  // leave a "Back to X" breadcrumb the reader can tap to return -- pass the
+  // verse they jumped *from* (so the chip can scroll back to that exact
+  // verse), or `true` when there's no single originating verse (a key-verse
+  // tag lives in the Insights panel, not a verse row). Every *other* way of
+  // changing chapter (Contents, Search, Bookmarks, a Plan) calls goToChapter
+  // with this omitted, which clears any stale breadcrumb -- those are
+  // deliberate navigation, not a "jump and come back" detour.
+  function goToChapter(bId: string, c: number, verse?: number, rememberFrom?: number | true) {
     tts.stop();
     resetPlayers();
+    setReturnTo(rememberFrom === undefined ? null : { bookId, chapter, verse: rememberFrom === true ? 0 : rememberFrom });
     if (verse) setPendingVerse(verse);
     setBookId(bId);
     setChapter(c);
@@ -538,7 +565,7 @@ export default function App() {
   // out, just the chapter and the range's starting verse.
   function goToKeyVerse(ref: string) {
     const [chapterStr, verseStr] = ref.split(":");
-    goToChapter(bookId, Number(chapterStr), Number(verseStr.split("-")[0]));
+    goToChapter(bookId, Number(chapterStr), Number(verseStr.split("-")[0]), true);
   }
 
   function isVerseBookmarked(verse: number): boolean {
@@ -690,6 +717,20 @@ export default function App() {
   const detailOpen = openPointIndex !== null || openCharacterId !== null;
   const chapterEyebrow = fmt(t.chapterEyebrow, { book: book.label[lang], c: chapter });
 
+  function xrefLabel(ref: CrossRef): string {
+    const refBook = BOOKS.find((b) => b.id === ref.b)?.label[lang] ?? ref.b;
+    return ref.e
+      ? fmt(t.xrefRefRangeTpl, { book: refBook, c: ref.c, v: ref.v, e: ref.e })
+      : fmt(t.xrefRefTpl, { book: refBook, c: ref.c, v: ref.v });
+  }
+  const returnToLabel = returnTo
+    ? fmt(t.backToTpl, {
+        ref: returnTo.verse
+          ? fmt(t.xrefRefTpl, { book: BOOKS.find((b) => b.id === returnTo.bookId)?.label[lang] ?? returnTo.bookId, c: returnTo.chapter, v: returnTo.verse })
+          : fmt(t.chapterEyebrow, { book: BOOKS.find((b) => b.id === returnTo.bookId)?.label[lang] ?? returnTo.bookId, c: returnTo.chapter }),
+      })
+    : null;
+
   // Whichever Insights content is on screen, if any — a highlight detail
   // takes priority over a character bio (both live in the same detail
   // view, but only one is ever open at once), and the Further Insight
@@ -808,6 +849,15 @@ export default function App() {
         </div>
       )}
 
+      {returnTo && (
+        <button
+          type="button"
+          className="return-to-chip"
+          onClick={() => goToChapter(returnTo.bookId, returnTo.chapter, returnTo.verse || undefined)}
+        >
+          &larr; {returnToLabel}
+        </button>
+      )}
       <div className="chapter-bar">
         <span className="chapter-eyebrow">{chapterEyebrow}</span>
         {tab === "scripture" && verses && (
@@ -947,6 +997,21 @@ export default function App() {
                       <div className="verse-compare-row">
                         <span className="verse-compare-label">{LANGUAGES.find((l) => l.key === compareLang)?.label}</span>
                         <span className="verse-compare-text">{compareText ?? t.loadingLabel}</span>
+                      </div>
+                    )}
+                    {chapterCrossRefs[String(v.n)] && (
+                      <div className="xref-row">
+                        <span className="xref-label">{t.xrefSeeAlsoLabel}</span>
+                        {chapterCrossRefs[String(v.n)].map((ref, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            className="xref-tag"
+                            onClick={() => goToChapter(ref.b, ref.c, ref.v, v.n)}
+                          >
+                            {xrefLabel(ref)}
+                          </button>
+                        ))}
                       </div>
                     )}
                     </div>

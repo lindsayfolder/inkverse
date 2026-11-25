@@ -318,6 +318,19 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+          {
+            // Cross-references (lib/crossrefs.ts) — one file per book,
+            // language-independent (verse-address pairs, not translated
+            // prose), so unlike every content track above this is never
+            // multiplied by translation/language.
+            urlPattern: /\/crossrefs\/.*\.json$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "bible-crossrefs-v1",
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
         ],
       },
     }),

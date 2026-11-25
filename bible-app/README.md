@@ -121,6 +121,16 @@ Chinese; Simplified Chinese is mechanically derived from Traditional via
 OpenCC, same as the scripture text) are original commentary written for
 this app, not sourced from any translation.
 
+Cross-references ("See also", `public/crossrefs/<book>.json`) are a
+trimmed, high-confidence subset (votes >= 3, capped at 8 per verse) of
+[OpenBible.info's community cross-reference
+dataset](https://www.openbible.info/labs/cross-references/) (CC BY
+2016), converted to this app's verse-address format by
+`scripts/build-crossrefs.py`. One dataset serves all 4 translations —
+cross-references are verse addresses, not translated prose, so unlike
+every other content track above this one is never multiplied per
+language.
+
 ## Adding text-to-speech voices
 
 Listen uses the device/browser's built-in `speechSynthesis` — free, works

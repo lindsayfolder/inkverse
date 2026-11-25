@@ -18,6 +18,7 @@ const CONTENT_CACHE_NAMES = [
   "bible-explain-v5",
   "bible-devotional-v2",
   "bible-characters-v8",
+  "bible-crossrefs-v1",
   "bible-book-intro-v2",
   "bible-maps-v5",
   "bible-search-index-v9",

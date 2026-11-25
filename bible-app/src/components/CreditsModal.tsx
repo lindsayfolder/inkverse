@@ -35,6 +35,11 @@ export function CreditsModal({ open, onClose }: { open: boolean; onClose: () => 
           <div className="settings-label">{t.creditsInsightsHeading}</div>
           <p className="credits-box">{t.creditsInsightsBody}</p>
         </div>
+
+        <div className="settings-section">
+          <div className="settings-label">{t.creditsXrefHeading}</div>
+          <p className="credits-box">{t.creditsXrefBody}</p>
+        </div>
       </div>
     </div>
   );

@@ -46,6 +46,13 @@ function buildFixedManifest(base: string): Task[] {
       tasks.push({ url: `${base}devotional/${l}/${book.id}.json`, cacheName: "bible-devotional-v2" });
     }
     tasks.push({ url: `${base}characters/appearances/${book.id}.json`, cacheName: "bible-characters-v8" });
+    // Cross-references (lib/crossrefs.ts) are language-independent (verse
+    // addresses, not prose) and book-enumerable like every track above --
+    // one file per book. Every one of the 66 books has a file today (see
+    // scripts/build-crossrefs.py), but a book with zero qualifying
+    // references in a future regeneration would simply 404 here, same as
+    // any other missing-but-listed URL this loop produces.
+    tasks.push({ url: `${base}crossrefs/${book.id}.json`, cacheName: "bible-crossrefs-v1" });
     if (BOOKS_WITH_MAPS.has(book.id)) {
       tasks.push({ url: `${base}maps/${book.id}.svg`, cacheName: "bible-maps-v5" });
       tasks.push({ url: `${base}maps/${book.id}-zh.svg`, cacheName: "bible-maps-v5" });
@@ -80,7 +87,7 @@ function buildFixedManifest(base: string): Task[] {
 const BIBLE_TEXT_FILE_COUNT = BOOKS.reduce((sum, book) => sum + splitFileStems(book.id).length, 0);
 export const TOTAL_CONTENT_FILES =
   BIBLE_TEXT_FILE_COUNT * BIBLE_VERSIONS.length +
-  BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + DEVOTIONAL_LANGS.length + 1) +
+  BOOKS.length * (INSIGHT_LANGS.length + EXPLAIN_LANGS.length + DEVOTIONAL_LANGS.length + 2) +
   BOOKS_WITH_MAPS.size * 2 +
   BOOKS_WITH_TEMPLE_DIAGRAM.size * 2 +
   INTRO_LANGS.length +
@@ -268,6 +275,7 @@ async function countCachedEntries(): Promise<number> {
     "bible-explain-v5",
     "bible-devotional-v2",
     "bible-characters-v8",
+    "bible-crossrefs-v1",
     "bible-book-intro-v2",
     "bible-maps-v5",
     "bible-search-index-v9",

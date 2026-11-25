@@ -62,6 +62,10 @@ export interface UiStrings {
   shareSelectedLabel: string;
   compareToggleLabel: string;
   compareLabel: string;
+  xrefSeeAlsoLabel: string;
+  xrefRefTpl: string;
+  xrefRefRangeTpl: string;
+  backToTpl: string;
   plansTitle: string;
   planBackLabel: string;
   planStartButton: string;
@@ -110,6 +114,8 @@ export interface UiStrings {
   creditsCuvBody: string;
   creditsInsightsHeading: string;
   creditsInsightsBody: string;
+  creditsXrefHeading: string;
+  creditsXrefBody: string;
   listenLabel: string;
   stopLabel: string;
   listenPauseLabel: string;
@@ -208,6 +214,10 @@ export const UI: Record<LangKey, UiStrings> = {
     shareSelectedLabel: "Share",
     compareToggleLabel: "Compare versions",
     compareLabel: "Compare with",
+    xrefSeeAlsoLabel: "See also",
+    xrefRefTpl: "{book} {c}:{v}",
+    xrefRefRangeTpl: "{book} {c}:{v}-{e}",
+    backToTpl: "Back to {ref}",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -256,6 +266,8 @@ export const UI: Record<LangKey, UiStrings> = {
     creditsCuvBody: "Public domain (published 1919). Traditional text sourced from the zh/cuv dataset (MaatheusGois/bible); the Simplified text is mechanically derived from the Traditional original via OpenCC, the standard tool for this conversion. A handful of archaic 1919 proper-noun spellings (Lebanon, Spain, Damascus, Crete, Cyprus, and the title “Caesar”) have been updated to the modern standard spelling used throughout contemporary Chinese publishing, e.g. 利巴嫩 → 黎巴嫩 for Lebanon. Separately, a naive character-by-character Simplified rendering of “Italy” (义大利) was corrected to the actual Mainland standard term, 意大利.",
     creditsInsightsHeading: "AI Insights, Explanations & Devotionals",
     creditsInsightsBody: "Original commentary written for this app -- not sourced from any translation or outside work.",
+    creditsXrefHeading: "Cross-References",
+    creditsXrefBody: "\"See also\" suggestions are drawn from OpenBible.info's community cross-reference dataset (CC BY 2016), trimmed to the most strongly supported references.",
     listenLabel: "Listen",
     stopLabel: "Stop",
     listenPauseLabel: "Pause",
@@ -352,6 +364,10 @@ export const UI: Record<LangKey, UiStrings> = {
     shareSelectedLabel: "Share",
     compareToggleLabel: "Compare versions",
     compareLabel: "Compare with",
+    xrefSeeAlsoLabel: "See also",
+    xrefRefTpl: "{book} {c}:{v}",
+    xrefRefRangeTpl: "{book} {c}:{v}-{e}",
+    backToTpl: "Back to {ref}",
     plansTitle: "Reading Plans",
     planBackLabel: "Plans",
     planStartButton: "Start Plan",
@@ -400,6 +416,8 @@ export const UI: Record<LangKey, UiStrings> = {
     creditsCuvBody: "Public domain (published 1919). Traditional text sourced from the zh/cuv dataset (MaatheusGois/bible); the Simplified text is mechanically derived from the Traditional original via OpenCC, the standard tool for this conversion. A handful of archaic 1919 proper-noun spellings (Lebanon, Spain, Damascus, Crete, Cyprus, and the title “Caesar”) have been updated to the modern standard spelling used throughout contemporary Chinese publishing, e.g. 利巴嫩 → 黎巴嫩 for Lebanon. Separately, a naive character-by-character Simplified rendering of “Italy” (义大利) was corrected to the actual Mainland standard term, 意大利.",
     creditsInsightsHeading: "AI Insights, Explanations & Devotionals",
     creditsInsightsBody: "Original commentary written for this app -- not sourced from any translation or outside work.",
+    creditsXrefHeading: "Cross-References",
+    creditsXrefBody: "\"See also\" suggestions are drawn from OpenBible.info's community cross-reference dataset (CC BY 2016), trimmed to the most strongly supported references.",
     listenLabel: "Listen",
     stopLabel: "Stop",
     listenPauseLabel: "Pause",
@@ -496,6 +514,10 @@ export const UI: Record<LangKey, UiStrings> = {
     shareSelectedLabel: "分享",
     compareToggleLabel: "版本對照",
     compareLabel: "對照版本",
+    xrefSeeAlsoLabel: "參見",
+    xrefRefTpl: "{book} {c}:{v}",
+    xrefRefRangeTpl: "{book} {c}:{v}-{e}",
+    backToTpl: "返回{ref}",
     plansTitle: "讀經計畫",
     planBackLabel: "讀經計畫",
     planStartButton: "開始計畫",
@@ -544,6 +566,8 @@ export const UI: Record<LangKey, UiStrings> = {
     creditsCuvBody: "公有領域（1919年出版）。繁體文字取自 zh/cuv 資料集（MaatheusGois/bible）；簡體文字則透過 OpenCC（業界標準轉換工具）由繁體原文機械轉換而成。另外，本應用程式已將數個1919年版和合本的舊式地名音譯（利巴嫩、士班雅、大馬色、革哩底、居比路）及稱謂「該撒」，更新為現代中文出版品通用的標準寫法，例如「利巴嫩」改為「黎巴嫩」。此外，簡體文字曾誤將「義大利」機械轉換為「义大利」，已更正為中國大陸標準用詞「意大利」。",
     creditsInsightsHeading: "AI 洞見、解經與靈修內容",
     creditsInsightsBody: "本應用程式原創撰寫的註釋內容，並非取自任何譯本或其他著作。",
+    creditsXrefHeading: "交叉引用",
+    creditsXrefBody: "「參見」交叉引用建議取自 OpenBible.info 的社群交叉引用資料集（CC BY 2016 授權），並篩選至獲得最多認同的部分。",
     listenLabel: "朗讀",
     stopLabel: "停止",
     listenPauseLabel: "暫停",
@@ -640,6 +664,10 @@ export const UI: Record<LangKey, UiStrings> = {
     shareSelectedLabel: "分享",
     compareToggleLabel: "版本对照",
     compareLabel: "对照版本",
+    xrefSeeAlsoLabel: "参见",
+    xrefRefTpl: "{book} {c}:{v}",
+    xrefRefRangeTpl: "{book} {c}:{v}-{e}",
+    backToTpl: "返回{ref}",
     plansTitle: "读经计划",
     planBackLabel: "读经计划",
     planStartButton: "开始计划",
@@ -688,6 +716,8 @@ export const UI: Record<LangKey, UiStrings> = {
     creditsCuvBody: "公有领域（1919年出版）。繁体文字取自 zh/cuv 数据集（MaatheusGois/bible）；简体文字则通过 OpenCC（行业标准转换工具）由繁体原文机械转换而成。另外，本应用程序已将数个1919年版和合本的旧式地名音译（利巴嫩、士班雅、大马色、革哩底、居比路）及称谓「该撒」，更新为现代中文出版品通用的标准写法，例如「利巴嫩」改为「黎巴嫩」。此外，简体文字曾误将「義大利」机械转换为「义大利」，已更正为中国大陆标准用词「意大利」。",
     creditsInsightsHeading: "AI 洞见、解经与灵修内容",
     creditsInsightsBody: "本应用程序原创撰写的注释内容，并非取自任何译本或其他著作。",
+    creditsXrefHeading: "交叉引用",
+    creditsXrefBody: "“参见”交叉引用建议取自 OpenBible.info 的社区交叉引用数据集（CC BY 2016 授权），并筛选至获得最多认同的部分。",
     listenLabel: "朗读",
     stopLabel: "停止",
     listenPauseLabel: "暂停",
