@@ -189,6 +189,18 @@ export function SettingsModal({ open, onClose, onOpenCredits }: { open: boolean;
         </div>
 
         <div className="settings-section">
+          <div className="settings-label">{t.crossRefsSectionLabel}</div>
+          <label className="retention-toggle-row">
+            <input
+              type="checkbox"
+              checked={settings.crossRefsEnabled}
+              onChange={(e) => updateSettings({ crossRefsEnabled: e.target.checked })}
+            />
+            <span>{t.crossRefsToggleLabel}</span>
+          </label>
+        </div>
+
+        <div className="settings-section">
           <div className="settings-label">{t.noteRetentionSectionLabel}</div>
           <label className="retention-toggle-row">
             <input

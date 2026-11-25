@@ -52,6 +52,8 @@ export interface UiStrings {
   noteRetentionToggleLabel: string;
   redLetterSectionLabel: string;
   redLetterToggleLabel: string;
+  crossRefsSectionLabel: string;
+  crossRefsToggleLabel: string;
   shareLabel: string;
   shareCopiedToast: string;
   shareFailedToast: string;
@@ -204,6 +206,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteRetentionToggleLabel: "Automatically clean up old notes",
     redLetterSectionLabel: "Red Letter",
     redLetterToggleLabel: "Show Jesus's words in red",
+    crossRefsSectionLabel: "Cross-References",
+    crossRefsToggleLabel: "Show \"See also\" tags under verses",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -354,6 +358,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteRetentionToggleLabel: "Automatically clean up old notes",
     redLetterSectionLabel: "Red Letter",
     redLetterToggleLabel: "Show Jesus's words in red",
+    crossRefsSectionLabel: "Cross-References",
+    crossRefsToggleLabel: "Show \"See also\" tags under verses",
     shareLabel: "Share this verse",
     shareCopiedToast: "Copied to clipboard",
     shareFailedToast: "Couldn't share — try again",
@@ -504,6 +510,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteRetentionToggleLabel: "自動清除舊的筆記",
     redLetterSectionLabel: "紅字版",
     redLetterToggleLabel: "以紅色顯示耶穌的話語",
+    crossRefsSectionLabel: "交叉引用",
+    crossRefsToggleLabel: "在經文下方顯示「參見」標籤",
     shareLabel: "分享這節經文",
     shareCopiedToast: "已複製到剪貼簿",
     shareFailedToast: "分享失敗，請重試",
@@ -654,6 +662,8 @@ export const UI: Record<LangKey, UiStrings> = {
     noteRetentionToggleLabel: "自动清除旧的笔记",
     redLetterSectionLabel: "红字版",
     redLetterToggleLabel: "以红色显示耶稣的话语",
+    crossRefsSectionLabel: "交叉引用",
+    crossRefsToggleLabel: "在经文下方显示“参见”标签",
     shareLabel: "分享这节经文",
     shareCopiedToast: "已复制到剪贴板",
     shareFailedToast: "分享失败，请重试",

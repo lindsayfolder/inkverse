@@ -483,10 +483,13 @@ export default function App() {
 
   // Cross-references (lib/crossrefs.ts): verse-address pairs, the same for
   // every translation, so this only depends on bookId/chapter, not lang.
-  // Gated on `verses` for the same reason as the characters effect above.
+  // Gated on `verses` for the same reason as the characters effect above,
+  // and skipped entirely while the Settings toggle is off -- a reader who
+  // just wants to read straight through shouldn't pay even the fetch cost
+  // for a feature they've turned off.
   useEffect(() => {
     setChapterCrossRefs({});
-    if (!verses) return;
+    if (!verses || !settings.crossRefsEnabled) return;
     let cancelled = false;
     loadChapterCrossRefs(bookId, chapter).then((map) => {
       if (!cancelled) setChapterCrossRefs(map);
@@ -494,7 +497,7 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [bookId, chapter, verses]);
+  }, [bookId, chapter, verses, settings.crossRefsEnabled]);
 
   function openDetail(i: number) {
     tts.stop();

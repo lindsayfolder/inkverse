@@ -179,6 +179,11 @@ export interface AppSettings {
   // default like a standard red-letter print edition, with an off switch
   // in Settings for readers who find it distracting.
   redLetterEnabled: boolean;
+  // Whether "See also" cross-reference tags show under a verse (see
+  // lib/crossrefs.ts). Off by default -- useful for study, but a reader
+  // who just wants to read straight through found them chunky and
+  // distracting in the normal reading flow; this is opt-in.
+  crossRefsEnabled: boolean;
 }
 
 const STORAGE_KEY = "inkverse-settings";
@@ -200,6 +205,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   notes: [],
   noteRetention: { enabled: false, amount: 90, unit: "days" },
   redLetterEnabled: true,
+  crossRefsEnabled: false,
 };
 
 // localStorage, not IndexedDB: writes are synchronous and commit
