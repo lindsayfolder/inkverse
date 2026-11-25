@@ -251,11 +251,13 @@ button { font-family: inherit; }
 .xref-tag:active { color: var(--azure); }
 /* The "Back to X" breadcrumb a key-verse/cross-reference jump leaves
    behind (see goToChapter's rememberFrom) -- sits right above the
-   chapter-bar, same azure as the xref tags that most often create it. */
+   chapter-bar, same azure as the xref tags that most often create it.
+   min-height 42px matches this app's other touch targets (lang-pills,
+   compare-toggle-btn) -- a reader found the original (~30px) too small. */
 .return-to-chip {
   flex: none; display: flex; align-items: center; gap: 6px; margin: 0 18px 8px; align-self: flex-start;
-  font-size: 13px; font-weight: 700; color: var(--azure); background: var(--azure-soft);
-  border: 1.5px solid var(--azure); border-radius: 16px; padding: 6px 12px; cursor: pointer;
+  min-height: 42px; font-size: 14px; font-weight: 700; color: var(--azure); background: var(--azure-soft);
+  border: 1.5px solid var(--azure); border-radius: 21px; padding: 6px 16px; cursor: pointer;
 }
 .return-to-chip:active { background: var(--azure); color: var(--paper-panel); }
 

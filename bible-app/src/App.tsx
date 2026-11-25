@@ -92,7 +92,13 @@ export default function App() {
   const [devotional, setDevotional] = useState<ChapterDevotional | null>(null);
   const [chapterCharacters, setChapterCharacters] = useState<CharacterBio[]>([]);
   const [chapterCrossRefs, setChapterCrossRefs] = useState<Record<string, CrossRef[]>>({});
-  const [returnTo, setReturnTo] = useState<{ bookId: string; chapter: number; verse: number } | null>(null);
+  // A real history stack, not just one slot -- following a second
+  // cross-reference from inside the first one used to overwrite the first
+  // jump's return point, so the chip could only ever take you back one
+  // hop, never all the way to where you actually started. Each remembered
+  // jump pushes; the chip shows (and goBack pops) the most recent one, so
+  // repeated taps retrace every hop back to the original place.
+  const [returnStack, setReturnStack] = useState<{ bookId: string; chapter: number; verse: number }[]>([]);
   const [openCharacterId, setOpenCharacterId] = useState<string | null>(null);
   const [peopleExpanded, setPeopleExpanded] = useState(false);
   // Which verse (if any) has a share in flight — just enough state to
@@ -553,10 +559,33 @@ export default function App() {
   function goToChapter(bId: string, c: number, verse?: number, rememberFrom?: number | true) {
     tts.stop();
     resetPlayers();
-    setReturnTo(rememberFrom === undefined ? null : { bookId, chapter, verse: rememberFrom === true ? 0 : rememberFrom });
+    if (rememberFrom === undefined) {
+      setReturnStack([]);
+    } else {
+      setReturnStack((prev) => [...prev, { bookId, chapter, verse: rememberFrom === true ? 0 : rememberFrom }]);
+    }
     if (verse) setPendingVerse(verse);
     setBookId(bId);
     setChapter(c);
+    setTab("scripture");
+    setOpenPointIndex(null);
+    setOpenCharacterId(null);
+  }
+
+  // Pops just the top of returnStack and navigates there -- deliberately
+  // not routed through goToChapter, which would wipe the *whole* stack
+  // (right, for Contents/Search/a Plan jumping away from this detour
+  // entirely; wrong here, where backing up one hop should still leave
+  // earlier hops behind it to back up through again).
+  function goBack() {
+    const target = returnStack[returnStack.length - 1];
+    if (!target) return;
+    tts.stop();
+    resetPlayers();
+    setReturnStack((prev) => prev.slice(0, -1));
+    if (target.verse) setPendingVerse(target.verse);
+    setBookId(target.bookId);
+    setChapter(target.chapter);
     setTab("scripture");
     setOpenPointIndex(null);
     setOpenCharacterId(null);
@@ -726,6 +755,7 @@ export default function App() {
       ? fmt(t.xrefRefRangeTpl, { book: refBook, c: ref.c, v: ref.v, e: ref.e })
       : fmt(t.xrefRefTpl, { book: refBook, c: ref.c, v: ref.v });
   }
+  const returnTo = returnStack.length > 0 ? returnStack[returnStack.length - 1] : null;
   const returnToLabel = returnTo
     ? fmt(t.backToTpl, {
         ref: returnTo.verse
@@ -853,11 +883,7 @@ export default function App() {
       )}
 
       {returnTo && (
-        <button
-          type="button"
-          className="return-to-chip"
-          onClick={() => goToChapter(returnTo.bookId, returnTo.chapter, returnTo.verse || undefined)}
-        >
+        <button type="button" className="return-to-chip" onClick={goBack}>
           &larr; {returnToLabel}
         </button>
       )}
