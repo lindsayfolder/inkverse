@@ -337,12 +337,13 @@ button { font-family: inherit; }
 .verse-row.highlighted { background: var(--highlight-overlay); }
 /* --highlight-text/--highlight-redletter-text are no-ops in light mode
    (same as --ink/--red-letter, the verse-text defaults already) -- they
-   only matter in dark mode, where --highlight-overlay is now a fully
-   solid gold and both the normal near-white verse text and (separately)
-   --red-letter's light coral would be hard to read on it. Red-letter
-   gets its own darker color here rather than just being excluded, so a
-   highlighted Jesus's-words verse still reads as red, just a shade that
-   actually contrasts against this specific background. */
+   only matter in dark mode, where --highlight-overlay is now a light,
+   near-opaque gold and both the normal near-white verse text and
+   (separately) --red-letter's light coral would be hard to read on it.
+   Red-letter gets its own darker color here rather than just being
+   excluded, so a highlighted Jesus's-words verse still reads as red,
+   just a shade that actually contrasts against this specific
+   background. */
 .verse-row.highlighted .verse-text:not([data-redletter="true"]) { color: var(--highlight-text); }
 .verse-row.highlighted .verse-text[data-redletter="true"] { color: var(--highlight-redletter-text); }
 .verse-num {
