@@ -68,19 +68,20 @@
   --mark-blue: #294157;
   --mark-pink: #5a3245;
   --red-letter: #e8714a;
-  /* A reader wanted this to match the vivid solid gold of an active
-     pill (e.g. the 簡體/简体 lang-pill) exactly, not a translucent tint of
-     it -- a first attempt at 65% opacity still read as "dark"/muddy to
-     them. Full --gold needs the same text-color flip active pills
-     already use (--highlight-text below), or near-white verse text would
-     have poor contrast against it. */
-  --highlight-overlay: var(--gold);
+  /* A reader first wanted this to match an active pill's vivid solid gold
+     exactly (a translucent 65%-opacity attempt read as "dark"/muddy to
+     them), but found the resulting full --gold too strong once seen
+     covering a whole verse rather than a small button -- lightened
+     toward white to keep the same warm hue at lower intensity. Needs the
+     same text-color flip active pills use (--highlight-text below), or
+     near-white verse text would have poor contrast against it. */
+  --highlight-overlay: color-mix(in srgb, var(--gold) 70%, white);
   --highlight-text: #1c1207;
   /* --red-letter itself (#e8714a, a light coral) reads fine against the
-     page's own near-black background, but on the highlight's now-solid
-     bright gold it's too close in lightness to stay legible -- a reader
-     found it "blurry." A darker red keeps the Jesus's-words signal while
-     actually contrasting against this specific background. */
+     page's own near-black background, but on the highlight's lighter
+     gold it's too close in lightness to stay legible -- a reader found it
+     "blurry." A darker red keeps the Jesus's-words signal while actually
+     contrasting against this specific background. */
   --highlight-redletter-text: #6b1710;
 }
 
@@ -105,7 +106,7 @@
     --mark-blue: #294157;
     --mark-pink: #5a3245;
     --red-letter: #e8714a;
-    --highlight-overlay: var(--gold);
+    --highlight-overlay: color-mix(in srgb, var(--gold) 70%, white);
     --highlight-text: #1c1207;
     --highlight-redletter-text: #6b1710;
   }
